@@ -34,11 +34,10 @@
       padding: 1rem;
       box-sizing: inherit;
       position: relative;
+      padding: 200px;
     }
 
-    .left-side {
-        margin-left: 15%;
-    }
+
 
     .left-side p {
         max-width: 68%;
@@ -46,10 +45,8 @@
   
     .content {
       display: flex;
-      justify-content: space-around;
+      justify-content: left;
       width: 100%;
-      max-width: 700px;
-      margin-top: 3rem;
       margin-bottom: 3rem;
     }
   
@@ -75,6 +72,19 @@
         font-weight: 400;
         font-size: 0.9rem;
 
+        cursor: pointer;
+
+    }
+
+    .login-link {
+        font-family: "Inter Tight", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+        Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji",
+        "Segoe UI Symbol";
+        font-weight: 400;
+        font-size: 0.6rem;
+        color: #858585;
+
+        margin-top: 8px;
     }
   
     @media screen and (max-width: 650px) {
@@ -92,6 +102,8 @@
         <h1>Validate your startup ideas, <br><span class="hero-text-span">faster than ever before</span></h1>
         <p>Gain invaluable insight and guidance from expereienced founders and community members. 🎉</p>
         <button class="btn-primary" >Sign Up →</button>
+        <br>
+        <a class="login-link" href="/">Already have an account?<br>Login here</a>
       </div>
     </div>
   </main>
