@@ -1,0 +1,8 @@
+<div class="post-card" (click)="viewPost()">
+  <h2>{{ post.title }}</h2>
+  <p>{{ post.summary }}</p>
+  <div class="meta">
+    <span>By {{ post.author }}</span>
+    <span>{{ post.created_at | date : "mediumDate" }}</span>
+  </div>
+</div>
