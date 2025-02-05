@@ -1,0 +1,42 @@
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    padding: 0 1rem;
+    background-color: black;
+    min-width: 100%;
+  }
+
+  .logo {
+    font-weight: bold;
+    font-size: 1.5rem;
+  }
+
+  nav a {
+    margin: 0 0.5rem;
+    text-decoration: none;
+    color: white;
+    font-weight: 500;
+  }
+
+  .spacer {
+    flex: 1;
+  }
+
+  .btn-primary {
+    background-color: rgb(15, 15, 15);
+    color: azure;
+    padding: 10px 30px;
+    margin-top: 12px;
+    border: 0 solid #000000;
+    border-radius: 8px;
+
+    font-family: "Inter Tight", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji",
+    "Segoe UI Symbol";
+    font-weight: 400;
+    font-size: 0.9rem;
+
+    cursor: pointer;
+
+}
+  
