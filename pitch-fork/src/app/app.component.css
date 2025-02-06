@@ -14,3 +14,12 @@ router-outlet {
   display: block;
   padding: 1rem;
 }
+
+.post-container {
+  margin-left: 100px;
+  margin-right: 100px;
+  display: flex;
+  flex-wrap: wrap; /* Allows items to wrap onto the next line */
+  justify-content: space-between; /* Ensures even spacing */
+  gap: 16px; /* Adds spacing between items */
+}

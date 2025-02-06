@@ -13,13 +13,11 @@ import { PostCardComponent } from './components/post-card/post-card.component';
 @Component({
   selector: 'app-root',
   imports: [
-    Router,
-    RouterLink,
-    RouterLinkActive,
     RouterOutlet,
     HomeComponent,
     NavbarComponent,
     FooterComponent,
+    PostCardComponent,
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',

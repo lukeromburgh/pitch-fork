@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'app-post-card',
   templateUrl: './post-card.component.html',
-  styleUrls: ['./post-card.component.scss'],
+  styleUrls: ['./post-card.component.css'],
   standalone: true,
 })
 export class PostCardComponent {
