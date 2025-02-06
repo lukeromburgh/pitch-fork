@@ -75,10 +75,13 @@ body {
   font-size: 0.9rem;
 
   cursor: pointer;
+
+  transition-duration: 0.2s;
 }
 
-.btn-primary :hover {
-  background-color: #858585;
+.btn-primary:hover {
+  background-color: #262626;
+  scale: 103%;
 }
 
 .login-link {

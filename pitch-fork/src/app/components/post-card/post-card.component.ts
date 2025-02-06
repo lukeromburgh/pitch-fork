@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
   selector: 'app-post-card',
   templateUrl: './post-card.component.html',
   styleUrls: ['./post-card.component.scss'],
+  standalone: true,
 })
 export class PostCardComponent {
   @Input() post: any; // Receives post data dynamically
