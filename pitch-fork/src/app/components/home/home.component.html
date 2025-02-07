@@ -14,20 +14,58 @@
       <button class="btn-secondary" routerLink="/">Learn more</button>
       <br />
       <a class="login-link" routerLink="/login"
-        >Already have an account?<br />Login here</a
+        >Already have an account? Login here</a
       >
     </div>
   </div>
 </main>
 
+<div style="display: flex; flex-direction: column; align-items: center">
+  <button class="btn-tertiary" routerLink="posts">View more</button>
+</div>
+
 <div class="post-container">
-  <a routerLink="posts">Go to all posts</a>
   <app-post-card></app-post-card>
   <app-post-card></app-post-card>
   <app-post-card></app-post-card>
   <app-post-card></app-post-card>
   <app-post-card></app-post-card>
   <app-post-card></app-post-card>
+  <app-post-card></app-post-card>
+  <app-post-card></app-post-card>
+</div>
+
+<div
+  style="
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 80px;
+  "
+>
+  <p>Create your first post</p>
+  <button class="plus-button">＋</button>
+</div>
+
+<div class="banner">
+  <div class="banner-left">
+    <h3>Why Validate Before You Build?</h3>
+    <p>
+      Most startups fail due to lack of market demand. Don't waste months
+      building something nobody wants—get real feedback before you invest time
+      and money.
+    </p>
+  </div>
+  <div class="banner-right">
+    <p>
+      💡 Post your idea → Receive constructive feedback → Iterate & improve.
+      <br />
+      ✅ Validate your concept before launching <br />
+      ✅ Engage with fellow entrepreneurs and innovators<br />
+      ✅ Discover trending startup ideas <br />
+      📌 Join a community of builders & dreamers.
+    </p>
+  </div>
 </div>
 
 <div class="hero-2">

@@ -8,7 +8,7 @@
 }
 
 h1 {
-  font-size: 4rem;
+  font-size: 4.5rem;
   color: #000000;
   font-weight: 600;
   line-height: 100%;
@@ -23,6 +23,7 @@ h1 {
   display: flex;
   flex-direction: row;
   align-items: center;
+  justify-content: center;
   margin-bottom: 50px;
 }
 
@@ -45,7 +46,6 @@ h1 {
   width: 40%;
   height: 18rem;
   padding: 4rem;
-  margin-left: 120px;
   border-radius: 8px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
   cursor: crosshair;
@@ -164,6 +164,29 @@ body {
   background-color: #dba5b5;
 }
 
+.btn-tertiary {
+  background-color: #000000;
+  color: #ffffff;
+  padding: 10px 24px;
+  margin: 0px;
+  border: 0 solid #000000;
+  border-radius: 25px;
+
+  font-family: "Inter Tight", -apple-system, BlinkMacSystemFont, "Segoe UI",
+    Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji",
+    "Segoe UI Symbol";
+  font-weight: 500;
+  font-size: 1rem;
+
+  cursor: pointer;
+
+  transition-duration: 0.3s;
+}
+
+.btn-tertiary:hover {
+  background-color: #3a3a3a;
+}
+
 .login-link {
   font-family: "Inter Tight", -apple-system, BlinkMacSystemFont, "Segoe UI",
     Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji",
@@ -175,14 +198,67 @@ body {
   margin-top: 8px;
 }
 
+.banner {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  min-width: 100%;
+  background-color: #daedff;
+  padding: 50px;
+  margin-bottom: 60px;
+}
+
+.banner h3 {
+  font-size: 2rem;
+}
+
+.banner p {
+  max-width: 100%;
+  color: #191919;
+  font-weight: 300;
+}
+
+.banner-left {
+  width: 30%;
+  margin-right: 6%;
+}
+
+.banner-right {
+  width: 40%;
+}
+
+.banner-right p {
+  color: #000000;
+  font-weight: 500;
+  line-height: 250%;
+}
+
+.plus-button {
+  border-radius: 100%;
+  border: #000000;
+  height: 36px;
+  width: 36px;
+  font-size: 1.2rem;
+  color: white;
+  background: black;
+  font-weight: 600;
+
+  transition-duration: 0.3s;
+}
+
+.plus-button:hover {
+  background-color: #e41956;
+  border-color: #c82b5a;
+  scale: 110%;
+}
+
 .post-container {
-  margin-left: 100px;
-  margin-right: 100px;
-  margin-bottom: 100px;
+  margin: 40px 80px 80px 80px;
   display: flex;
   flex-wrap: wrap; /* Allows items to wrap onto the next line */
-  justify-content: space-between; /* Ensures even spacing */
-  gap: 16px; /* Adds spacing between items */
+  justify-content: center; /* Ensures even spacing */
+  gap: 2px; /* Adds spacing between items */
 }
 
 @media screen and (max-width: 650px) {
