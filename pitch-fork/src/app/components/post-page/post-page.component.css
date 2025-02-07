@@ -1,0 +1,102 @@
+body {
+  background-color: #f4faff;
+}
+
+.container {
+  max-width: 400px;
+  margin: auto;
+  padding: 20px;
+}
+
+.search-bar input {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.filters {
+  margin-bottom: 10px;
+  font-family: "Inter Tight", -apple-system, BlinkMacSystemFont, "Segoe UI",
+    Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji",
+    "Segoe UI Symbol";
+}
+
+.tags {
+  margin-bottom: 15px;
+}
+
+.tag {
+  display: inline-block;
+  background: #ffffff;
+  color: #e41956;
+  padding: 5px 10px;
+  margin-right: 5px;
+  border-style: solid;
+  border-color: #e41956;
+  border-width: 1px;
+  border-radius: 16px;
+  cursor: pointer;
+  font-size: 0.8rem;
+  font-family: "Inter Tight", -apple-system, BlinkMacSystemFont, "Segoe UI",
+    Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji",
+    "Segoe UI Symbol";
+  transition-duration: 0.2s;
+}
+
+.tag:hover {
+  background-color: #e41956;
+  color: white;
+}
+
+.post-list {
+  align-items: center;
+  justify-content: center;
+  align-content: center;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.post-card {
+  background-color: #ffffff;
+  max-width: 18rem;
+  height: 12rem;
+  padding: 3rem;
+  margin: 12px 5px;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  transition: transform 0.2s ease;
+  border-color: rgb(237, 237, 237);
+  border-width: 1px;
+  border-style: solid;
+  font-family: "Inter Tight", -apple-system, BlinkMacSystemFont, "Segoe UI",
+    Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji",
+    "Segoe UI Symbol";
+}
+
+.post-card:hover {
+  transform: scale(1.02);
+}
+
+button {
+  background: #021019;
+  color: white;
+  padding: 8px 12px;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  font-family: "Inter Tight", -apple-system, BlinkMacSystemFont, "Segoe UI",
+    Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji",
+    "Segoe UI Symbol";
+  cursor: pointer;
+  z-index: 10;
+  transition-duration: 0.2s;
+}
+
+button:hover {
+  background: #021019;
+  scale: 102%;
+}

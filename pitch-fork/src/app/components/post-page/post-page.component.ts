@@ -1,10 +1,17 @@
 import { Component } from '@angular/core';
-import { PostCardComponent } from '../post-card/post-card.component';
+import { Router, RouterOutlet } from '@angular/router';
 
 @Component({
   selector: 'app-post-page',
-  imports: [PostCardComponent],
+  imports: [RouterOutlet],
   templateUrl: './post-page.component.html',
   styleUrl: './post-page.component.css',
+  standalone: true,
 })
-export class PostPageComponent {}
+export class PostPageComponent {
+  constructor(public router: Router) {}
+
+  Posts() {
+    this.router.navigate(['/posts']);
+  }
+}

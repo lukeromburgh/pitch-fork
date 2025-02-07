@@ -1,1 +1,61 @@
-<p>post-page works!</p>
+<div style="min-height: 100vh; min-width: 100%">
+  <div class="container">
+    <!-- 🔎 Search Bar -->
+    <div class="search-bar">
+      <input type="text" placeholder="Search posts..." />
+    </div>
+
+    <!-- 🎚 Filters Dropdown -->
+    <div class="filters">
+      <label for="category">Filter by: </label>
+      <select id="category">
+        <option value="">All</option>
+        <option value="tech">Tech</option>
+        <option value="business">Business</option>
+        <option value="health">Health</option>
+      </select>
+    </div>
+
+    <!-- 🏷 Tags Section -->
+    <div class="tags">
+      <span class="tag">Tech</span>
+      <span class="tag">AI</span>
+      <span class="tag">Business</span>
+      <span class="tag">Finance</span>
+      <span class="tag">Health</span>
+    </div>
+  </div>
+
+  <!-- 📜 Posts List -->
+  <div class="post-list">
+    <div class="post-card">
+      <h3>Example Post Title</h3>
+      <div class="tags">
+        <span class="tag">Tech</span>
+      </div>
+      <p>This is a short preview of the post content...</p>
+
+      <button>Read More</button>
+    </div>
+
+    <div class="post-card">
+      <h3>Another Example Post</h3>
+      <div class="tags">
+        <span class="tag">Business</span>
+      </div>
+      <p>This is a short preview of another post...</p>
+
+      <button>Read More</button>
+    </div>
+
+    <div class="post-card">
+      <h3>Another Example Post</h3>
+      <div class="tags">
+        <span class="tag">Business</span>
+      </div>
+      <p>This is a short preview of another post...</p>
+
+      <button>Read More</button>
+    </div>
+  </div>
+</div>
