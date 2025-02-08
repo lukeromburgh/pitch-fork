@@ -10,7 +10,7 @@ body {
 }
 
 router-outlet {
-  flex: 1;
+  flex: 0;
   display: block;
   padding: 1rem;
 }

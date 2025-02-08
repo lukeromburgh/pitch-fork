@@ -1,0 +1,100 @@
+/* Container for the form */
+.create-post-container {
+  max-width: 600px;
+  margin: 12rem auto 0px auto;
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  font-family: "Inter Tight", -apple-system, BlinkMacSystemFont, "Segoe UI",
+    Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji",
+    "Segoe UI Symbol";
+  font-size: 1rem;
+}
+
+.flex-container {
+  min-height: 55vh;
+}
+
+/* Title of the form */
+.create-post-container h2 {
+  text-align: center;
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+/* Style the form elements */
+form {
+  display: flex;
+  flex-direction: column;
+}
+
+form label {
+  font-size: 16px;
+  margin-bottom: 8px;
+}
+
+form input,
+form textarea {
+  padding: 10px;
+  margin-bottom: 20px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 14px;
+  transition: border-color 0.3s;
+}
+
+form input:focus,
+form textarea:focus {
+  border-color: #007bff;
+  outline: none;
+}
+
+form textarea {
+  min-height: 150px;
+  resize: vertical;
+}
+
+/* Style the submit button */
+.btn-primary {
+  background-color: #e41956;
+  color: rgb(255, 255, 255);
+  padding: 10px 30px;
+  margin-top: 12px;
+  margin-right: 10px;
+  border: 0 solid #e41956;
+  border-radius: 8px;
+
+  font-family: "Inter Tight", -apple-system, BlinkMacSystemFont, "Segoe UI",
+    Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji",
+    "Segoe UI Symbol";
+  font-weight: 500;
+  font-size: 1rem;
+
+  cursor: pointer;
+
+  transition-duration: 0.3s;
+}
+
+.btn-primary:hover {
+  background-color: #c82b5a;
+}
+
+/* Error messages */
+.error-message {
+  color: red;
+  font-size: 12px;
+  margin-bottom: 10px;
+}
+
+/* Make the form responsive */
+@media (max-width: 768px) {
+  .create-post-container {
+    padding: 15px;
+  }
+
+  form input,
+  form textarea {
+    font-size: 14px;
+  }
+}

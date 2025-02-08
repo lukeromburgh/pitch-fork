@@ -1,0 +1,53 @@
+from flask import Flask, request, jsonify
+from flask_sqlalchemy import SQLAlchemy
+from flask_cors import CORS
+from datetime import datetime
+
+app = Flask(__name__)
+CORS(app)  # Allow Angular to communicate with Flask
+
+# Corrected the typo here:
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///posts.db'  # Proper configuration
+db = SQLAlchemy(app)
+
+class Post(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    title = db.Column(db.String(100), nullable=False)
+    content = db.Column(db.Text, nullable=False)
+    date_posted = db.Column(db.DateTime, default=datetime.utcnow)
+
+    def __repr__(self):
+        return '<Post %r>' % self.id
+
+# Creating tables if they don't exist yet
+with app.app_context():
+    db.create_all()
+
+# Store posts temporarily (before database setup)
+posts = []
+
+# Get all posts (GET request)
+@app.route('/api/posts', methods=['GET'])
+def get_posts():
+    # Fetch posts from the database (using SQLAlchemy)
+    all_posts = Post.query.all()
+    return jsonify([post.to_dict() for post in all_posts])
+
+# Create a new post (POST request)
+@app.route('/api/posts', methods=['POST'])
+def create_post():
+    data = request.json
+    new_post = Post(title=data['title'], content=data['content'])
+    db.session.add(new_post)
+    db.session.commit()
+    return jsonify(new_post.to_dict()), 201
+
+# Define a method to convert Post to a dictionary
+def to_dict(self):
+    return {'id': self.id, 'title': self.title, 'content': self.content, 'date_posted': self.date_posted}
+
+# Attach the method to the Post model
+Post.to_dict = to_dict
+
+if __name__ == '__main__':
+    app.run(debug=True)

@@ -9,6 +9,7 @@ import { HomeComponent } from './components/home/home.component';
 import { PostPageComponent } from './components/post-page/post-page.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { FooterComponent } from './components/footer/footer.component';
+import { CreatePostComponent } from './components/create-post/create-post.component';
 
 @Component({
   selector: 'app-root',
@@ -19,6 +20,7 @@ import { FooterComponent } from './components/footer/footer.component';
     PostPageComponent,
     NavbarComponent,
     FooterComponent,
+    CreatePostComponent,
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
