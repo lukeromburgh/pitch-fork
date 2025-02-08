@@ -1,36 +1,43 @@
 import { Component } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import {
+  ReactiveFormsModule,
+  FormBuilder,
+  FormGroup,
+  Validators,
+} from '@angular/forms';
 import { PostService } from '../../services/post.service';
+import { CommonModule } from '@angular/common'; // Import CommonModule for ngIf, ngFor, etc.
 
 @Component({
   selector: 'app-create-post',
+  standalone: true, // Mark the component as standalone
+  imports: [CommonModule, ReactiveFormsModule], // Import ReactiveFormsModule and CommonModule
   templateUrl: './create-post.component.html',
   styleUrls: ['./create-post.component.css'],
 })
 export class CreatePostComponent {
-  postForm: FormGroup; // Form object
+  postForm: FormGroup; // Ensure postForm is explicitly typed
 
   constructor(private fb: FormBuilder, private postService: PostService) {
-    // Define the form structure
     this.postForm = this.fb.group({
-      title: ['', Validators.required], // Title is required
-      content: ['', Validators.required],
+      title: ['', [Validators.required, Validators.minLength(3)]],
+      content: ['', [Validators.required, Validators.minLength(5)]],
     });
   }
 
-  onSubmit() {
+  onSubmit(): void {
     if (this.postForm.valid) {
-      this.postService.createPost(this.postForm.value).subscribe(
+      const newPost = this.postForm.value;
+      this.postService.createPost(newPost).subscribe(
         (response) => {
-          console.log('Post created:', response);
-          alert('Post successfully created!');
-          this.postForm.reset(); // Clear form after submission
+          console.log('Post created successfully!', response);
         },
         (error) => {
           console.error('Error creating post:', error);
-          alert('Failed to create post');
         }
       );
+    } else {
+      console.log('Form is invalid');
     }
   }
 }

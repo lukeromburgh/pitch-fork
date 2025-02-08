@@ -16,15 +16,14 @@ class Post(db.Model):
     content = db.Column(db.Text, nullable=False)
     date_posted = db.Column(db.DateTime, default=datetime.utcnow)
 
-    def __repr__(self):
-        return '<Post %r>' % self.id
+    def to_dict(self):
+        return {'id': self.id, 'title': self.title, 'content': self.content, 'date_posted': self.date_posted}
 
 # Creating tables if they don't exist yet
 with app.app_context():
     db.create_all()
 
 # Store posts temporarily (before database setup)
-posts = []
 
 # Get all posts (GET request)
 @app.route('/api/posts', methods=['GET'])

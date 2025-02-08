@@ -2,7 +2,7 @@
   <div class="create-post-container">
     <h2>Create a New Post</h2>
 
-    <form (ngSubmit)="onSubmit()">
+    <form [formGroup]="postForm" (ngSubmit)="onSubmit()">
       <!-- Title Input -->
       <label for="title">Title:</label>
       <input id="title" formControlName="title" type="text" required />
