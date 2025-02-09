@@ -1,5 +1,4 @@
-@defer {
-<div class="flex-container background">
+<div class="background flex-container">
   <span></span>
   <span></span>
   <span></span>
@@ -13,11 +12,18 @@
   <span></span>
   <span></span>
   <span></span>
-  <div class="login-container">
-    <h2>Login</h2>
-    <form class="login-form" (ngSubmit)="onSubmit()" [formGroup]="loginForm">
+  <div class="signup-container">
+    <h2>Sign up</h2>
+    <form class="signup-form" (ngSubmit)="onSubmit()" [formGroup]="signupForm">
+      <label for="name">Username</label
+      ><input id="name" formControlName="name" type="text" required />
+
+      <br />
+
       <label for="email">Email</label>
       <input id="email" formControlName="email" type="email" required />
+
+      <br />
 
       <label for="password">Password</label>
       <input
@@ -31,22 +37,14 @@
       <button
         class="btn-secondary"
         type="submit"
-        [disabled]="loginForm.invalid"
+        [disabled]="signupForm.invalid"
       >
-        Login
+        Sign up
       </button>
     </form>
-    <a class="signup-link" routerLink="/sign-up"
-      >Don't have an account yet? Sign up here
+
+    <a class="login-link" routerLink="/login"
+      >Already have an account? Login here
     </a>
   </div>
 </div>
-} @loading (minimum 1s) {
-<h2 class="login-message">
-  Sorry, you need to create an account or log in to use that feature! 🌱
-</h2>
-} @placeholder (minimum 5s) {
-<h2 class="login-message">
-  Sorry, you need to create an account or log in to use that feature! 🌱
-</h2>
-}

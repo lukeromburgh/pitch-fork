@@ -8,4 +8,10 @@ import { Router, RouterLink, RouterLinkActive } from '@angular/router';
   styleUrl: './navbar.component.css',
   standalone: true,
 })
-export class NavbarComponent {}
+export class NavbarComponent {
+  constructor(public router: Router) {}
+
+  Home() {
+    this.router.navigate(['/']);
+  }
+}

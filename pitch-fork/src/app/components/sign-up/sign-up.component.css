@@ -13,7 +13,6 @@
   align-items: center;
   justify-content: center;
   min-height: 70vh;
-  background-color: #e41956;
 }
 
 h1 {
@@ -28,15 +27,15 @@ h1 {
     "Segoe UI Symbol";
 }
 
-.login-container {
-  z-index: 10;
+.signup-container {
   display: flex;
+  z-index: 10;
 
   flex-direction: column;
   justify-content: center;
   align-items: center;
   padding: 80px;
-  height: 28%;
+  height: 36%;
   width: 20%;
   background-color: #ffffffc4;
   border: 1px solid #e9e9e9;
@@ -44,7 +43,7 @@ h1 {
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
 }
 
-.login-form {
+.signup-form {
   background-color: #ffffff00;
   width: 100%;
   display: flex;
@@ -52,13 +51,13 @@ h1 {
   align-items: center;
 }
 
-.login-container h2 {
+.signup-container h2 {
   text-align: center;
   margin-bottom: 2rem;
   font-size: 3rem;
 }
 
-.login-form label {
+.signup-form label {
   display: block;
   font-size: 1rem;
   color: #333;
@@ -66,13 +65,13 @@ h1 {
   text-align: center;
 }
 
-.login-form input {
+.signup-form input {
   height: 60px;
   width: 100%;
   text-align: center;
-  background-color: #ffffffb9;
   font-size: 17px;
   margin-bottom: 1.3rem;
+  background-color: #ffffffb9;
   border: 1px solid #ddd;
   border-radius: 6px;
   outline: none;
@@ -102,14 +101,19 @@ h1 {
   background-color: #dba5b5;
 }
 
-.signup-link {
+.login-link {
   display: block;
   text-align: center;
   margin-top: 15px;
   font-size: 0.9rem;
 }
 
-.signup-link:hover {
+.login-link a {
+  color: #e41956;
+  text-decoration: none;
+}
+
+.login-link a:hover {
   text-decoration: underline;
 }
 

@@ -12,5 +12,5 @@ body {
 router-outlet {
   flex: 0;
   display: block;
-  padding: 1rem;
+  padding: 0rem;
 }

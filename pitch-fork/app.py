@@ -40,6 +40,13 @@ class Post(db.Model):
 with app.app_context():
     db.create_all()
 
+@app.route('/sign-up', methods=['POST'])
+def sign_up():
+    data = request.json
+    new_user = User(username=data['name'], email=data['email'], password=data['password'])
+    db.session.add(new_user)
+    db.session.commit()
+
 # Get all posts (GET request)
 @app.route('/api/posts', methods=['GET'])
 def get_posts():
