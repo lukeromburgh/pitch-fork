@@ -1,20 +1,23 @@
 from flask import Flask, request, jsonify
 from flask_sqlalchemy import SQLAlchemy
 from flask_bcrypt import Bcrypt
-from flask_jwt_extended import JWTManager
-from flask_cors import CORS
+from flask_jwt_extended import JWTManager, create_access_token, jwt_required, get_jwt_identity
+from flask_cors import CORS, cross_origin
 from datetime import datetime
 
 app = Flask(__name__)
-CORS(app, resources={r"/api/*": {"origins": "http://localhost:4200"}})  # Allow Angular to communicate with Flask
+CORS(app, origins="http://localhost:4200")
 
-# Corrected the typo here:
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///posts.db'  # Proper configuration
-app.config['JWT_SECRET_KEY'] = 'your_secret_key'
+
+# Database Configuration
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///posts.db'  # SQLite for testing
+app.config['JWT_SECRET_KEY'] = 'your_secret_key'  # Change to a secure key
+
 db = SQLAlchemy(app)
 bcrypt = Bcrypt(app)
 jwt = JWTManager(app)
 
+# =================== Models ===================
 class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(50), unique=True, nullable=False)
@@ -36,27 +39,58 @@ class Post(db.Model):
     def to_dict(self):
         return {'id': self.id, 'title': self.title, 'content': self.content, 'date_posted': self.date_posted}
 
-# Creating tables if they don't exist yet
+# Create tables if they don't exist
 with app.app_context():
     db.create_all()
 
+# =================== Routes ===================
+
+# 🔹 User Registration
 @app.route('/sign-up', methods=['POST'])
+@cross_origin(origin='localhost', headers=['Content-Type', 'Authorization'])  # Allow specific headers for POST requests
 def sign_up():
     data = request.json
-    new_user = User(username=data['name'], email=data['email'], password=data['password'])
+    if User.query.filter_by(email=data['email']).first():
+        return jsonify({"error": "Email already exists"}), 400
+
+    new_user = User(username=data['name'], email=data['email'])
+    new_user.set_password(data['password'])  # Hash password
     db.session.add(new_user)
     db.session.commit()
 
-# Get all posts (GET request)
+    return jsonify({"message": "User created successfully"}), 201
+
+# 🔹 User Login (JWT Authentication)
+@app.route('/login', methods=['POST'])
+def login():
+    data = request.json
+    user = User.query.filter_by(email=data['email']).first()
+
+    if user and user.check_password(data['password']):
+        access_token = create_access_token(identity={"id": user.id, "email": user.email})
+        return jsonify({"access_token": access_token}), 200
+    else:
+        return jsonify({"error": "Invalid credentials"}), 401
+
+
+
+# 🔹 Get All Posts (Protected Route)
 @app.route('/api/posts', methods=['GET'])
+@jwt_required()
 def get_posts():
+    user_id = get_jwt_identity()  # This gets the user info from the token
+    print(f"Received user_id from JWT: {user_id}")  # Log the user_id to see if it's correctly decoded
     all_posts = Post.query.all()
     return jsonify([post.to_dict() for post in all_posts])
 
-# Create a new post (POST request)
+
+# 🔹 Create a New Post (Protected Route)
 @app.route('/api/posts', methods=['POST'])
+@jwt_required()
 def create_post():
+    user = get_jwt_identity()  # Get user from token
     data = request.json
+
     new_post = Post(title=data['title'], content=data['content'])
     db.session.add(new_post)
     db.session.commit()
