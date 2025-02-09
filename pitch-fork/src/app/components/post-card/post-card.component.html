@@ -11,11 +11,11 @@
 
 -->
 
-<div class="post-card" (click)="viewPost()">
-  <h2>post title</h2>
-  <p>post.summary</p>
+<div *ngIf="post" class="post-card" (click)="viewPost()">
+  <h2>{{ post.title }}</h2>
+  <p>{{ post.content }}</p>
   <div class="meta">
     <span>By post.author</span>
-    <span>post.created_at | date : "mediumDate" </span>
+    <span>{{ post.date_posted | date : "mediumDate" }}</span>
   </div>
 </div>

@@ -4,7 +4,7 @@ from flask_cors import CORS
 from datetime import datetime
 
 app = Flask(__name__)
-CORS(app)  # Allow Angular to communicate with Flask
+CORS(app, resources={r"/api/*": {"origins": "http://localhost:4200"}})  # Allow Angular to communicate with Flask
 
 # Corrected the typo here:
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///posts.db'  # Proper configuration
@@ -23,12 +23,9 @@ class Post(db.Model):
 with app.app_context():
     db.create_all()
 
-# Store posts temporarily (before database setup)
-
 # Get all posts (GET request)
 @app.route('/api/posts', methods=['GET'])
 def get_posts():
-    # Fetch posts from the database (using SQLAlchemy)
     all_posts = Post.query.all()
     return jsonify([post.to_dict() for post in all_posts])
 
@@ -40,13 +37,6 @@ def create_post():
     db.session.add(new_post)
     db.session.commit()
     return jsonify(new_post.to_dict()), 201
-
-# Define a method to convert Post to a dictionary
-def to_dict(self):
-    return {'id': self.id, 'title': self.title, 'content': self.content, 'date_posted': self.date_posted}
-
-# Attach the method to the Post model
-Post.to_dict = to_dict
 
 if __name__ == '__main__':
     app.run(debug=True)

@@ -1,8 +1,11 @@
 import { Component, Input } from '@angular/core';
 import { Router } from '@angular/router';
+import { CommonModule } from '@angular/common';
+import { HttpClientModule } from '@angular/common/http';
 
 @Component({
   selector: 'app-post-card',
+  imports: [CommonModule, HttpClientModule],
   templateUrl: './post-card.component.html',
   styleUrls: ['./post-card.component.css'],
   standalone: true,

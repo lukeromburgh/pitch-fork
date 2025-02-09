@@ -198,6 +198,16 @@ body {
   margin-top: 8px;
 }
 
+.post-list {
+  align-items: center;
+  justify-content: center;
+  align-content: center;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin: 4%;
+}
+
 .banner {
   display: flex;
   flex-direction: row;

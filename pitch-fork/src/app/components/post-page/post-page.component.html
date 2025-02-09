@@ -28,34 +28,12 @@
 
   <!-- 📜 Posts List -->
   <div class="post-list">
-    <div class="post-card">
-      <h3>Example Post Title</h3>
-      <div class="tags">
-        <span class="tag">Tech</span>
-      </div>
-      <p>This is a short preview of the post content...</p>
-
-      <button>Read More</button>
-    </div>
-
-    <div class="post-card">
-      <h3>Another Example Post</h3>
-      <div class="tags">
-        <span class="tag">Business</span>
-      </div>
-      <p>This is a short preview of another post...</p>
-
-      <button>Read More</button>
-    </div>
-
-    <div class="post-card">
-      <h3>Another Example Post</h3>
-      <div class="tags">
-        <span class="tag">Business</span>
-      </div>
-      <p>This is a short preview of another post...</p>
-
-      <button>Read More</button>
+    <div *ngFor="let post of posts">
+      <app-post-card [post]="post"></app-post-card>
     </div>
   </div>
+
+  <ng-template #noPosts>
+    <p>No posts available.</p>
+  </ng-template>
 </div>
