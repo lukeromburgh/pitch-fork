@@ -16,16 +16,10 @@ export class AuthService {
   }
 
   login(credentials: any) {
-    return this.http
-      .post<{ token: string; user_id: number }>(
-        'http://127.0.0.1:5000/login',
-        credentials
-      )
-      .subscribe((response) => {
-        localStorage.setItem(this.tokenKey, response.token);
-        localStorage.setItem('user_id', response.user_id.toString());
-        this.authStatus.next(true);
-      });
+    return this.http.post<{ token: string; user_id: number }>(
+      'http://127.0.0.1:5000/login',
+      credentials
+    );
   }
 
   logout() {
