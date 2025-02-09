@@ -1,5 +1,7 @@
 from flask import Flask, request, jsonify
 from flask_sqlalchemy import SQLAlchemy
+from flask_bcrypt import Bcrypt
+from flask_jwt_extended import JWTManager
 from flask_cors import CORS
 from datetime import datetime
 
@@ -8,7 +10,22 @@ CORS(app, resources={r"/api/*": {"origins": "http://localhost:4200"}})  # Allow 
 
 # Corrected the typo here:
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///posts.db'  # Proper configuration
+app.config['JWT_SECRET_KEY'] = 'your_secret_key'
 db = SQLAlchemy(app)
+bcrypt = Bcrypt(app)
+jwt = JWTManager(app)
+
+class User(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    username = db.Column(db.String(50), unique=True, nullable=False)
+    email = db.Column(db.String(100), unique=True, nullable=False)
+    password_hash = db.Column(db.String(255), nullable=False)
+
+    def set_password(self, password):
+        self.password_hash = bcrypt.generate_password_hash(password).decode('utf-8')
+
+    def check_password(self, password):
+        return bcrypt.check_password_hash(self.password_hash, password)
 
 class Post(db.Model):
     id = db.Column(db.Integer, primary_key=True)
