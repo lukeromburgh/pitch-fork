@@ -1,13 +1,13 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
-  private tokenKey = 'authToken';
+  private tokenKey = 'token';
   private authStatus = new BehaviorSubject<boolean>(false);
 
   constructor(private http: HttpClient) {}
@@ -49,11 +49,12 @@ export class AuthService {
     return !!this.getToken();
   }
 
-  getPosts() {
+  getPosts(): Observable<any> {
+    console.log('Get posts!!!!');
     const token = this.getToken();
+    console.log('token: ', token);
     if (!token) {
       console.error('No auth token found!');
-      return;
     }
 
     const headers = new HttpHeaders({

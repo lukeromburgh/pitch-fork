@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { PostService } from '../../services/post.service';
+import { AuthService } from '../../services/auth.service';
 import { PostCardComponent } from '../post-card/post-card.component';
 
 @Component({
@@ -13,10 +13,10 @@ import { PostCardComponent } from '../post-card/post-card.component';
 export class PostPageComponent implements OnInit {
   posts: any[] = [];
 
-  constructor(private postService: PostService) {}
+  constructor(private authService: AuthService) {}
 
   ngOnInit(): void {
-    this.postService.getPosts().subscribe(
+    this.authService.getPosts().subscribe(
       (data) => {
         console.log('Posts received:', data); // Debugging: See the fetched posts
         this.posts = data;
