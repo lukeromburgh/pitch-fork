@@ -10,11 +10,6 @@ export class PostService {
 
   constructor(private http: HttpClient) {}
 
-  // Inside your Angular PostService
-  getPosts(): Observable<any> {
-    return this.http.get('http://127.0.0.1:5000/api/posts');
-  }
-
   createPost(post: any, token: string): Observable<any> {
     const headers = new HttpHeaders({
       Authorization: `Bearer ${token}`, // Send the token in the header
