@@ -8,6 +8,9 @@ from datetime import datetime
 app = Flask(__name__)
 CORS(app, origins="http://localhost:4200")
 
+app.config['JSON_AS_ASCII'] = False
+app.config['JSONIFY_PRETTYPRINT_REGULAR'] = True
+
 
 # Database Configuration
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///posts.db'  # SQLite for testing
@@ -67,8 +70,9 @@ def login():
     user = User.query.filter_by(email=data['email']).first()
 
     if user and user.check_password(data['password']):
-        access_token = create_access_token(identity={"id": user.id, "email": user.email})
-        return jsonify({"access_token": access_token}), 200
+        # Use the user's ID (as a string) as the identity
+        access_token = create_access_token(identity=str(user.id))
+        return jsonify({"access_token": access_token, "user_id": user.id}), 200
     else:
         return jsonify({"error": "Invalid credentials"}), 401
 
