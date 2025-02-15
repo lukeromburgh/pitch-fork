@@ -198,14 +198,44 @@ body {
   margin-top: 8px;
 }
 
-.post-list {
-  align-items: center;
-  justify-content: center;
-  align-content: center;
+.post-container {
   display: flex;
-  flex-wrap: wrap;
+  overflow-x: auto; /* Allow horizontal scrolling */
+  padding: 50px;
+  position: relative;
+  scrollbar-width: none; /* Hide scrollbar for a cleaner look */
   gap: 10px;
   margin: 4%;
+}
+
+/* Edge blur effect using mask */
+.post-container::before,
+.post-container::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 100px; /* Adjust fade width */
+  pointer-events: none;
+  z-index: 10;
+}
+
+.post-container::before {
+  left: 0;
+  background: linear-gradient(
+    to right,
+    rgba(255, 255, 255, 1),
+    rgba(255, 255, 255, 0)
+  );
+}
+
+.post-container::after {
+  right: 0;
+  background: linear-gradient(
+    to left,
+    rgba(255, 255, 255, 1),
+    rgba(255, 255, 255, 0)
+  );
 }
 
 .banner {
@@ -213,7 +243,7 @@ body {
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  min-width: 100%;
+  max-width: 100%;
   background-color: #daedff;
   padding: 50px;
   margin-bottom: 60px;
@@ -263,12 +293,40 @@ body {
   scale: 110%;
 }
 
-.post-container {
-  margin: 40px 80px 80px 80px;
+.post-card {
+  background-color: #ffffff;
+  width: 18rem;
+  height: 12rem;
+  padding: 3rem;
+  margin-bottom: 6px;
+  border-radius: 8px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.05);
+  cursor: pointer;
+  transition: transform 0.2s ease-out;
+  border-color: rgb(234, 234, 234);
+  border-width: 1px;
+  border-style: solid;
+  font-family: "Inter Tight", -apple-system, BlinkMacSystemFont, "Segoe UI",
+    Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji",
+    "Segoe UI Symbol";
+}
+
+.post-card:hover {
+  transform: translateY(-5px);
+}
+
+.meta {
+  font-size: 0.85rem;
+  color: gray;
   display: flex;
-  flex-wrap: wrap; /* Allows items to wrap onto the next line */
-  justify-content: center; /* Ensures even spacing */
-  gap: 2px; /* Adds spacing between items */
+  justify-content: space-between;
+}
+
+.content {
+  display: flex;
+  justify-content: left;
+  width: 100%;
+  margin-bottom: 3rem;
 }
 
 @media screen and (max-width: 650px) {

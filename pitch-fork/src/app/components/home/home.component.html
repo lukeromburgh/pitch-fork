@@ -24,15 +24,31 @@
   <button class="btn-tertiary" routerLink="posts">View more</button>
 </div>
 
-<div class="post-list">
-  <div *ngFor="let post of posts">
-    <app-post-card [post]="post"></app-post-card>
+<script>
+  document.addEventListener("mousemove", (event) => {
+    const cards = document.querySelectorAll(".post-card");
+
+    cards.forEach((card) => {
+      const rect = card.getBoundingClientRect();
+      const x = (event.clientX - rect.left) / rect.width - 0.5;
+      const y = (event.clientY - rect.top) / rect.height - 0.5;
+
+      card.style.transform = `rotateY(${x * 10}deg) rotateX(${y * -10}deg)`;
+    });
+  });
+</script>
+
+<div class="post-container">
+  <div class="post-card">
+    <img />
+    <h2>Example title</h2>
+    <p>post content</p>
+    <div class="meta">
+      <span>By post author</span>
+      <span>post.date_posted | date : "mediumDate"</span>
+    </div>
   </div>
 </div>
-
-<ng-template #noPosts>
-  <p>No posts available.</p>
-</ng-template>
 
 <div
   style="

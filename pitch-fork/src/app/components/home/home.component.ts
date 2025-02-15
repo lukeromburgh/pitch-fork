@@ -18,26 +18,26 @@ import { AuthService } from '../../services/auth.service';
   templateUrl: './home.component.html',
   styleUrl: './home.component.css',
   standalone: true,
-})
-export class HomeComponent implements OnInit {
+}) // implements OnInit
+export class HomeComponent {
   posts: any[] = []; // Store fetched posts
 
   constructor(public router: Router, private authService: AuthService) {}
 
-  ngOnInit() {
-    this.fetchPosts(); // Fetch posts on component load
-  }
+  // ngOnInit() {
+  //   this.fetchPosts(); // Fetch posts on component load
+  // }
 
-  fetchPosts() {
-    this.authService.getPosts().subscribe({
-      next: (data) => {
-        this.posts = data;
-      },
-      error: (err) => {
-        console.error('Error fetching posts:', err);
-      },
-    });
-  }
+  // fetchPosts() {
+  //   this.authService.getPosts().subscribe({
+  //     next: (data) => {
+  //       this.posts = data;
+  //     },
+  //     error: (err) => {
+  //       console.error('Error fetching posts:', err);
+  //     },
+  //   });
+  // }
 
   Home() {
     this.router.navigate(['/']);

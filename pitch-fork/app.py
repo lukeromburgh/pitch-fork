@@ -26,6 +26,9 @@ class User(db.Model):
     username = db.Column(db.String(50), unique=True, nullable=False)
     email = db.Column(db.String(100), unique=True, nullable=False)
     password_hash = db.Column(db.String(255), nullable=False)
+    bio = db.Column(db.Text, nullable=True)
+    profile_picture = db.Column(db.String(255), nullable=True)
+    banner = db.Column(db.String(255), nullable=True) 
 
     def set_password(self, password):
         self.password_hash = bcrypt.generate_password_hash(password).decode('utf-8')
@@ -99,6 +102,43 @@ def create_post():
     db.session.add(new_post)
     db.session.commit()
     return jsonify(new_post.to_dict()), 201
+
+
+@app.route('/api/profile', methods=['GET'])
+@jwt_required()
+def get_profile():
+    # get the current user's id from the token (assuming identity is the user ID)
+    user_id = get_jwt_identity()
+    user = User.query.get(user_id)
+    if not user:
+        return jsonify({'error': 'User not found'}), 404
+    return jsonify({
+        'id': user.id,
+        'username': user.username,
+        'email': user.email,
+        # add any additional fields you'd like to expose
+    }), 200
+
+@app.route('/api/profile', methods=['PUT'])
+@jwt_required()
+def update_profile():
+    user_id = get_jwt_identity()
+    user = User.query.get(user_id)
+    if not user:
+        return jsonify({'error': 'User not found'}), 404
+
+    data = request.get_json()
+    # Update user fields if provided
+    if 'username' in data:
+        user.username = data['username']
+    if 'email' in data:
+        user.email = data['email']
+    # Update other fields as necessary
+
+    db.session.commit()
+    return jsonify({'message': 'Profile updated successfully'}), 200
+
+
 
 if __name__ == '__main__':
     app.run(debug=True)

@@ -9,7 +9,7 @@ import { tap } from 'rxjs/operators';
 export class AuthService {
   private tokenKey = 'token';
   private authStatus = new BehaviorSubject<boolean>(false);
-
+  private baseUrl = 'http://127.0.0.1:5000';
   constructor(private http: HttpClient) {}
 
   signup(userData: any) {
@@ -63,5 +63,24 @@ export class AuthService {
 
     console.log('Authorization header:', `Bearer ${token}`);
     return this.http.get('http://127.0.0.1:5000/api/posts', { headers });
+  }
+
+  getProfile(): Observable<any> {
+    const token = localStorage.getItem('token');
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${token}`,
+    });
+    return this.http.get(`${this.baseUrl}/api/profile`, { headers });
+  }
+
+  updateProfile(profileData: any): Observable<any> {
+    const token = localStorage.getItem('token');
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${token}`,
+    });
+    return this.http.put(`${this.baseUrl}/api/profile`, profileData, {
+      headers,
+    });
   }
 }
