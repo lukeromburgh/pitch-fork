@@ -24,28 +24,19 @@
   <button class="btn-tertiary" routerLink="posts">View more</button>
 </div>
 
-<script>
-  document.addEventListener("mousemove", (event) => {
-    const cards = document.querySelectorAll(".post-card");
+<div class="post-wrapper">
+  <div class="post-container">
+    <div class="post-card" *ngFor="let post of posts">
+      <div class="user">
+        <img class="avatar" [src]="post.src" />
+        <span>{{ post.username }}</span>
+      </div>
 
-    cards.forEach((card) => {
-      const rect = card.getBoundingClientRect();
-      const x = (event.clientX - rect.left) / rect.width - 0.5;
-      const y = (event.clientY - rect.top) / rect.height - 0.5;
-
-      card.style.transform = `rotateY(${x * 10}deg) rotateX(${y * -10}deg)`;
-    });
-  });
-</script>
-
-<div class="post-container">
-  <div class="post-card">
-    <img />
-    <h2>Example title</h2>
-    <p>post content</p>
-    <div class="meta">
-      <span>By post author</span>
-      <span>post.date_posted | date : "mediumDate"</span>
+      <h2>{{ post.title }}</h2>
+      <p>{{ post.content }}</p>
+      <div class="meta">
+        <span>{{ post.date_posted | date : "mediumDate" }}</span>
+      </div>
     </div>
   </div>
 </div>
