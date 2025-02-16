@@ -80,4 +80,17 @@ export class AuthService {
       headers,
     });
   }
+
+  likePost(postId: number): Observable<any> {
+    const token = this.getToken();
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${token}`,
+    });
+
+    return this.http.post(
+      `http://127.0.0.1:5000/api/posts/${postId}/like`,
+      {},
+      { headers }
+    );
+  }
 }

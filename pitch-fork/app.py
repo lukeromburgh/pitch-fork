@@ -161,6 +161,21 @@ def update_profile():
     db.session.commit()
     return jsonify({'message': 'Profile updated successfully'}), 200
 
+
+@app.route('/api/posts/<int:post_id>/like', methods=['POST'])
+@jwt_required()
+def like_post(post_id):
+    user_id = get_jwt_identity()  # Get the user ID from the token
+    post = Post.query.get(post_id)
+
+    if not post:
+        return jsonify({"error": "Post not found"}), 404
+
+    post.likes += 1  # Increment like count
+    db.session.commit()
+
+    return jsonify({"message": "Post liked!", "likes": post.likes}), 200
+
 @app.route('/api/user/<int:user_id>/posts', methods=['GET'])
 def get_user_posts(user_id):
     posts = Post.query.filter_by(user_id=user_id).all()
