@@ -26,9 +26,9 @@ class User(db.Model):
     username = db.Column(db.String(50), unique=True, nullable=False)
     email = db.Column(db.String(100), unique=True, nullable=False)
     password_hash = db.Column(db.String(255), nullable=False)
-    bio = db.Column(db.Text, nullable=True)
-    profile_picture = db.Column(db.String(255), nullable=True)
-    banner = db.Column(db.String(255), nullable=True) 
+    # bio = db.Column(db.Text, nullable=True)
+    # profile_picture = db.Column(db.String(255), nullable=True)
+    # banner = db.Column(db.String(255), nullable=True) 
 
     def set_password(self, password):
         self.password_hash = bcrypt.generate_password_hash(password).decode('utf-8')
@@ -69,15 +69,26 @@ def sign_up():
 # 🔹 User Login (JWT Authentication)
 @app.route('/login', methods=['POST'])
 def login():
-    data = request.json
-    user = User.query.filter_by(email=data['email']).first()
+    try:
+        print("Headers:", request.headers)  # Log headers
+        print("Raw data:", request.data)      # Log raw request body
 
-    if user and user.check_password(data['password']):
-        # Use the user's ID (as a string) as the identity
-        access_token = create_access_token(identity=str(user.id))
-        return jsonify({"access_token": access_token, "user_id": user.id}), 200
-    else:
-        return jsonify({"error": "Invalid credentials"}), 401
+        data = request.get_json()
+        print("Parsed JSON:", data)           # Log parsed JSON
+
+        if not data or 'email' not in data or 'password' not in data:
+            return jsonify({'message': 'Missing email or password'}), 400
+
+        user = User.query.filter_by(email=data['email']).first()
+
+        if user and user.check_password(data['password']):
+            access_token = create_access_token(identity=str(user.id))
+            return jsonify({'token': access_token, 'user_id': user.id}), 200
+
+        return jsonify({'message': 'Invalid credentials'}), 401
+    except Exception as e:
+        print("Error in login:", e)
+        return jsonify({'message': 'Internal Server Error', 'error': str(e)}), 500
 
 
 

@@ -43,7 +43,7 @@ export class LoginComponent {
       this.authService.login(loginData).subscribe(
         (response) => {
           // Store the JWT token in localStorage
-          localStorage.setItem('token', response.access_token);
+          localStorage.setItem('token', response.token);
 
           // Navigate to the posts page
           this.router.navigate(['/posts']).then(() => {

@@ -18,14 +18,11 @@ export class AuthService {
 
   login(credentials: any) {
     return this.http
-      .post<{ access_token: string }>(
-        'http://127.0.0.1:5000/login',
-        credentials
-      )
+      .post<{ token: string }>('http://127.0.0.1:5000/login', credentials)
       .pipe(
         tap((response) => {
-          if (response.access_token) {
-            localStorage.setItem('token', response.access_token); // Store token
+          if (response.token) {
+            localStorage.setItem('token', response.token); // Store token
           }
         })
       );
