@@ -26,9 +26,9 @@ class User(db.Model):
     username = db.Column(db.String(50), unique=True, nullable=False)
     email = db.Column(db.String(100), unique=True, nullable=False)
     password_hash = db.Column(db.String(255), nullable=False)
-    # bio = db.Column(db.Text, nullable=True)
-    # profile_picture = db.Column(db.String(255), nullable=True)
-    # banner = db.Column(db.String(255), nullable=True) 
+    bio = db.Column(db.Text, nullable=True)
+    profile_picture = db.Column(db.String(255), nullable=True)
+    banner = db.Column(db.String(255), nullable=True)
 
     def set_password(self, password):
         self.password_hash = bcrypt.generate_password_hash(password).decode('utf-8')
@@ -41,9 +41,14 @@ class Post(db.Model):
     title = db.Column(db.String(100), nullable=False)
     content = db.Column(db.Text, nullable=False)
     date_posted = db.Column(db.DateTime, default=datetime.utcnow)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)  # 🔹 Foreign key
+    category = db.Column(db.String(50), nullable=True)  # 🔹 New column
+    likes = db.Column(db.Integer, default=0)  # 🔹 New column
 
-    def to_dict(self):
-        return {'id': self.id, 'title': self.title, 'content': self.content, 'date_posted': self.date_posted}
+    user = db.relationship('User', backref=db.backref('posts', lazy=True))  # 🔹 Relationship to User model
+
+    def to_dict(self): return { 'id': self.id, 'title': self.title, 'content': self.content,
+        'date_posted': self.date_posted, 'user_id': self.user_id, 'author': self.user.username, 'category': self.category, 'likes': self.likes }
 
 # Create tables if they don't exist
 with app.app_context():
@@ -106,10 +111,17 @@ def get_posts():
 @app.route('/api/posts', methods=['POST'])
 @jwt_required()
 def create_post():
-    user = get_jwt_identity()  # Get user from token
+    user_id = get_jwt_identity()  # 🔹 Get user ID from token
     data = request.json
 
-    new_post = Post(title=data['title'], content=data['content'])
+    new_post = Post(
+        title=data['title'],
+        content=data['content'],
+        user_id=user_id,  # 🔹 Associate the post with the logged-in user
+        category=data.get('category', ''),  # Optional field
+        likes=0  # Default value
+    )
+    
     db.session.add(new_post)
     db.session.commit()
     return jsonify(new_post.to_dict()), 201
@@ -149,6 +161,10 @@ def update_profile():
     db.session.commit()
     return jsonify({'message': 'Profile updated successfully'}), 200
 
+@app.route('/api/user/<int:user_id>/posts', methods=['GET'])
+def get_user_posts(user_id):
+    posts = Post.query.filter_by(user_id=user_id).all()
+    return jsonify([post.to_dict() for post in posts])
 
 
 if __name__ == '__main__':

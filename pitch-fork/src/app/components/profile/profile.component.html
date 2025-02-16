@@ -1,20 +1,25 @@
-<div class="profile-container" *ngIf="!loading; else loadingTemplate">
-  <h1>Your Profile</h1>
-  <form [formGroup]="profileForm" (ngSubmit)="onSubmit()">
-    <div class="form-group">
-      <label for="username">Username</label>
-      <input id="username" formControlName="username" type="text" />
-    </div>
-    <div class="form-group">
-      <label for="email">Email</label>
-      <input id="email" formControlName="email" type="email" />
-    </div>
-    <!-- Add additional fields as needed -->
-    <button type="submit">Save Changes</button>
-  </form>
-  <div *ngIf="errorMessage" class="error">{{ errorMessage }}</div>
-</div>
+<div class="profile-container">
+  <div class="banner">
+    <img *ngIf="user?.banner" [src]="user.banner" alt="Banner Image" />
+  </div>
 
-<ng-template #loadingTemplate>
-  <p>Loading profile...</p>
-</ng-template>
+  <div class="profile-info">
+    <img
+      *ngIf="user?.profile_picture"
+      [src]="user.profile_picture"
+      class="profile-pic"
+    />
+    <h2>{{ user?.username }}</h2>
+    <p class="bio">{{ user?.bio }}</p>
+
+    <button (click)="editProfile()">Edit Profile</button>
+  </div>
+
+  <div class="posts-section">
+    <h3>Your Posts</h3>
+    <div *ngFor="let post of userPosts" class="post-card">
+      <h4>{{ post.title }}</h4>
+      <p>{{ post.content }}</p>
+    </div>
+  </div>
+</div>
