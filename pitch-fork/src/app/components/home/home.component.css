@@ -345,6 +345,22 @@ body {
   margin-bottom: 3rem;
 }
 
+.video-section {
+  display: flex;
+  flex-direction: row;
+  max-width: 100%;
+  justify-content: center;
+  align-items: center;
+  margin: 0px 200px;
+}
+
+.video-card {
+  position: relative;
+  width: 20%;
+  padding: 15%;
+  margin-left: 100px;
+}
+
 @media screen and (max-width: 1100px) {
   .banner {
     flex-direction: column;
