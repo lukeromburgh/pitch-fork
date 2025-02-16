@@ -61,7 +61,7 @@ h1 {
 .explanation-card {
   background-color: #ffffff;
   width: 30%;
-  height: 18rem;
+  height: fit-content;
   padding: 4rem;
   border-radius: 8px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
