@@ -5,6 +5,7 @@ import { CreatePostComponent } from './components/create-post/create-post.compon
 import { LoginComponent } from './components/login/login.component';
 import { SignUpComponent } from './components/sign-up/sign-up.component';
 import { ProfileComponent } from './components/profile/profile.component';
+import { AboutComponent } from './components/about/about.component';
 
 export const routes: Routes = [
   { path: 'sign-up', component: SignUpComponent },
@@ -15,6 +16,7 @@ export const routes: Routes = [
     pathMatch: 'full',
     component: HomeComponent,
   },
+  { path: 'about', title: 'Pitchfork | About', component: AboutComponent },
   { path: 'posts', title: 'Pitchfork | Posts', component: PostPageComponent },
   {
     path: 'create-post',

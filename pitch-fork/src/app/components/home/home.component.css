@@ -19,9 +19,13 @@
   font-style: italic;
 }
 
+html {
+  background-color: #000000;
+}
+
 h1 {
   font-size: 4.5rem;
-  color: #000000;
+  color: #ffffff;
   font-weight: 600;
   line-height: 100%;
   letter-spacing: -0.125rem;
@@ -59,20 +63,21 @@ h1 {
 }
 
 .explanation-card {
-  background-color: #ffffff;
+  background-color: #101010;
   width: 30%;
   height: fit-content;
   padding: 4rem;
   border-radius: 8px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 2px 8px rgba(247, 247, 247, 0.05);
   cursor: crosshair;
   transition: transform 0.2s ease;
-  border-color: rgb(237, 237, 237);
+  border-color: rgb(55, 55, 55);
   border-width: 1px;
   border-style: solid;
   font-family: "Inter Tight", -apple-system, BlinkMacSystemFont, "Segoe UI",
     Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji",
     "Segoe UI Symbol";
+  color: white;
 }
 
 .explanation-card:hover {
@@ -80,6 +85,7 @@ h1 {
 }
 
 .explanation-card p {
+  color: white;
   font-size: 1rem;
   max-width: 80%;
   margin: 0;
@@ -97,6 +103,13 @@ p {
   margin-bottom: 15px;
 }
 
+main p {
+  font-size: 1.2rem;
+  margin: 0;
+  color: #d5d5d5;
+  margin-bottom: 15px;
+}
+
 main {
   width: 100%;
   min-height: 80%;
@@ -107,12 +120,7 @@ main {
   box-sizing: inherit;
   position: relative;
   padding: 80px 180px;
-}
-
-html,
-body {
-  margin: 0;
-  background-color: #f4faff;
+  background-color: #000000;
 }
 
 .left-side p {
@@ -186,7 +194,9 @@ body {
   color: #ffffff;
   padding: 10px 24px;
   margin: 0px;
-  border: 0 solid #000000;
+  border-style: solid;
+  border-width: 1px;
+  border-color: #3f3f3f;
   border-radius: 25px;
 
   font-family: "Inter Tight", -apple-system, BlinkMacSystemFont, "Segoe UI",
@@ -267,6 +277,7 @@ body {
   position: relative;
   overflow-x: hidden; /* Hide anything outside the wrapper */
   overflow-y: visible;
+  background-color: #000000;
 }
 
 /* Gradient overlays on the left and right edges */
@@ -276,7 +287,7 @@ body {
   position: absolute;
   top: 0;
   bottom: 0;
-  width: 300px; /* Adjust the width of the gradient */
+  width: 200px; /* Adjust the width of the gradient */
   pointer-events: none; /* Allow clicks to pass through */
   z-index: 10;
 }
@@ -284,13 +295,13 @@ body {
 /* Left gradient fades from background to transparent */
 .post-wrapper::before {
   left: 0;
-  background: linear-gradient(to right, #ffffff, rgba(255, 255, 255, 0.044));
+  background: linear-gradient(to right, #000000, rgba(255, 255, 255, 0.044));
 }
 
 /* Right gradient fades from background to transparent */
 .post-wrapper::after {
   right: 0;
-  background: linear-gradient(to left, #ffffff, rgba(244, 250, 255, 0));
+  background: linear-gradient(to left, #000000, rgba(244, 250, 255, 0));
 }
 
 .banner {
@@ -299,18 +310,19 @@ body {
   justify-content: center;
   align-items: center;
   max-width: 100%;
-  background-color: #daedff;
+  background: -webkit-linear-gradient(70deg, #ee0979, #ff5500);
   padding: 50px 200px;
   margin-bottom: 60px;
 }
 
 .banner h3 {
   font-size: 2rem;
+  color: white;
 }
 
 .banner p {
   max-width: 100%;
-  color: #191919;
+  color: #ffffff;
   font-weight: 300;
 }
 
@@ -324,14 +336,16 @@ body {
 }
 
 .banner-right p {
-  color: #000000;
+  color: #ffffff;
   font-weight: 500;
   line-height: 250%;
 }
 
 .plus-button {
   border-radius: 100%;
-  border: #000000;
+  border-color: #2a2a2a;
+  border-width: 1px;
+  border-style: solid;
   height: 36px;
   width: 36px;
   font-size: 1.2rem;
@@ -340,6 +354,10 @@ body {
   font-weight: 600;
 
   transition-duration: 0.3s;
+}
+
+.light-text {
+  color: #cdcdcd;
 }
 
 .plus-button:hover {
@@ -362,6 +380,14 @@ body {
   margin-bottom: 3rem;
 }
 
+/* ------------------------------ ABOUT SECTION ------------------------------- */
+
+.about-section {
+  max-width: 100%;
+  background-color: #000000;
+  color: white;
+}
+
 .video-section {
   display: flex;
   flex-direction: row;
@@ -369,6 +395,10 @@ body {
   justify-content: center;
   align-items: center;
   margin: 0px 350px;
+}
+
+.video-supporting-text {
+  min-width: 60%;
 }
 
 .video-card {
