@@ -1,20 +1,38 @@
-<div class="flex-container">
-  <div class="create-post-container">
-    <h2>Create a New Post</h2>
+<html>
+  <div class="flex-container">
+    <div class="create-post-container">
+      <h2>Create a New Post</h2>
 
-    <form [formGroup]="postForm" (ngSubmit)="onSubmit()">
-      <!-- Title Input -->
-      <label for="title">Title:</label>
-      <input id="title" formControlName="title" type="text" required />
+      <form [formGroup]="postForm" (ngSubmit)="onSubmit()">
+        <!-- Title Input -->
+        <label for="title">Title:</label>
+        <input id="title" formControlName="title" type="text" required />
 
-      <!-- Content Input -->
-      <label for="content">Content:</label>
-      <textarea id="content" formControlName="content" required></textarea>
+        <!-- Content Input -->
+        <label for="content">Content:</label>
+        <textarea id="content" formControlName="content" required></textarea>
 
-      <!-- Submit Button -->
-      <button class="btn-primary" type="submit" [disabled]="postForm.invalid">
-        Create Post
-      </button>
-    </form>
+        <p class="tags-heading">Add relevent tags to your post:</p>
+        <div class="tags">
+          <button
+            *ngFor="let tag of tags"
+            [ngClass]="{ active: selectedTags.includes(tag) }"
+            (click)="toggleTag(tag)"
+            class="tag"
+          >
+            {{ tag }}
+          </button>
+        </div>
+
+        <!-- Submit Button -->
+        <button
+          class="btn-tertiary"
+          type="submit"
+          [disabled]="postForm.invalid"
+        >
+          Create Post
+        </button>
+      </form>
+    </div>
   </div>
-</div>
+</html>

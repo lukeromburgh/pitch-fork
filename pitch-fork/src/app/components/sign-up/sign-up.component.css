@@ -12,7 +12,8 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  min-height: 70vh;
+  min-height: 80vh;
+  background-color: #0d0f1d;
 }
 
 h1 {
@@ -28,23 +29,23 @@ h1 {
 }
 
 .signup-container {
-  display: flex;
   z-index: 10;
+  display: flex;
 
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  padding: 80px;
-  height: 56%;
+  padding: 60px 120px;
+  height: fit-content;
   width: 20%;
-  background-color: #ffffffc4;
-  border: 1px solid #e9e9e9;
-  border-radius: 25px;
+  background-color: #080a11;
+  border: 1px solid #242a35;
+  border-radius: 8px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
 }
 
 .signup-form {
-  background-color: #ffffff00;
+  background-color: #00000000;
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -53,14 +54,16 @@ h1 {
 
 .signup-container h2 {
   text-align: center;
-  margin-bottom: 2rem;
-  font-size: 3rem;
+  font-size: 24px;
+  color: #ffffff;
+  font-weight: 400;
+  margin-bottom: 10px;
 }
 
 .signup-form label {
   display: block;
   font-size: 1rem;
-  color: #333;
+  color: #c1c1c1;
   margin-bottom: 5px;
   text-align: center;
 }
@@ -69,22 +72,26 @@ h1 {
   height: 60px;
   width: 100%;
   text-align: center;
+  background-color: #0d0f1d;
   font-size: 17px;
   margin-bottom: 1.3rem;
-  background-color: #ffffffb9;
-  border: 1px solid #ddd;
+  border: 1px solid #2f2f2f;
   border-radius: 6px;
   outline: none;
+  color: #e7e7e7;
 }
 
-.btn-secondary {
-  background-color: #efc5d2;
-  color: #e41956;
-  padding: 20px 30px;
-  margin-top: 12px;
-  border: 0 solid #e41956;
-  border-radius: 8px;
-  width: 80%;
+.btn-tertiary {
+  min-width: 100%;
+  height: 60px;
+  background-color: #f7f8ff;
+  color: #000000;
+  padding: 16px 24px;
+  margin: 0px;
+  border-style: solid;
+  border-width: 1px;
+  border-color: #c7c7c7;
+  border-radius: 4px;
 
   font-family: "Inter Tight", -apple-system, BlinkMacSystemFont, "Segoe UI",
     Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji",
@@ -97,24 +104,24 @@ h1 {
   transition-duration: 0.3s;
 }
 
-.btn-secondary:hover {
-  background-color: #dba5b5;
+.btn-tertiary:hover {
+  background-color: #9aa5b7;
 }
 
 .login-link {
   display: block;
   text-align: center;
-  margin-top: 15px;
-  font-size: 0.9rem;
+  font-size: 0.8rem;
+  margin-bottom: 48px;
+  color: #bcc4d0;
 }
 
-.login-link a {
-  color: #e41956;
-  text-decoration: none;
-}
-
-.login-link a:hover {
+.login-link:hover {
   text-decoration: underline;
+}
+
+.login-link:checked {
+  color: #d2d7de;
 }
 
 @media screen and (max-width: 650px) {
@@ -126,152 +133,4 @@ h1 {
     width: 100%;
     padding: 2rem;
   }
-}
-
-/* ------------------------------------------------------------------------------------------- */
-
-@keyframes move {
-  100% {
-    transform: translate3d(0, 0, 1px) rotate(360deg);
-  }
-}
-
-.background {
-  position: fixed;
-  width: 100vw;
-  height: 100vh;
-  top: 0;
-  left: 0;
-  background: #ffffff;
-  overflow: hidden;
-}
-
-.background span {
-  width: 50vmin;
-  height: 50vmin;
-  border-radius: 50vmin;
-  backface-visibility: hidden;
-  position: absolute;
-  animation: move;
-  animation-duration: 35;
-  animation-timing-function: linear;
-  animation-iteration-count: infinite;
-}
-
-.background span:nth-child(0) {
-  color: #ffacac;
-  top: 13%;
-  left: 84%;
-  animation-duration: 139s;
-  animation-delay: -109s;
-  transform-origin: 18vw -22vh;
-  box-shadow: 100vmin 0 13.117137107508048vmin currentColor;
-}
-.background span:nth-child(1) {
-  color: #e45a84;
-  top: 62%;
-  left: 76%;
-  animation-duration: 140s;
-  animation-delay: -43s;
-  transform-origin: 17vw -12vh;
-  box-shadow: 100vmin 0 12.949101403083235vmin currentColor;
-}
-.background span:nth-child(2) {
-  color: #47c2ff;
-  top: 8%;
-  left: 8%;
-  animation-duration: 85s;
-  animation-delay: -100s;
-  transform-origin: 0vw -9vh;
-  box-shadow: 100vmin 0 13.398525570551493vmin currentColor;
-}
-.background span:nth-child(3) {
-  color: #47c2ff;
-  top: 64%;
-  left: 19%;
-  animation-duration: 97s;
-  animation-delay: -134s;
-  transform-origin: -11vw 15vh;
-  box-shadow: 100vmin 0 13.335758132778347vmin currentColor;
-}
-.background span:nth-child(4) {
-  color: #e45a84;
-  top: 13%;
-  left: 58%;
-  animation-duration: 139s;
-  animation-delay: -101s;
-  transform-origin: -16vw -24vh;
-  box-shadow: -100vmin 0 13.327339052567414vmin currentColor;
-}
-.background span:nth-child(5) {
-  color: #e45a84;
-  top: 71%;
-  left: 48%;
-  animation-duration: 90s;
-  animation-delay: -5s;
-  transform-origin: -15vw 12vh;
-  box-shadow: 100vmin 0 13.284443052386091vmin currentColor;
-}
-.background span:nth-child(6) {
-  color: #47c2ff;
-  top: 37%;
-  left: 19%;
-  animation-duration: 101s;
-  animation-delay: -53s;
-  transform-origin: -15vw 2vh;
-  box-shadow: -100vmin 0 13.009776500630656vmin currentColor;
-}
-.background span:nth-child(7) {
-  color: #e45a84;
-  top: 80%;
-  left: 53%;
-  animation-duration: 137s;
-  animation-delay: -113s;
-  transform-origin: 18vw 1vh;
-  box-shadow: 100vmin 0 12.857722164203922vmin currentColor;
-}
-.background span:nth-child(8) {
-  color: #ffacac;
-  top: 90%;
-  left: 20%;
-  animation-duration: 23s;
-  animation-delay: -80s;
-  transform-origin: -18vw -13vh;
-  box-shadow: 100vmin 0 12.60926902351435vmin currentColor;
-}
-.background span:nth-child(9) {
-  color: #47c2ff;
-  top: 51%;
-  left: 23%;
-  animation-duration: 78s;
-  animation-delay: -2s;
-  transform-origin: -20vw -17vh;
-  box-shadow: -100vmin 0 13.143051336527032vmin currentColor;
-}
-.background span:nth-child(10) {
-  color: #ffacac;
-  top: 98%;
-  left: 19%;
-  animation-duration: 9s;
-  animation-delay: -98s;
-  transform-origin: -1vw 16vh;
-  box-shadow: 100vmin 0 12.544880351792058vmin currentColor;
-}
-.background span:nth-child(11) {
-  color: #ffacac;
-  top: 31%;
-  left: 15%;
-  animation-duration: 111s;
-  animation-delay: -25s;
-  transform-origin: 0vw -22vh;
-  box-shadow: 100vmin 0 13.344299037868216vmin currentColor;
-}
-.background span:nth-child(12) {
-  color: #e45a84;
-  top: 70%;
-  left: 64%;
-  animation-duration: 59s;
-  animation-delay: -27s;
-  transform-origin: 2vw 25vh;
-  box-shadow: -100vmin 0 12.588335439765151vmin currentColor;
 }

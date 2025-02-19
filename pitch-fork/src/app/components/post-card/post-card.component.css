@@ -1,7 +1,7 @@
 .post-card {
   background-color: #ffffff;
   width: 18rem;
-  height: 12rem;
+  height: 14rem;
   padding: 3rem;
   margin-bottom: 6px;
   border-radius: 8px;
@@ -32,4 +32,29 @@
   justify-content: left;
   width: 100%;
   margin-bottom: 3rem;
+}
+
+.read-more {
+  background-color: #ffffff;
+  color: #000000;
+  padding: 8px 16px;
+  margin-top: 3rem;
+  border-style: solid;
+  border-width: 1px;
+  border-color: #cdcdcd;
+  border-radius: 6px;
+
+  font-family: "Inter Tight", -apple-system, BlinkMacSystemFont, "Segoe UI",
+    Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji",
+    "Segoe UI Symbol";
+  font-weight: 500;
+  font-size: 0.9rem;
+
+  cursor: pointer;
+
+  transition-duration: 0.3s;
+}
+
+.read-more:hover {
+  background-color: #dddddd;
 }

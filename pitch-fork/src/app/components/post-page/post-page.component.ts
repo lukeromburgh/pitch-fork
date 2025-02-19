@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AuthService } from '../../services/auth.service';
 import { PostCardComponent } from '../post-card/post-card.component';
@@ -12,7 +12,8 @@ import { PostCardComponent } from '../post-card/post-card.component';
 })
 export class PostPageComponent implements OnInit {
   posts: any[] = [];
-
+  filteredPosts: any[] = []; // Filtered posts
+  selectedTags: string[] = [];
   tags: string[] = [
     'Tech',
     'AI & Machine Learning',
@@ -46,7 +47,7 @@ export class PostPageComponent implements OnInit {
     'Dashboard',
   ];
 
-  selectedTags: string[] = [];
+  constructor(private authService: AuthService) {}
 
   toggleTag(tag: string) {
     const index = this.selectedTags.indexOf(tag);
@@ -55,9 +56,12 @@ export class PostPageComponent implements OnInit {
     } else {
       this.selectedTags.push(tag); // Add if not selected
     }
+    this.filterPosts();
   }
 
-  constructor(private authService: AuthService) {}
+  isTagSelected(tag: string): boolean {
+    return this.selectedTags.includes(tag);
+  }
 
   ngOnInit(): void {
     this.authService.getPosts().subscribe(
@@ -69,5 +73,15 @@ export class PostPageComponent implements OnInit {
         console.error('Error fetching posts:', error);
       }
     );
+  }
+
+  filterPosts() {
+    if (this.selectedTags.length === 0) {
+      this.filteredPosts = this.posts; // Show all if no tag is selected
+    } else {
+      this.filteredPosts = this.posts.filter(
+        (post) => this.selectedTags.some((tag) => post.tags.includes(tag)) // Match at least one tag
+      );
+    }
   }
 }

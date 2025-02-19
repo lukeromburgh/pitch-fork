@@ -11,7 +11,7 @@
 
 -->
 
-<div *ngIf="post" class="post-card" (click)="viewPost()">
+<div *ngIf="post" class="post-card">
   <h2>{{ post.title }}</h2>
   <p>{{ post.content }}</p>
 
@@ -28,4 +28,5 @@
     <!-- Change this to the username if available -->
     <span>{{ post.date_posted | date : "mediumDate" }}</span>
   </div>
+  <button class="read-more" (click)="viewPost()">Read More</button>
 </div>

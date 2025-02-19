@@ -42,13 +42,24 @@ class Post(db.Model):
     content = db.Column(db.Text, nullable=False)
     date_posted = db.Column(db.DateTime, default=datetime.utcnow)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)  # 🔹 Foreign key
-    category = db.Column(db.String(50), nullable=True)  # 🔹 New column
-    likes = db.Column(db.Integer, default=0)  # 🔹 New column
+    category = db.Column(db.String(100), nullable=True)  # 🔹 New column
 
     user = db.relationship('User', backref=db.backref('posts', lazy=True))  # 🔹 Relationship to User model
 
     def to_dict(self): return { 'id': self.id, 'title': self.title, 'content': self.content,
-        'date_posted': self.date_posted, 'user_id': self.user_id, 'author': self.user.username, 'category': self.category, 'likes': self.likes }
+        'date_posted': self.date_posted, 'user_id': self.user_id, 'author': self.user.username, 'category': self.category }
+
+class Likes(db.Model):
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False, primary_key=True)
+    post_id = db.Column(db.Integer, db.ForeignKey('post.id'), nullable=False, primary_key=True)
+    isActive = db.Column(db.Boolean, nullable=False, default=True)
+    lastUpdated = db.Column(db.DateTime, default=datetime.utcnow)
+
+    user = db.relationship('User', backref=db.backref('user', lazy=True))  # 🔹 Relationship to User model
+    post = db.relationship('Post', backref=db.backref('post', lazy=True))  # 🔹 Relationship to User model
+
+    def to_dict(self): return { 'user_id': self.user_id, 'post_id': self.post_id, 'isActive': self.isActive, 'lastUpdated': self.lastUpdated }
+
 
 # Create tables if they don't exist
 with app.app_context():
@@ -104,7 +115,22 @@ def get_posts():
     user_id = get_jwt_identity()  # This gets the user info from the token
     print(f"Received user_id from JWT: {user_id}")  # Log the user_id to see if it's correctly decoded
     all_posts = Post.query.all()
-    return jsonify([post.to_dict() for post in all_posts])
+    
+    posts_with_likes = []
+    for post in all_posts:
+        like_count = Likes.query.filter_by(post_id=post.id).count()  # Count likes for the post
+        posts_with_likes.append({
+            'id': post.id,
+            'title': post.title,
+            'content': post.content,
+            'category': post.category,
+
+            'date_posted': post.date_posted,
+            'user_id': post.user_id,
+            'likes': like_count  # Include like count in response
+        })
+
+    return jsonify(posts_with_likes), 200
 
 
 # 🔹 Create a New Post (Protected Route)
@@ -118,8 +144,7 @@ def create_post():
         title=data['title'],
         content=data['content'],
         user_id=user_id,  # 🔹 Associate the post with the logged-in user
-        category=data.get('category', ''),  # Optional field
-        likes=0  # Default value
+        category=data.get['category', '']  # Optional field
     )
     
     db.session.add(new_post)
@@ -162,19 +187,25 @@ def update_profile():
     return jsonify({'message': 'Profile updated successfully'}), 200
 
 
-@app.route('/api/posts/<int:post_id>/like', methods=['POST'])
+@app.route('/api/like/<int:post_id>', methods=['POST'])
 @jwt_required()
 def like_post(post_id):
-    user_id = get_jwt_identity()  # Get the user ID from the token
-    post = Post.query.get(post_id)
+    user_id = get_jwt_identity()
 
-    if not post:
-        return jsonify({"error": "Post not found"}), 404
+    existing_like = Likes.query.filter_by(user_id=user_id, post_id=post_id).first()
 
-    post.likes += 1  # Increment like count
+    if existing_like:
+        db.session.delete(existing_like)  # Correct way to "unlike"
+        db.session.commit()
+        return jsonify({'message': 'Unliked', 'likes': Likes.query.filter_by(post_id=post_id).count()}), 200
+
+    new_like = Likes(user_id=user_id, post_id=post_id)
+    db.session.add(new_like)
     db.session.commit()
+    
+    return jsonify({'message': 'Liked', 'likes': Likes.query.filter_by(post_id=post_id).count()}), 201
 
-    return jsonify({"message": "Post liked!", "likes": post.likes}), 200
+
 
 @app.route('/api/user/<int:user_id>/posts', methods=['GET'])
 def get_user_posts(user_id):

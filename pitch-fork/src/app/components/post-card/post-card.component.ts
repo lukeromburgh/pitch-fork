@@ -13,6 +13,7 @@ import { AuthService } from '../../services/auth.service';
 })
 export class PostCardComponent {
   @Input() post: any; // Receives post data dynamically
+  @Input() likes: any;
 
   constructor(private router: Router, private authService: AuthService) {}
 

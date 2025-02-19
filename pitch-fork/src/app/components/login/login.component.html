@@ -1,26 +1,20 @@
-@defer {
 <div class="flex-container background">
-  <span></span>
-  <span></span>
-  <span></span>
-  <span></span>
-  <span></span>
-  <span></span>
-  <span></span>
-  <span></span>
-  <span></span>
-  <span></span>
-  <span></span>
-  <span></span>
-  <span></span>
   <div class="login-container">
-    <h2>Login</h2>
+    <h2>Log in to your account</h2>
+    <a class="signup-link" routerLink="/sign-up"
+      >New to Pitchfork? Get started</a
+    >
     <form class="login-form" (ngSubmit)="onSubmit()" [formGroup]="loginForm">
-      <label for="email">Email</label>
-      <input id="email" formControlName="email" type="email" required />
-
-      <label for="password">Password</label>
       <input
+        placeholder="Email"
+        id="email"
+        formControlName="email"
+        type="email"
+        required
+      />
+
+      <input
+        placeholder="Password"
         id="password"
         formControlName="password"
         type="password"
@@ -28,25 +22,9 @@
         minlength="6"
       />
 
-      <button
-        class="btn-secondary"
-        type="submit"
-        [disabled]="loginForm.invalid"
-      >
+      <button class="btn-tertiary" type="submit" [disabled]="loginForm.invalid">
         Login
       </button>
     </form>
-    <a class="signup-link" routerLink="/sign-up"
-      >Don't have an account yet? Sign up here
-    </a>
   </div>
 </div>
-} @loading (minimum 1s) {
-<h2 class="login-message">
-  Sorry, you need to create an account or log in to use that feature! 🌱
-</h2>
-} @placeholder (minimum 5s) {
-<h2 class="login-message">
-  Sorry, you need to create an account or log in to use that feature! 🌱
-</h2>
-}

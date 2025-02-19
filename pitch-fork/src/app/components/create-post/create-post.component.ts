@@ -29,7 +29,56 @@ export class CreatePostComponent {
     this.postForm = this.fb.group({
       title: ['', [Validators.required, Validators.minLength(3)]],
       content: ['', [Validators.required, Validators.minLength(5)]],
+      tags: this.selectedTags, // Include selected tags
     });
+  }
+
+  tags: string[] = [
+    'Tech',
+    'AI & Machine Learning',
+    'Blockchain & Crypto',
+    'SaaS',
+    'E-commerce',
+    'FinTech',
+    'HealthTech',
+    'EdTech',
+    'GreenTech',
+    'Cybersecurity',
+    'Web3',
+    'Metaverse',
+    'No-Code & Low-Code',
+    'AR/VR',
+    'Remote Work Tools',
+    'Productivity',
+    'Marketing & Growth',
+    'Social Impact',
+    'Game Dev',
+    'AI Agents & Automation',
+    'D2C & Consumer Brands',
+    'SpaceTech',
+    'BioTech',
+    'LegalTech',
+    'Streaming',
+    'Hardware',
+    'Transportation',
+    'Site Builder',
+    'API',
+    'Dashboard',
+  ];
+
+  selectedTags: string[] = [];
+
+  toggleTag(tag: string) {
+    const index = this.selectedTags.indexOf(tag);
+    if (index > -1) {
+      this.selectedTags.splice(index, 1); // Remove if already selected
+    } else {
+      this.selectedTags.push(tag, ','); // Add if not selected
+    }
+  }
+
+  isTagSelected(tag: string): boolean {
+    return this.selectedTags.includes(tag);
   }
 
   onSubmit(): void {

@@ -88,7 +88,7 @@ export class AuthService {
     });
 
     return this.http.post(
-      `http://127.0.0.1:5000/api/posts/${postId}/like`,
+      `http://127.0.0.1:5000/api/like/${postId}`,
       {},
       { headers }
     );
