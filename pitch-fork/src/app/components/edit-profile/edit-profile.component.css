@@ -1,3 +1,4 @@
+/* edit-profile.component.css */
 :host {
   font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
     Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji",
@@ -5,67 +6,240 @@
   box-sizing: border-box;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-}
-
-html {
   background-color: #0d0f1d;
-  min-height: 80vh;
-  min-width: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
 }
 
 .profile-container {
-  max-width: 40%;
-  margin: 0;
-  padding: 0;
-  color: #ffffff;
+  max-width: 600px;
+  margin: 7.5rem auto;
+  padding: 2rem;
+  background-color: #080a11;
+  border: 1px solid #242a35;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  color: white;
+}
+
+.banner-section {
+  margin: -2rem -2rem 2rem -2rem;
 }
 
 .banner-container {
   position: relative;
   width: 100%;
-  height: 150px;
-  background: #ddd;
-  margin-bottom: 10px;
+  height: 200px;
+  overflow: hidden;
+  border-radius: 6px 6px 0 0;
+  background-size: cover;
+  background-position: center;
 }
 
-.banner-preview {
+.banner-image {
   width: 100%;
   height: 100%;
   object-fit: cover;
 }
 
-.profile-picture-container {
+.banner-controls {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 1rem;
+  background: linear-gradient(transparent, rgba(0, 0, 0, 0.7));
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.banner-options {
+  display: flex;
+  gap: 1rem;
+}
+
+.banner-option {
+  cursor: pointer;
+}
+
+.banner-option input[type="radio"]:checked + .option-text {
+  color: #ffffff;
+  font-weight: bold;
+}
+
+.option-text {
+  color: #cccccc;
+  transition: color 0.3s;
+}
+
+.color-picker {
+  display: flex;
+  align-items: center;
+}
+
+.color-input {
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.color-input::-webkit-color-swatch-wrapper {
+  padding: 0;
+}
+
+.color-input::-webkit-color-swatch {
+  border: none;
+  border-radius: 4px;
+}
+
+.profile-header {
   text-align: center;
+  margin-bottom: 2rem;
+}
+
+.profile-picture-container {
+  position: relative;
+  width: 120px;
+  height: 120px;
+  margin: 0 auto;
+  border-radius: 50%;
+  overflow: hidden;
 }
 
 .profile-picture {
-  width: 100px;
-  height: 100px;
-  border-radius: 50%;
+  width: 100%;
+  height: 100%;
   object-fit: cover;
 }
 
-form {
+.upload-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.5);
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.profile-picture-container:hover .upload-overlay {
+  opacity: 1;
+}
+
+.upload-button {
+  padding: 8px 16px;
+  background: white;
+  color: #2c3539;
+  border-radius: 20px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.hidden {
+  display: none;
+}
+
+.form-content {
   display: flex;
   flex-direction: column;
-  color: #ffffff;
+  max-width: 95%;
+  margin-top: 2rem;
 }
 
-input,
-textarea {
-  margin-bottom: 10px;
-  padding: 8px;
+.form-group {
+  margin-bottom: 1.5rem;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+}
+
+.form-input,
+.form-textarea {
   width: 100%;
+  padding: 0.75rem;
+  background: #0d0f1d;
+  border: 1px solid #4a5459;
+  border-radius: 6px;
+  color: white;
+  font-size: 16px;
 }
 
-button {
-  background: #007bff;
-  color: white;
-  padding: 10px;
-  border: none;
+.form-input:disabled,
+.form-input[readonly] {
+  background: #21272a;
+  cursor: not-allowed;
+}
+
+.form-textarea {
+  resize: vertical;
+  min-height: 100px;
+}
+
+.error-message {
+  color: #ff4444;
+  font-size: 0.875rem;
+  margin-top: 0.25rem;
+}
+
+.button-group {
+  display: flex;
+  gap: 1rem;
+  margin-top: 2rem;
+}
+
+.save-button,
+.cancel-button {
+  padding: 0.75rem 1.5rem;
+  border-radius: 20px;
+  font-size: 16px;
   cursor: pointer;
+  transition: all 0.3s;
+}
+
+.save-button {
+  background: white;
+  color: #2c3539;
+  border: none;
+  flex: 1;
+}
+
+.save-button:disabled {
+  background: #4a5459;
+  cursor: not-allowed;
+}
+
+.cancel-button {
+  background: transparent;
+  color: white;
+  border: 2px solid white;
+  flex: 1;
+}
+
+.cancel-button:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+@media (max-width: 640px) {
+  .profile-container {
+    margin: 1rem;
+    padding: 1rem;
+  }
+
+  .button-group {
+    flex-direction: column;
+  }
+
+  .save-button,
+  .cancel-button {
+    width: 100%;
+  }
 }

@@ -7,11 +7,11 @@ import {
   ReactiveFormsModule,
 } from '@angular/forms';
 import { AuthService } from '../../services/auth.service';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 
 @Component({
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule],
+  imports: [CommonModule, ReactiveFormsModule, RouterLink],
   selector: 'app-edit-profile',
   templateUrl: './edit-profile.component.html',
   styleUrls: ['./edit-profile.component.css'],
@@ -19,6 +19,8 @@ import { Router } from '@angular/router';
 export class EditProfileComponent implements OnInit {
   profileForm!: FormGroup;
   profilePicturePreview: string | ArrayBuffer | null = null;
+  bannerPreview: string | ArrayBuffer | null = null;
+  selectedColor: string = '#2C3539';
 
   constructor(
     private fb: FormBuilder,
@@ -33,6 +35,8 @@ export class EditProfileComponent implements OnInit {
       email: [{ value: '', disabled: true }],
       bio: ['', [Validators.maxLength(200)]],
       password: ['', [Validators.minLength(6)]],
+      bannerType: ['image'], // Add this
+      bannerColor: ['#2C3539'],
     });
 
     // Fetch the user's existing profile data
@@ -42,7 +46,11 @@ export class EditProfileComponent implements OnInit {
           username: data.username,
           email: data.email,
           bio: data.bio,
+          bannerType: data.bannerType || 'image',
+          bannerColor: data.bannerColor || '#2C3539',
         });
+        this.selectedColor = data.bannerColor || '#2C3539';
+        this.bannerPreview = data.bannerUrl || null;
       },
       (error) => {
         console.error('Error fetching profile data', error);
@@ -59,6 +67,21 @@ export class EditProfileComponent implements OnInit {
       };
       reader.readAsDataURL(file);
     }
+  }
+
+  onBannerFileChange(event: any): void {
+    const file = event.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = () => {
+        this.bannerPreview = reader.result;
+      };
+      reader.readAsDataURL(file);
+    }
+  }
+
+  onColorChange(event: any): void {
+    this.selectedColor = event.target.value;
   }
 
   onSubmit(): void {

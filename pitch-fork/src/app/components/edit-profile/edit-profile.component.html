@@ -1,33 +1,162 @@
-<form [formGroup]="profileForm" (ngSubmit)="onSubmit()">
-  <div>
-    <label for="username">Username:</label>
-    <input id="username" formControlName="username" />
-  </div>
+<div class="profile-container">
+  <form [formGroup]="profileForm" (ngSubmit)="onSubmit()">
+    <div class="banner-section">
+      <div
+        class="banner-container"
+        [style.background-color]="selectedColor || '#2C3539'"
+      >
+        <img
+          *ngIf="bannerPreview"
+          [src]="bannerPreview"
+          alt="Banner"
+          class="banner-image"
+        />
+        <div class="banner-controls">
+          <div class="banner-options">
+            <label class="banner-option">
+              <input
+                type="radio"
+                formControlName="bannerType"
+                value="image"
+                class="hidden"
+              />
+              <span class="option-text">Upload Image</span>
+            </label>
+            <label class="banner-option">
+              <input
+                type="radio"
+                formControlName="bannerType"
+                value="color"
+                class="hidden"
+              />
+              <span class="option-text">Solid Color</span>
+            </label>
+          </div>
 
-  <div>
-    <label for="email">Email:</label>
-    <input id="email" formControlName="email" />
-  </div>
+          <div
+            *ngIf="profileForm.get('bannerType')?.value === 'image'"
+            class="banner-upload"
+          >
+            <label for="bannerImage" class="upload-button">
+              Choose Image
+              <input
+                type="file"
+                id="bannerImage"
+                (change)="onBannerFileChange($event)"
+                accept="image/*"
+                class="hidden"
+              />
+            </label>
+          </div>
 
-  <div>
-    <label for="bio">Bio:</label>
-    <textarea id="bio" formControlName="bio"></textarea>
-  </div>
+          <div
+            *ngIf="profileForm.get('bannerType')?.value === 'color'"
+            class="color-picker"
+          >
+            <input
+              type="color"
+              formControlName="bannerColor"
+              (input)="onColorChange($event)"
+              class="color-input"
+            />
+          </div>
+        </div>
+      </div>
+    </div>
 
-  <div>
-    <label for="password">New Password:</label>
-    <input id="password" type="password" formControlName="password" />
-  </div>
+    <div class="profile-header">
+      <div class="profile-picture-section">
+        <div class="profile-picture-container">
+          <img
+            [src]="profilePicturePreview || '/api/placeholder/120/120'"
+            alt="Profile Picture"
+            class="profile-picture"
+          />
+          <div class="upload-overlay">
+            <label for="profilePicture" class="upload-button">
+              Change Picture
+              <input
+                type="file"
+                id="profilePicture"
+                (change)="onFileChange($event)"
+                accept="image/*"
+                class="hidden"
+              />
+            </label>
+          </div>
+        </div>
+      </div>
+    </div>
 
-  <div>
-    <label for="profilePicture">Profile Picture:</label>
-    <input id="profilePicture" type="file" (change)="onFileChange($event)" />
-    <img
-      *ngIf="profilePicturePreview"
-      [src]="profilePicturePreview"
-      alt="Preview"
-    />
-  </div>
+    <div class="form-content">
+      <div class="form-group">
+        <label for="username">Username</label>
+        <input
+          type="text"
+          id="username"
+          formControlName="username"
+          class="form-input"
+          readonly
+        />
+      </div>
 
-  <button type="submit" [disabled]="profileForm.invalid">Save Changes</button>
-</form>
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input
+          type="email"
+          id="email"
+          formControlName="email"
+          class="form-input"
+          readonly
+        />
+      </div>
+
+      <div class="form-group">
+        <label for="bio">Bio</label>
+        <textarea
+          id="bio"
+          formControlName="bio"
+          class="form-textarea"
+          rows="4"
+          placeholder="Tell us about yourself..."
+        ></textarea>
+        <div
+          *ngIf="profileForm.get('bio')?.errors?.['maxlength']"
+          class="error-message"
+        >
+          Bio must be less than 200 characters
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="password">New Password (Optional)</label>
+        <input
+          type="password"
+          id="password"
+          formControlName="password"
+          class="form-input"
+          placeholder="Leave blank to keep current password"
+        />
+        <div
+          *ngIf="profileForm.get('password')?.errors?.['minlength']"
+          class="error-message"
+        >
+          Password must be at least 6 characters
+        </div>
+      </div>
+
+      <div class="button-group">
+        <button
+          type="submit"
+          class="save-button"
+          [disabled]="!profileForm.valid"
+        >
+          Save Changes
+        </button>
+        <button type="button" class="cancel-button" [routerLink]="['/profile']">
+          Cancel
+        </button>
+      </div>
+    </div>
+  </form>
+</div>
