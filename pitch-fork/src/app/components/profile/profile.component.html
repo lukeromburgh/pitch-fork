@@ -1,25 +1,44 @@
-<div class="profile-container">
-  <div class="banner">
-    <img *ngIf="user?.banner" [src]="user.banner" alt="Banner Image" />
-  </div>
+<html>
+  <div class="profile-container">
+    <h2>Profile Settings</h2>
 
-  <div class="profile-info">
-    <img
-      *ngIf="user?.profile_picture"
-      [src]="user.profile_picture"
-      class="profile-pic"
-    />
-    <h2>{{ user?.username }}</h2>
-    <p class="bio">{{ user?.bio }}</p>
-
-    <button (click)="editProfile()">Edit Profile</button>
-  </div>
-
-  <div class="posts-section">
-    <h3>Your Posts</h3>
-    <div *ngFor="let post of userPosts" class="post-card">
-      <h4>{{ post.title }}</h4>
-      <p>{{ post.content }}</p>
+    <!-- Banner -->
+    <div class="banner-container">
+      <img *ngIf="bannerPreview" [src]="bannerPreview" class="banner-preview" />
+      <input type="file" (change)="onBannerChange($event)" />
     </div>
+
+    <!-- Profile Picture -->
+    <div class="profile-picture-container">
+      <img
+        *ngIf="profilePicturePreview"
+        [src]="profilePicturePreview"
+        class="profile-picture"
+      />
+      <input type="file" (change)="onProfilePictureChange($event)" />
+    </div>
+
+    <form [formGroup]="profileForm" (ngSubmit)="onSubmit()">
+      <label>Username:</label>
+      <input type="text" formControlName="username" />
+
+      <label>Email:</label>
+      <input type="email" formControlName="email" />
+
+      <label>Bio:</label>
+      <textarea
+        formControlName="bio"
+        placeholder="Write something about yourself..."
+      ></textarea>
+
+      <h3>Change Password</h3>
+      <label>Old Password:</label>
+      <input type="password" formControlName="old_password" />
+
+      <label>New Password:</label>
+      <input type="password" formControlName="new_password" />
+
+      <button type="submit">Update Profile</button>
+    </form>
   </div>
-</div>
+</html>

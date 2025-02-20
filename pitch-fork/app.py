@@ -4,6 +4,7 @@ from flask_bcrypt import Bcrypt
 from flask_jwt_extended import JWTManager, create_access_token, jwt_required, get_jwt_identity
 from flask_cors import CORS, cross_origin
 from datetime import datetime
+import os
 
 app = Flask(__name__)
 CORS(app, origins="http://localhost:4200")
@@ -176,16 +177,38 @@ def get_profile():
 def update_profile():
     user_id = get_jwt_identity()
     user = User.query.get(user_id)
+    
     if not user:
         return jsonify({'error': 'User not found'}), 404
 
-    data = request.get_json()
-    # Update user fields if provided
-    if 'username' in data:
-        user.username = data['username']
-    if 'email' in data:
-        user.email = data['email']
-    # Update other fields as necessary
+    # Get form data (if sending files)
+    data = request.form
+
+    # Update bio
+    if 'bio' in data:
+        user.bio = data['bio']
+
+    # Update password if provided
+    if 'old_password' in data and 'new_password' in data:
+        if not check_password_hash(user.password, data['old_password']):
+            return jsonify({'error': 'Incorrect old password'}), 400
+        user.password = generate_password_hash(data['new_password'])
+
+    # Handle profile picture upload
+    if 'profile_picture' in request.files:
+        profile_picture = request.files['profile_picture']
+        if profile_picture.filename != '':
+            profile_path = f"uploads/profile_pics/{user_id}.jpg"  # Customize storage path
+            profile_picture.save(profile_path)
+            user.profile_picture = profile_path  # Save path in DB
+
+    # Handle banner upload
+    if 'banner' in request.files:
+        banner = request.files['banner']
+        if banner.filename != '':
+            banner_path = f"uploads/banners/{user_id}.jpg"
+            banner.save(banner_path)
+            user.banner = banner_path
 
     db.session.commit()
     return jsonify({'message': 'Profile updated successfully'}), 200
