@@ -1,44 +1,28 @@
-<html>
+<body>
   <div class="profile-container">
-    <h2>Profile Settings</h2>
-
-    <!-- Banner -->
     <div class="banner-container">
-      <img *ngIf="bannerPreview" [src]="bannerPreview" class="banner-preview" />
-      <input type="file" (change)="onBannerChange($event)" />
-    </div>
-
-    <!-- Profile Picture -->
-    <div class="profile-picture-container">
       <img
-        *ngIf="profilePicturePreview"
-        [src]="profilePicturePreview"
-        class="profile-picture"
+        [src]="userProfile?.banner || 'default-banner.png'"
+        alt="User Banner"
+        class="banner-image"
       />
-      <input type="file" (change)="onProfilePictureChange($event)" />
     </div>
-
-    <form [formGroup]="profileForm" (ngSubmit)="onSubmit()">
-      <label>Username:</label>
-      <input type="text" formControlName="username" />
-
-      <label>Email:</label>
-      <input type="email" formControlName="email" />
-
-      <label>Bio:</label>
-      <textarea
-        formControlName="bio"
-        placeholder="Write something about yourself..."
-      ></textarea>
-
-      <h3>Change Password</h3>
-      <label>Old Password:</label>
-      <input type="password" formControlName="old_password" />
-
-      <label>New Password:</label>
-      <input type="password" formControlName="new_password" />
-
-      <button type="submit">Update Profile</button>
-    </form>
+    <div class="profile-image-container">
+      <img [src]="'avatar-5.png'" alt="Profile Picture" class="profile-image" />
+    </div>
+    <div class="profile-info">
+      <h1 class="username">{{ userProfile?.username }}</h1>
+      <p class="bio">
+        {{
+          userProfile?.bio ||
+            "This is a user bio. Write something interesting about yourself that
+        others would like to know. Share your interests, hobbies, or anything
+        else that makes you unique!"
+        }}
+      </p>
+      <button class="edit-button" (click)="goToEditProfile()">
+        Edit Profile
+      </button>
+    </div>
   </div>
-</html>
+</body>

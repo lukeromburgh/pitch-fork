@@ -1,0 +1,33 @@
+<form [formGroup]="profileForm" (ngSubmit)="onSubmit()">
+  <div>
+    <label for="username">Username:</label>
+    <input id="username" formControlName="username" />
+  </div>
+
+  <div>
+    <label for="email">Email:</label>
+    <input id="email" formControlName="email" />
+  </div>
+
+  <div>
+    <label for="bio">Bio:</label>
+    <textarea id="bio" formControlName="bio"></textarea>
+  </div>
+
+  <div>
+    <label for="password">New Password:</label>
+    <input id="password" type="password" formControlName="password" />
+  </div>
+
+  <div>
+    <label for="profilePicture">Profile Picture:</label>
+    <input id="profilePicture" type="file" (change)="onFileChange($event)" />
+    <img
+      *ngIf="profilePicturePreview"
+      [src]="profilePicturePreview"
+      alt="Preview"
+    />
+  </div>
+
+  <button type="submit" [disabled]="profileForm.invalid">Save Changes</button>
+</form>
