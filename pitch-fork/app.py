@@ -42,7 +42,7 @@ class Post(db.Model):
     content = db.Column(db.Text, nullable=False)
     date_posted = db.Column(db.DateTime, default=datetime.utcnow)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)  # 🔹 Foreign key
-    category = db.Column(db.String(100), nullable=True)  # 🔹 New column
+    category = db.Column(db.String(255), nullable=True)  # 🔹 New column
 
     user = db.relationship('User', backref=db.backref('posts', lazy=True))  # 🔹 Relationship to User model
 
@@ -140,13 +140,17 @@ def create_post():
     user_id = get_jwt_identity()  # 🔹 Get user ID from token
     data = request.json
 
+    print("Received data:", data)
+
+    tags = data.get('tags', '')
+
     new_post = Post(
         title=data['title'],
         content=data['content'],
         user_id=user_id,  # 🔹 Associate the post with the logged-in user
-        category=data.get['category', '']  # Optional field
+        category=tags  # Optional field
     )
-    
+
     db.session.add(new_post)
     db.session.commit()
     return jsonify(new_post.to_dict()), 201

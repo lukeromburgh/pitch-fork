@@ -15,6 +15,7 @@
         <p class="tags-heading">Add relevent tags to your post:</p>
         <div class="tags">
           <button
+            type="button"
             *ngFor="let tag of tags"
             [ngClass]="{ active: selectedTags.includes(tag) }"
             (click)="toggleTag(tag)"

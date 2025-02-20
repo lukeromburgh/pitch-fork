@@ -47,27 +47,12 @@ export class PostPageComponent implements OnInit {
     'Dashboard',
   ];
 
-  constructor(private authService: AuthService) {}
-
-  toggleTag(tag: string) {
-    const index = this.selectedTags.indexOf(tag);
-    if (index > -1) {
-      this.selectedTags.splice(index, 1); // Remove if already selected
-    } else {
-      this.selectedTags.push(tag); // Add if not selected
-    }
-    this.filterPosts();
-  }
-
-  isTagSelected(tag: string): boolean {
-    return this.selectedTags.includes(tag);
-  }
-
   ngOnInit(): void {
     this.authService.getPosts().subscribe(
       (data) => {
         console.log('Posts received:', data); // Debugging: See the fetched posts
         this.posts = data;
+        this.filteredPosts = [...this.posts];
       },
       (error) => {
         console.error('Error fetching posts:', error);
@@ -75,13 +60,40 @@ export class PostPageComponent implements OnInit {
     );
   }
 
-  filterPosts() {
-    if (this.selectedTags.length === 0) {
-      this.filteredPosts = this.posts; // Show all if no tag is selected
+  constructor(private authService: AuthService) {}
+
+  toggleTag(tag: string) {
+    console.log(`Tag clicked: ${tag}`);
+    const index = this.selectedTags.indexOf(tag);
+    if (index > -1) {
+      this.selectedTags.splice(index, 1); // Remove if already selected
     } else {
-      this.filteredPosts = this.posts.filter(
-        (post) => this.selectedTags.some((tag) => post.tags.includes(tag)) // Match at least one tag
-      );
+      this.selectedTags.push(tag); // Add if not selected
     }
+    console.log('Selected Tags:', this.selectedTags);
+    this.filterPosts();
+  }
+
+  isTagSelected(tag: string): boolean {
+    return this.selectedTags.includes(tag);
+  }
+
+  filterPosts() {
+    console.log('Filtering with tags:', this.selectedTags);
+
+    if (this.selectedTags.length === 0) {
+      this.filteredPosts = [...this.posts]; // Show all if no tag is selected
+    } else {
+      this.filteredPosts = this.posts.filter((post) => {
+        // Convert category string into an array
+        const postTags = post.category ? post.category.split(',') : [];
+
+        return postTags.some((tag: string) =>
+          this.selectedTags.includes(tag.trim())
+        );
+      });
+    }
+
+    console.log('Filtered Posts:', this.filteredPosts);
   }
 }

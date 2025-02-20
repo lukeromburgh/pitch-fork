@@ -29,7 +29,7 @@ export class CreatePostComponent {
     this.postForm = this.fb.group({
       title: ['', [Validators.required, Validators.minLength(3)]],
       content: ['', [Validators.required, Validators.minLength(5)]],
-      tags: this.selectedTags, // Include selected tags
+      tags: this.selectedTags.join(','),
     });
   }
 
@@ -73,8 +73,9 @@ export class CreatePostComponent {
     if (index > -1) {
       this.selectedTags.splice(index, 1); // Remove if already selected
     } else {
-      this.selectedTags.push(tag, ','); // Add if not selected
+      this.selectedTags.push(tag); // Add if not selected
     }
+    console.log('Selected Tags after toggle: ', this.selectedTags); // Debugging: Check selected tags after toggle
   }
 
   isTagSelected(tag: string): boolean {
@@ -93,7 +94,12 @@ export class CreatePostComponent {
         return;
       }
 
+      this.postForm.patchValue({ tags: this.selectedTags.join(',') });
+
       const newPost = this.postForm.value;
+      console.log('Selected Tags: ', this.selectedTags);
+      console.log('Updated Post Data:', newPost); // Debugging: Check the updated form data
+
       this.postService.createPost(newPost, token).subscribe(
         (response) => {
           console.log('Post created successfully!', response);

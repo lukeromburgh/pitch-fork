@@ -20,7 +20,7 @@
 
   <!-- 📜 Posts List -->
   <div class="post-list">
-    <div *ngFor="let post of posts">
+    <div *ngFor="let post of filteredPosts">
       <app-post-card [post]="post"></app-post-card>
     </div>
   </div>
