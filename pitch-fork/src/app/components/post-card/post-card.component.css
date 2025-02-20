@@ -1,7 +1,7 @@
 .post-card {
   background-color: #ffffff;
   width: 18rem;
-  height: 14rem;
+  height: 18rem;
   padding: 3rem;
   margin-bottom: 6px;
   border-radius: 8px;
@@ -18,6 +18,10 @@
 
 .post-card:hover {
   transform: translateY(-5px);
+}
+
+.post-content {
+  font-weight: 300;
 }
 
 h2 {

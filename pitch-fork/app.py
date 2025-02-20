@@ -30,6 +30,8 @@ class User(db.Model):
     bio = db.Column(db.Text, nullable=True)
     profile_picture = db.Column(db.String(255), nullable=True)
     banner = db.Column(db.String(255), nullable=True)
+    banner_type = db.Column(db.String(10), default='image')
+    banner_color = db.Column(db.String(7), default='#2C3539')
 
     def set_password(self, password):
         self.password_hash = bcrypt.generate_password_hash(password).decode('utf-8')
@@ -198,9 +200,16 @@ def update_profile():
     if 'profile_picture' in request.files:
         profile_picture = request.files['profile_picture']
         if profile_picture.filename != '':
-            profile_path = f"uploads/profile_pics/{user_id}.jpg"  # Customize storage path
+            profile_path = f"uploads/profile_pics/{user_id}.png"  # Customize storage path
             profile_picture.save(profile_path)
             user.profile_picture = profile_path  # Save path in DB
+
+    # Handle banner type and color
+    if 'banner_type' in data and data['banner_type'] == 'color':
+        user.banner_type = 'color'
+        user.banner_color = data.get('banner_color', '#2C3539')
+    else:
+        user.banner_type = 'image'
 
     # Handle banner upload
     if 'banner' in request.files:

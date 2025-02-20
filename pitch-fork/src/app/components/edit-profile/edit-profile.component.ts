@@ -18,6 +18,8 @@ import { Router, RouterLink } from '@angular/router';
 })
 export class EditProfileComponent implements OnInit {
   profileForm!: FormGroup;
+  profilePictureFile: File | null = null;
+  bannerFile: File | null = null;
   profilePicturePreview: string | ArrayBuffer | null = null;
   bannerPreview: string | ArrayBuffer | null = null;
   selectedColor: string = '#2C3539';
@@ -61,6 +63,7 @@ export class EditProfileComponent implements OnInit {
   onFileChange(event: any): void {
     const file = event.target.files[0];
     if (file) {
+      this.profilePictureFile = file;
       const reader = new FileReader();
       reader.onload = () => {
         this.profilePicturePreview = reader.result;
@@ -72,6 +75,7 @@ export class EditProfileComponent implements OnInit {
   onBannerFileChange(event: any): void {
     const file = event.target.files[0];
     if (file) {
+      this.bannerFile = file;
       const reader = new FileReader();
       reader.onload = () => {
         this.bannerPreview = reader.result;
@@ -86,8 +90,42 @@ export class EditProfileComponent implements OnInit {
 
   onSubmit(): void {
     if (this.profileForm.valid) {
-      const profileData = this.profileForm.value;
-      this.authService.updateProfile(profileData).subscribe(
+      const formData = new FormData();
+
+      // Add text fields
+      if (this.profileForm.get('bio')?.value) {
+        formData.append('bio', this.profileForm.get('bio')?.value);
+      }
+
+      if (this.profileForm.get('password')?.value) {
+        formData.append(
+          'new_password',
+          this.profileForm.get('password')?.value
+        );
+      }
+
+      // Add banner type and color if using solid color
+      if (this.profileForm.get('bannerType')?.value === 'color') {
+        formData.append('banner_type', 'color');
+        formData.append(
+          'banner_color',
+          this.profileForm.get('bannerColor')?.value
+        );
+      }
+
+      // Add files if they exist
+      if (this.profilePictureFile) {
+        formData.append('profile_picture', this.profilePictureFile);
+      }
+
+      if (
+        this.bannerFile &&
+        this.profileForm.get('bannerType')?.value === 'image'
+      ) {
+        formData.append('banner', this.bannerFile);
+      }
+
+      this.authService.updateProfile(formData).subscribe(
         (response) => {
           console.log('Profile updated successfully', response);
           this.router.navigate(['/profile']);

@@ -73,10 +73,22 @@ export class AuthService {
   updateProfile(profileData: any): Observable<any> {
     const token = localStorage.getItem('token');
     const headers = new HttpHeaders({
-      'Content-Type': 'application/json',
+      // Remove Content-Type as it will be automatically set for FormData
       Authorization: `Bearer ${token}`,
     });
-    return this.http.put(`${this.baseUrl}/api/profile`, profileData, {
+
+    // Create FormData object
+    const formData = new FormData();
+
+    // Append the form fields to FormData
+    Object.keys(profileData).forEach((key) => {
+      // Only append if the value exists and isn't null/undefined
+      if (profileData[key] != null) {
+        formData.append(key, profileData[key]);
+      }
+    });
+
+    return this.http.put(`${this.baseUrl}/api/profile`, formData, {
       headers,
     });
   }
