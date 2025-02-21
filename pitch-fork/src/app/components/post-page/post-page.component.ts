@@ -13,6 +13,7 @@ import { RouterLink, Router, RouterLinkActive } from '@angular/router';
 })
 export class PostPageComponent implements OnInit {
   posts: any[] = [];
+  notSignedIn = false;
   filteredPosts: any[] = []; // Filtered posts
   selectedTags: string[] = [];
   tags: string[] = [
@@ -49,6 +50,11 @@ export class PostPageComponent implements OnInit {
   ];
 
   ngOnInit(): void {
+    if (!this.authService.isAuthenticated()) {
+      this.notSignedIn = true;
+      return;
+    }
+
     this.authService.getPosts().subscribe(
       (data) => {
         console.log('Posts received:', data); // Debugging: See the fetched posts
@@ -57,6 +63,7 @@ export class PostPageComponent implements OnInit {
       },
       (error) => {
         console.error('Error fetching posts:', error);
+        this.notSignedIn = true;
       }
     );
   }

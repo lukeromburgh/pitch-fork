@@ -25,18 +25,28 @@
     </div>
   </div>
 
-  <div *ngIf="filteredPosts.length === 0" class="no-posts">
-    <h1>Uh oh!</h1>
-    <p>
-      No posts found with the selected tags. <br />
-      Be the first to create one?
-    </p>
-    <button
-      [routerLink]="'create-post'"
-      class="create-post-button"
-      type="button"
-    >
-      Create post
+  <div class="not-signed-in" *ngIf="notSignedIn">
+    <h1>Sorry</h1>
+    <p>Sign in to view more posts!</p>
+    <button [routerLink]="'/login'" class="create-post-button" type="button">
+      Sign in
     </button>
+  </div>
+
+  <div *ngIf="!notSignedIn">
+    <div *ngIf="filteredPosts.length === 0" class="no-posts">
+      <h1>Uh oh!</h1>
+      <p>
+        No posts found with the selected tags. <br />
+        Be the first to create one?
+      </p>
+      <button
+        [routerLink]="'create-post'"
+        class="create-post-button"
+        type="button"
+      >
+        Create post
+      </button>
+    </div>
   </div>
 </div>

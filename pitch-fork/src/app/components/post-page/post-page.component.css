@@ -101,6 +101,36 @@ button:hover {
   scale: 102%;
 } */
 
+.not-signed-in {
+  align-self: center;
+  justify-self: center;
+  text-align: center;
+  padding: 6rem 4rem;
+  margin: 50px 0px;
+  max-width: 20%;
+  background-color: #0d0f1d;
+  border: 1px solid #3f3f3f;
+  border-radius: 8px;
+  font-size: 1.2rem;
+  color: #ffffff;
+  transition-duration: 0.4s;
+}
+
+.not-signed-in:hover {
+  scale: 102%;
+  box-shadow: 0 0px 30px rgba(63, 63, 63, 0.189);
+}
+
+.not-signed-in h1 {
+  font-weight: 500;
+  margin: 0;
+}
+
+.not-signed-in p {
+  font-weight: 300;
+  color: #c8c8c8;
+}
+
 .no-posts {
   align-self: center;
   justify-self: center;
