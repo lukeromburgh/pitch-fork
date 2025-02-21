@@ -1,93 +1,156 @@
-<main class="main">
-  <div class="content">
-    <div class="left-side">
+<html>
+  <head>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <main class="main">
+    <div class="particle-container">
+      <div class="particle"></div>
+      <div class="particle"></div>
+      <div class="particle"></div>
+      <div class="particle"></div>
+      <div class="particle"></div>
+      <div class="particle"></div>
+      <div class="particle"></div>
+      <div class="particle"></div>
+      <div class="particle"></div>
+      <div class="particle"></div>
+      <div class="particle"></div>
+      <div class="particle"></div>
+      <div class="particle"></div>
+      <div class="particle"></div>
+      <div class="particle"></div>
+      <div class="particle"></div>
+      <div class="particle"></div>
+      <div class="particle"></div>
+      <div class="particle"></div>
+      <div class="particle"></div>
+      <div class="particle"></div>
+      <div class="particle"></div>
+      <div class="particle"></div>
+      <div class="particle"></div>
+      <div class="particle"></div>
+    </div>
+    <div class="content">
       <h1>
-        Validate your startup ideas, <br /><span class="hero-text-span"
-          >faster than ever before</span
-        >
+        Unlock Your Full Potential. Join the #1 Community for Productive
+        Developers & Founders.
       </h1>
       <p>
         Gain invaluable insight and guidance from expereienced founders and
         community members. 🎉
       </p>
-      <button class="btn-primary" routerLink="/login">Sign up →</button>
-      <button class="btn-secondary" routerLink="/">Learn more</button>
+      <div class="button-flex">
+        <button class="btn-primary" routerLink="/sign-up">Sign up →</button>
+        <button class="btn-tertiary" routerLink="/about">Learn more</button>
+      </div>
       <br />
       <a class="login-link" routerLink="/login"
         >Already have an account? Login here</a
       >
     </div>
+  </main>
+
+  <div
+    style="
+      background-color: #0d0f1d;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    "
+  >
+    <button class="btn-tertiary" routerLink="posts">View all posts</button>
   </div>
-</main>
 
-<div style="display: flex; flex-direction: column; align-items: center">
-  <button class="btn-tertiary" routerLink="posts">View more</button>
-</div>
+  <div class="post-wrapper">
+    <div class="post-container">
+      <div class="post-card" *ngFor="let post of posts">
+        <div class="user">
+          <img class="avatar" [src]="post.src" />
+          <span>{{ post.username }}</span>
+        </div>
 
-<div class="post-container">
-  <app-post-card></app-post-card>
-  <app-post-card></app-post-card>
-  <app-post-card></app-post-card>
-  <app-post-card></app-post-card>
-  <app-post-card></app-post-card>
-  <app-post-card></app-post-card>
-  <app-post-card></app-post-card>
-  <app-post-card></app-post-card>
-</div>
-
-<div
-  style="
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin-bottom: 80px;
-  "
->
-  <p>Create your first post</p>
-  <button class="plus-button">＋</button>
-</div>
-
-<div class="banner">
-  <div class="banner-left">
-    <h3>Why Validate Before You Build?</h3>
-    <p>
-      Most startups fail due to lack of market demand. Don't waste months
-      building something nobody wants—get real feedback before you invest time
-      and money.
-    </p>
+        <h2>{{ post.title }}</h2>
+        <p>{{ post.content }}</p>
+        <div class="meta">
+          <span>{{ post.date_posted | date : "mediumDate" }}</span>
+        </div>
+      </div>
+    </div>
   </div>
-  <div class="banner-right">
-    <p>
-      💡 Post your idea → Receive constructive feedback → Iterate & improve.
-      <br />
-      ✅ Validate your concept before launching <br />
-      ✅ Engage with fellow entrepreneurs and innovators<br />
-      ✅ Discover trending startup ideas <br />
-      📌 Join a community of builders & dreamers.
-    </p>
-  </div>
-</div>
 
-<div class="hero-2">
-  <div class="explanation-card">
-    <h3><span class="emoji">🎯</span> Share Your Startup Idea</h3>
-    <p>Write a short pitch—what’s the problem you’re solving?</p>
-
-    <h3><span class="emoji">💡</span> Get Community Feedback</h3>
-    <p>
-      Entrepreneurs, investors, and builders will comment, vote, and share
-      insights.
-    </p>
-
-    <h3><span class="emoji">💎</span> Improve & Iterate</h3>
-    <p>Refine your idea based on feedback before taking the next step.</p>
+  <div
+    style="
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-bottom: 80px;
+      background-color: #0d0f1d;
+    "
+  >
+    <p class="light-text">Create your first post</p>
+    <button routerLink="/create-post" class="plus-button">＋</button>
   </div>
-  <div>
-    <h1 class="hero-2-text">
-      <span class="hero-2-span-text">Got an idea?</span><br />
-      <span class="hero-2-span-text">Post it.</span><br />
-      <span class="hero-2-span-text">Get feedback.</span><br />
-      <span class="hero-2-span-text">Iterate.</span>
-    </h1>
+
+  <div class="banner">
+    <div class="banner-left">
+      <h3>Why Validate Before You Build?</h3>
+      <p>
+        Most startups fail due to lack of market demand. Don't waste months
+        building something nobody wants—get real feedback before you invest time
+        and money.
+      </p>
+    </div>
+    <div class="banner-right">
+      <p>
+        ✅ Validate your concept before launching <br />
+        ✅ Engage with fellow entrepreneurs and innovators<br />
+        ✅ Discover trending startup ideas <br />
+      </p>
+    </div>
   </div>
-</div>
+
+  <div class="hero-2">
+    <div class="explanation-card">
+      <h3><span class="emoji">🎯</span> Share Your Startup Idea</h3>
+      <p>Write a short pitch—what’s the problem you’re solving?</p>
+
+      <h3><span class="emoji">💡</span> Get Community Feedback</h3>
+      <p>
+        Entrepreneurs, investors, and builders will comment, vote, and share
+        insights.
+      </p>
+
+      <h3><span class="emoji">💎</span> Improve & Iterate</h3>
+      <p>Refine your idea based on feedback before taking the next step.</p>
+    </div>
+    <div>
+      <h1 class="hero-2-text">
+        <span class="hero-2-span-text">Got an idea?</span><br />
+        <span class="hero-2-span-text">Post it.</span><br />
+        <span class="hero-2-span-text">Get feedback.</span><br />
+        <span class="hero-2-span-text">Iterate.</span>
+      </h1>
+    </div>
+  </div>
+
+  <section class="image-section">
+    <div class="image-supporting-text">
+      <h2 class="image-heading light-text">Collaborate. Create. Conquer.</h2>
+      <p class="light-text">
+        You’re driven. You’re passionate. You’re ready to make your mark. But
+        achieving your goals doesn’t have to be a solo mission. Get the support,
+        insights, and motivation you need from a community of like-minded
+        builders. It’s time to get things done—together.
+      </p>
+    </div>
+
+    <div class="image-card">
+      <img width="550px" src="collaboration.png" />
+    </div>
+  </section>
+</html>

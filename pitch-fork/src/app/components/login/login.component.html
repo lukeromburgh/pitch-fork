@@ -1,0 +1,30 @@
+<div class="flex-container background">
+  <div class="login-container">
+    <h2>Log in to your account</h2>
+    <a class="signup-link" routerLink="/sign-up"
+      >New to Pitchfork? Get started</a
+    >
+    <form class="login-form" (ngSubmit)="onSubmit()" [formGroup]="loginForm">
+      <input
+        placeholder="Email"
+        id="email"
+        formControlName="email"
+        type="email"
+        required
+      />
+
+      <input
+        placeholder="Password"
+        id="password"
+        formControlName="password"
+        type="password"
+        required
+        minlength="6"
+      />
+
+      <button class="btn-tertiary" type="submit" [disabled]="loginForm.invalid">
+        Login
+      </button>
+    </form>
+  </div>
+</div>

@@ -1,0 +1,28 @@
+<body>
+  <div class="profile-container">
+    <div class="banner-container">
+      <img
+        [src]="userProfile?.banner || 'default-banner.png'"
+        alt="User Banner"
+        class="banner-image"
+      />
+    </div>
+    <div class="profile-image-container">
+      <img [src]="'avatar-5.png'" alt="Profile Picture" class="profile-image" />
+    </div>
+    <div class="profile-info">
+      <h1 class="username">{{ userProfile?.username }}</h1>
+      <p class="bio">
+        {{
+          userProfile?.bio ||
+            "This is a user bio. Write something interesting about yourself that
+        others would like to know. Share your interests, hobbies, or anything
+        else that makes you unique!"
+        }}
+      </p>
+      <button class="edit-button" (click)="goToEditProfile()">
+        Edit Profile
+      </button>
+    </div>
+  </div>
+</body>

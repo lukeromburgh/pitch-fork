@@ -31,6 +31,9 @@ a {
     Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji",
     "Segoe UI Symbol";
 }
+a:active {
+  color: #cc3363;
+}
 
 .right-div-nav {
   display: flex;

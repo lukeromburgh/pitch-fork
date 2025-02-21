@@ -1,12 +1,17 @@
 <div class="navbar">
-  <!-- <img class="logo" src="/"> -->
-  <div class="left-div-nav"><p class="logo">🪬 PitchFork</p></div>
-
+  <div class="left-div-nav">
+    <p onclick="Home()" class="logo">🪬 PitchFork</p>
+  </div>
   <div class="right-div-nav">
-    <a routerLink="/" routerLink="active">Home</a>
-    <a routerLink="/posts" routerLink="active">Posts</a>
-    <a>About</a>
-
+    <a
+      routerLink="/"
+      routerLinkActive="active"
+      [routerLinkActiveOptions]="{ exact: true }"
+      >Home</a
+    >
+    <a routerLink="/posts" routerLinkActive="active">Posts</a>
+    <a routerLink="/about" routerLinkActive="active">About</a>
+    <a routerLink="/profile" routerLinkActive="active">Profile</a>
     <button class="btn-nav">Sign Up</button>
   </div>
 </div>

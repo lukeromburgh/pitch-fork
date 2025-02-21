@@ -1,0 +1,42 @@
+<div class="flex-container">
+  <div class="signup-container">
+    <h2>Sign up</h2>
+    <a class="login-link" routerLink="/login"
+      >Already have an account? Login here
+    </a>
+    <form class="signup-form" (ngSubmit)="onSubmit()" [formGroup]="signupForm">
+      ><input
+        placeholder="Username"
+        id="name"
+        formControlName="name"
+        type="text"
+        required
+      />
+
+      <input
+        placeholder="Email"
+        id="email"
+        formControlName="email"
+        type="email"
+        required
+      />
+
+      <input
+        placeholder="Password"
+        id="password"
+        formControlName="password"
+        type="password"
+        required
+        minlength="6"
+      />
+
+      <button
+        class="btn-tertiary"
+        type="submit"
+        [disabled]="signupForm.invalid"
+      >
+        Sign up
+      </button>
+    </form>
+  </div>
+</div>

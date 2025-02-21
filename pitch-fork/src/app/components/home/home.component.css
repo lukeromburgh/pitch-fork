@@ -1,3 +1,258 @@
+.main {
+  position: relative;
+  min-height: 42vh;
+  background: linear-gradient(0deg, #0d0f1d, #1f253f);
+  overflow: hidden;
+  perspective: 1000px; /* Added for depth effect */
+}
+
+.particle-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  transform-style: preserve-3d; /* Enhanced 3D effect */
+}
+
+.particle {
+  position: absolute;
+  width: 3px;
+  height: 3px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 50%;
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.2); /* Added glow effect */
+}
+
+/* Increased number of particles with varied sizes and speeds */
+.particle:nth-child(1) {
+  animation: moveParticle1 15s infinite;
+  left: 10%;
+  top: 20%;
+  transform: translateZ(100px);
+}
+.particle:nth-child(2) {
+  animation: moveParticle2 18s infinite;
+  left: 20%;
+  top: 40%;
+  transform: translateZ(50px);
+}
+.particle:nth-child(3) {
+  animation: moveParticle3 22s infinite;
+  left: 30%;
+  top: 60%;
+  transform: translateZ(150px);
+}
+.particle:nth-child(4) {
+  animation: moveParticle1 16s infinite;
+  left: 40%;
+  top: 80%;
+  transform: translateZ(75px);
+}
+.particle:nth-child(5) {
+  animation: moveParticle2 20s infinite;
+  left: 50%;
+  top: 20%;
+  transform: translateZ(125px);
+}
+.particle:nth-child(6) {
+  animation: moveParticle3 24s infinite;
+  left: 60%;
+  top: 40%;
+  transform: translateZ(25px);
+}
+.particle:nth-child(7) {
+  animation: moveParticle1 17s infinite;
+  left: 70%;
+  top: 60%;
+  transform: translateZ(175px);
+}
+.particle:nth-child(8) {
+  animation: moveParticle2 21s infinite;
+  left: 80%;
+  top: 80%;
+  transform: translateZ(100px);
+}
+.particle:nth-child(9) {
+  animation: moveParticle3 25s infinite;
+  left: 90%;
+  top: 20%;
+  transform: translateZ(50px);
+}
+.particle:nth-child(10) {
+  animation: moveParticle1 19s infinite;
+  left: 15%;
+  top: 40%;
+  transform: translateZ(150px);
+}
+.particle:nth-child(11) {
+  animation: moveParticle2 23s infinite;
+  left: 25%;
+  top: 60%;
+  transform: translateZ(75px);
+}
+.particle:nth-child(12) {
+  animation: moveParticle3 27s infinite;
+  left: 35%;
+  top: 80%;
+  transform: translateZ(125px);
+}
+.particle:nth-child(13) {
+  animation: moveParticle1 20s infinite;
+  left: 45%;
+  top: 20%;
+  transform: translateZ(25px);
+}
+.particle:nth-child(14) {
+  animation: moveParticle2 24s infinite;
+  left: 55%;
+  top: 40%;
+  transform: translateZ(175px);
+}
+.particle:nth-child(15) {
+  animation: moveParticle3 28s infinite;
+  left: 65%;
+  top: 60%;
+  transform: translateZ(100px);
+}
+.particle:nth-child(16) {
+  animation: moveParticle1 16s infinite;
+  left: 75%;
+  top: 30%;
+  transform: translateZ(50px);
+}
+.particle:nth-child(17) {
+  animation: moveParticle2 19s infinite;
+  left: 85%;
+  top: 50%;
+  transform: translateZ(150px);
+}
+.particle:nth-child(18) {
+  animation: moveParticle3 22s infinite;
+  left: 95%;
+  top: 70%;
+  transform: translateZ(75px);
+}
+.particle:nth-child(19) {
+  animation: moveParticle1 17s infinite;
+  left: 5%;
+  top: 90%;
+  transform: translateZ(125px);
+}
+.particle:nth-child(20) {
+  animation: moveParticle2 20s infinite;
+  left: 15%;
+  top: 10%;
+  transform: translateZ(25px);
+}
+.particle:nth-child(21) {
+  animation: moveParticle3 23s infinite;
+  left: 25%;
+  top: 30%;
+  transform: translateZ(175px);
+}
+.particle:nth-child(22) {
+  animation: moveParticle1 18s infinite;
+  left: 35%;
+  top: 50%;
+  transform: translateZ(100px);
+}
+.particle:nth-child(23) {
+  animation: moveParticle2 21s infinite;
+  left: 45%;
+  top: 70%;
+  transform: translateZ(50px);
+}
+.particle:nth-child(24) {
+  animation: moveParticle3 24s infinite;
+  left: 55%;
+  top: 90%;
+  transform: translateZ(150px);
+}
+.particle:nth-child(25) {
+  animation: moveParticle1 19s infinite;
+  left: 65%;
+  top: 10%;
+  transform: translateZ(75px);
+}
+
+/* Enhanced connection lines effect */
+.particle::after {
+  content: "";
+  position: absolute;
+  width: 150px; /* Increased line length */
+  height: 1px;
+  background: linear-gradient(90deg, rgba(255, 255, 255, 0.15), transparent);
+  transform-origin: left;
+  transform: rotate(var(--rotation, 45deg));
+  opacity: 0.8;
+}
+
+/* Faster and more dynamic animations with scale and opacity variations */
+@keyframes moveParticle1 {
+  0% {
+    transform: translate3d(0, 0, 0) scale(1);
+    opacity: 0.8;
+  }
+  25% {
+    transform: translate3d(150px, 75px, 50px) scale(1.4);
+    opacity: 1;
+  }
+  50% {
+    transform: translate3d(75px, 150px, -50px) scale(1);
+    opacity: 0.6;
+  }
+  75% {
+    transform: translate3d(-75px, 75px, 25px) scale(1.2);
+    opacity: 0.9;
+  }
+  100% {
+    transform: translate3d(0, 0, 0) scale(1);
+    opacity: 0.8;
+  }
+}
+
+@keyframes moveParticle2 {
+  0% {
+    transform: translate3d(0, 0, 0) scale(1.2);
+    opacity: 1;
+  }
+  33% {
+    transform: translate3d(-150px, -75px, -25px) scale(0.8);
+    opacity: 0.7;
+  }
+  66% {
+    transform: translate3d(75px, -150px, 50px) scale(1.4);
+    opacity: 0.9;
+  }
+  100% {
+    transform: translate3d(0, 0, 0) scale(1.2);
+    opacity: 1;
+  }
+}
+
+@keyframes moveParticle3 {
+  0% {
+    transform: translate3d(0, 0, 0) scale(1);
+    opacity: 0.7;
+  }
+  50% {
+    transform: translate3d(100px, -100px, 25px) scale(1.3);
+    opacity: 1;
+  }
+  100% {
+    transform: translate3d(0, 0, 0) scale(1);
+    opacity: 0.7;
+  }
+}
+
+/* Content layer */
+.content {
+  position: relative;
+  z-index: 2;
+}
+
 :host {
   font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
     Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji",
@@ -7,16 +262,37 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+.instrument-serif-regular {
+  font-family: "Instrument Serif", serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.instrument-serif-regular-italic {
+  font-family: "Instrument Serif", serif;
+  font-weight: 400;
+  font-style: italic;
+}
+
+html {
+  background-color: #0d0f1d;
+}
+
 h1 {
-  font-size: 4.5rem;
-  color: #000000;
-  font-weight: 600;
+  font-size: 3.5rem;
+  color: #f1f5f9;
+  font-weight: 450;
   line-height: 100%;
-  letter-spacing: -0.125rem;
+  letter-spacing: -0.1rem;
   margin: 0;
   font-family: "Inter Tight", -apple-system, BlinkMacSystemFont, "Segoe UI",
     Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji",
     "Segoe UI Symbol";
+}
+
+.serif {
+  font-family: "Instrument Serif", serif;
+  font-weight: 500;
 }
 
 .hero-2 {
@@ -42,20 +318,21 @@ h1 {
 }
 
 .explanation-card {
-  background-color: #ffffff;
-  width: 40%;
-  height: 18rem;
+  background-color: #0d0f1d;
+  width: 30%;
+  height: fit-content;
   padding: 4rem;
   border-radius: 8px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 2px 8px rgba(247, 247, 247, 0.05);
   cursor: crosshair;
   transition: transform 0.2s ease;
-  border-color: rgb(237, 237, 237);
+  border-color: rgb(55, 55, 55);
   border-width: 1px;
   border-style: solid;
   font-family: "Inter Tight", -apple-system, BlinkMacSystemFont, "Segoe UI",
     Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji",
     "Segoe UI Symbol";
+  color: #f1f5f9;
 }
 
 .explanation-card:hover {
@@ -63,6 +340,7 @@ h1 {
 }
 
 .explanation-card p {
+  color: #d0d4d7;
   font-size: 1rem;
   max-width: 80%;
   margin: 0;
@@ -76,37 +354,48 @@ h1 {
 p {
   font-size: 1.2rem;
   margin: 0;
-  color: #3a3a3a;
+  color: #292a2a;
   margin-bottom: 15px;
 }
 
+main p {
+  font-size: 1.2rem;
+  margin: 0;
+  color: #d0d4d7;
+  margin-bottom: 15px;
+  max-width: 50%;
+  align-self: center;
+}
+
 main {
-  width: 100%;
+  max-width: 100%;
   min-height: 80%;
   display: flex;
+  flex-direction: column;
   justify-content: left;
-  align-items: left;
+  align-items: center;
+  justify-content: center;
+  justify-items: center;
   padding: 1rem;
   box-sizing: inherit;
   position: relative;
-  padding: 80px 180px;
-}
-
-html,
-body {
-  margin: 0;
-  background-color: #f4faff;
-}
-
-.left-side p {
-  max-width: 68%;
+  padding: 180px 180px 80px 180px;
+  background-color: #0d0f1d;
 }
 
 .content {
   display: flex;
-  justify-content: left;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+  max-width: 36%;
   width: 100%;
   margin-bottom: 3rem;
+}
+
+.content button {
+  max-width: 10rem;
+  align-self: center;
 }
 
 .content h1 {
@@ -124,7 +413,7 @@ body {
   margin-top: 12px;
   margin-right: 10px;
   border: 0 solid #e41956;
-  border-radius: 8px;
+  border-radius: 36px;
 
   font-family: "Inter Tight", -apple-system, BlinkMacSystemFont, "Segoe UI",
     Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji",
@@ -147,7 +436,7 @@ body {
   padding: 10px 30px;
   margin-top: 12px;
   border: 0 solid #e41956;
-  border-radius: 8px;
+  border-radius: 36px;
 
   font-family: "Inter Tight", -apple-system, BlinkMacSystemFont, "Segoe UI",
     Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji",
@@ -165,11 +454,13 @@ body {
 }
 
 .btn-tertiary {
-  background-color: #000000;
+  background-color: #0d0f1d;
   color: #ffffff;
   padding: 10px 24px;
   margin: 0px;
-  border: 0 solid #000000;
+  border-style: solid;
+  border-width: 1px;
+  border-color: #3f3f3f;
   border-radius: 25px;
 
   font-family: "Inter Tight", -apple-system, BlinkMacSystemFont, "Segoe UI",
@@ -184,7 +475,7 @@ body {
 }
 
 .btn-tertiary:hover {
-  background-color: #3a3a3a;
+  background-color: #242a35;
 }
 
 .login-link {
@@ -198,24 +489,105 @@ body {
   margin-top: 8px;
 }
 
+.post-container {
+  display: flex;
+  overflow-x: auto; /* Allow horizontal scrolling */
+  overflow-y: visible;
+  scrollbar-width: none; /* Hide scrollbar for a cleaner look */
+  gap: 20px;
+  margin: 4%;
+  perspective: 1000px;
+}
+
+.post-card {
+  background-color: #ffffff;
+  min-width: 300px;
+  height: 300px;
+  padding: 3rem;
+  margin-bottom: 6px;
+  border-radius: 8px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.05);
+  cursor: pointer;
+  transition: transform 0.2s ease-out;
+  border-color: rgb(234, 234, 234);
+  border-width: 1px;
+  border-style: solid;
+  font-family: "Inter Tight", -apple-system, BlinkMacSystemFont, "Segoe UI",
+    Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji",
+    "Segoe UI Symbol";
+}
+
+.post-card:hover {
+  transform: translateY(-5px);
+}
+
+.user {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-bottom: 40px;
+  color: #4b4b4b;
+  font-size: 12px;
+}
+
+.avatar {
+  width: 28px;
+  height: 28px;
+  margin-right: 10px;
+}
+
+/* The wrapper that holds the posts and the gradient overlays */
+.post-wrapper {
+  position: relative;
+  overflow-x: hidden; /* Hide anything outside the wrapper */
+  overflow-y: visible;
+  background-color: #0d0f1d;
+}
+
+/* Gradient overlays on the left and right edges */
+.post-wrapper::before,
+.post-wrapper::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 200px; /* Adjust the width of the gradient */
+  pointer-events: none; /* Allow clicks to pass through */
+  z-index: 10;
+}
+
+/* Left gradient fades from background to transparent */
+.post-wrapper::before {
+  left: 0;
+  background: linear-gradient(to right, #0d0f1d, rgba(13, 15, 29, 0));
+}
+
+/* Right gradient fades from background to transparent */
+.post-wrapper::after {
+  right: 0;
+  background: linear-gradient(to left, #0d0f1d, rgba(13, 15, 29, 0));
+}
+
 .banner {
   display: flex;
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  min-width: 100%;
-  background-color: #daedff;
-  padding: 50px;
+  max-width: 100%;
+  background: -webkit-linear-gradient(70deg, #ee0979, #ff5500);
+  padding: 50px 200px;
   margin-bottom: 60px;
 }
 
 .banner h3 {
   font-size: 2rem;
+  color: white;
+  font-weight: 600;
 }
 
 .banner p {
   max-width: 100%;
-  color: #191919;
+  color: #ffffff;
   font-weight: 300;
 }
 
@@ -229,22 +601,28 @@ body {
 }
 
 .banner-right p {
-  color: #000000;
+  color: #ffffff;
   font-weight: 500;
   line-height: 250%;
 }
 
 .plus-button {
   border-radius: 100%;
-  border: #000000;
+  border-color: #2a2a2a;
+  border-width: 1px;
+  border-style: solid;
   height: 36px;
   width: 36px;
   font-size: 1.2rem;
   color: white;
-  background: black;
+  background: #0d0f1d;
   font-weight: 600;
 
   transition-duration: 0.3s;
+}
+
+.light-text {
+  color: #cdcdcd;
 }
 
 .plus-button:hover {
@@ -253,12 +631,104 @@ body {
   scale: 110%;
 }
 
-.post-container {
-  margin: 40px 80px 80px 80px;
+.meta {
+  font-size: 0.85rem;
+  color: gray;
   display: flex;
-  flex-wrap: wrap; /* Allows items to wrap onto the next line */
-  justify-content: center; /* Ensures even spacing */
-  gap: 2px; /* Adds spacing between items */
+  justify-content: space-between;
+}
+
+.content {
+  display: flex;
+  justify-content: left;
+  width: 100%;
+  margin-bottom: 3rem;
+}
+
+/* ------------------------------ ABOUT SECTION ------------------------------- */
+
+.about-section {
+  max-width: 100%;
+  background-color: #0d0f1d;
+  color: white;
+}
+
+.image-section {
+  display: flex;
+  flex-direction: row;
+  max-width: 80%;
+  justify-content: center;
+  align-items: center;
+  margin: 0px 350px;
+  padding-bottom: 50px;
+}
+
+.image-supporting-text {
+  max-width: 32rem;
+  margin-right: 10rem;
+}
+
+.image-card {
+  position: relative;
+  background-color: #0d0f1d;
+  border: 1px solid #494949;
+  border-radius: 8px;
+  padding: 2rem;
+}
+
+.image-heading {
+  margin-bottom: 20px;
+}
+
+@media screen and (max-width: 1100px) {
+  .banner {
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .banner-left {
+    width: 80%;
+    margin-bottom: 6%;
+    margin-right: 0;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+  }
+
+  .banner-right {
+    width: 90%;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+  }
+
+  .hero-2 {
+    flex-direction: column;
+  }
+
+  .hero-2-text {
+    text-align: center;
+    margin-left: 0;
+    z-index: 5;
+  }
+
+  .explanation-card {
+    height: fit-content;
+    align-items: center;
+    margin: 0 0 50px 0;
+    justify-content: center;
+    align-content: center;
+    text-align: center;
+    width: 50%;
+  }
+
+  .explanation-card p {
+    font-size: 1rem;
+    max-width: 100%;
+    margin: 0;
+    padding: 0;
+  }
 }
 
 @media screen and (max-width: 650px) {
