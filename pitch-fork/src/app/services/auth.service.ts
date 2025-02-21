@@ -46,6 +46,10 @@ export class AuthService {
     return !!this.getToken();
   }
 
+  getPostById(postId: number): Observable<any> {
+    return this.http.get<any>(`${this.baseUrl}/post/${postId}`);
+  }
+
   getPosts(): Observable<any> {
     console.log('Get posts!!!!');
     const token = this.getToken();
