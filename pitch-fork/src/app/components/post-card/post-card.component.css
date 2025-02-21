@@ -17,11 +17,14 @@
 }
 
 .post-card:hover {
-  transform: translateY(-5px);
+  transform: translateY(-2px);
+  background-color: #fdfdfd;
+  border-color: #929292;
 }
 
 .post-content {
   font-weight: 300;
+  margin: 14px 0px;
 }
 
 h2 {
@@ -29,19 +32,70 @@ h2 {
   margin-bottom: 2px;
 }
 
+p {
+  margin: 5px 0;
+}
+
 .categories {
   display: flex;
   flex-direction: row;
-  gap: 8px;
+  flex-wrap: wrap;
+  gap: 0px 8px;
   font-size: 0.9rem;
+  margin: 0px 0px;
 }
 
 .category-0 {
-  background-color: aqua;
+  background-color: #e0efff;
+  padding: 5px 10px;
+  color: #2e51c8;
+  border: 1px solid #d8e0ff;
+  border-radius: 25px;
+  transition-duration: 0.3s;
+}
+
+.category-0:hover {
+  scale: 103%;
 }
 
 .category-1 {
-  background-color: greenyellow;
+  background-color: #e7fef2;
+  padding: 5px 10px;
+  color: #3d8463;
+  border: 1px solid #daf1e7;
+  border-radius: 25px;
+  transition-duration: 0.3s;
+}
+
+.category-1:hover {
+  scale: 103%;
+}
+
+.category-2 {
+  background-color: #f6f4ff;
+  padding: 5px 10px;
+  color: #5a28b4;
+  border: 1px solid #eceaf6;
+  border-radius: 25px;
+  transition-duration: 0.3s;
+}
+
+.category-2:hover {
+  scale: 103%;
+}
+
+.category-3 {
+  background-color: #fbf3fa;
+  padding: 5px 10px;
+  color: #ae2e57;
+  border: 1px solid #f6eaeb;
+  border-radius: 25px;
+  transition-timing-function: ease-in;
+  transition-duration: 0.3s;
+}
+
+.category-3:hover {
+  scale: 103%;
 }
 
 .meta {
@@ -49,6 +103,7 @@ h2 {
   color: gray;
   display: flex;
   justify-content: space-between;
+  margin-top: 1rem;
 }
 
 .content {
@@ -58,11 +113,101 @@ h2 {
   margin-bottom: 3rem;
 }
 
+.likes {
+  margin-top: 1rem;
+  font-size: 1.2rem;
+}
+
+.like-container {
+  position: relative;
+  display: inline-block;
+}
+
+.like-button {
+  cursor: pointer;
+  user-select: none;
+}
+
+.heart {
+  display: inline-block;
+  transition: transform 0.2s ease;
+  margin-right: 4px;
+}
+
+.heart.active {
+  transform: scale(1.3);
+}
+
+.particles {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.particle {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  animation: explode 1s ease-out forwards;
+}
+
+@keyframes explode {
+  0% {
+    transform: translate(-50%, -50%) scale(0.5);
+    opacity: 1;
+  }
+  100% {
+    transform: translate(
+        calc(-50% + var(--x-offset)),
+        calc(-50% + var(--y-offset))
+      )
+      scale(0);
+    opacity: 0;
+  }
+}
+
+/* Create 8 unique particle animations */
+.particle:nth-child(1) {
+  --x-offset: -50px;
+  --y-offset: -50px;
+}
+.particle:nth-child(2) {
+  --x-offset: 0px;
+  --y-offset: -60px;
+}
+.particle:nth-child(3) {
+  --x-offset: 50px;
+  --y-offset: -50px;
+}
+.particle:nth-child(4) {
+  --x-offset: -60px;
+  --y-offset: 0px;
+}
+.particle:nth-child(5) {
+  --x-offset: 60px;
+  --y-offset: 0px;
+}
+.particle:nth-child(6) {
+  --x-offset: -50px;
+  --y-offset: 50px;
+}
+.particle:nth-child(7) {
+  --x-offset: 0px;
+  --y-offset: 60px;
+}
+.particle:nth-child(8) {
+  --x-offset: 50px;
+  --y-offset: 50px;
+}
+
 .read-more {
   background-color: #ffffff;
   color: #000000;
   padding: 8px 16px;
-  margin-top: 3rem;
+  margin-top: 1rem;
   border-style: solid;
   border-width: 1px;
   border-color: #cdcdcd;

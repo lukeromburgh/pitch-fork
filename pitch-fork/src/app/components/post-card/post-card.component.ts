@@ -16,6 +16,21 @@ export class PostCardComponent implements OnInit {
   @Input() post: any; // Receives post data dynamically
   @Input() likes: any;
   trimmedCategories: string[] = [];
+  isLiked = false;
+  showParticles = false;
+  particles = Array(8);
+
+  handleLike() {
+    this.likes++;
+    this.isLiked = true;
+    this.showParticles = true;
+
+    // Reset animations after they complete
+    setTimeout(() => {
+      this.showParticles = false;
+      this.isLiked = false;
+    }, 1000);
+  }
 
   constructor(private router: Router, private authService: AuthService) {}
   ngOnInit(): void {
@@ -39,6 +54,9 @@ export class PostCardComponent implements OnInit {
     );
   }
 
+  // Split categories into an array so we can ngFor to add new css to each item (Using ngClass)
+  // https://www.freecodecamp.org/news/angular-ngclass-example/
+  // Might cap tags at 5 when creating post? Worried they take up too much space otherwise
   categorySplit() {
     const splitCategory = this.post.category.split(',');
     this.trimmedCategories = splitCategory.map((category: string) =>
