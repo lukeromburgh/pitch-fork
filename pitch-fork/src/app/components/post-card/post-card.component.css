@@ -7,7 +7,7 @@
   border-radius: 8px;
   box-shadow: 0 2px 12px rgba(0, 0, 0, 0.05);
   cursor: pointer;
-  transition: transform 0.2s ease;
+  transition: transform 0.35s ease-in-out;
   border-color: rgb(234, 234, 234);
   border-width: 1px;
   border-style: solid;
@@ -113,6 +113,15 @@ p {
   margin-bottom: 3rem;
 }
 
+/* Like animation found online and simplified:
+
+https://css-tricks.com/recreating-the-twitter-heart-animation/
+
+It felt too daunting to try and code it from scratch haha  
+   
+   see also:
+   https://dev.to/afif/a-css-only-reaction-component-using-emoji-28i4*/
+
 .likes {
   margin-top: 1rem;
   font-size: 1.2rem;
@@ -121,6 +130,7 @@ p {
 .like-container {
   position: relative;
   display: inline-block;
+  margin-top: 0.5rem;
 }
 
 .like-button {
