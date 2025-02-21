@@ -1,4 +1,5 @@
 import { Component, Input } from '@angular/core';
+import { OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
@@ -11,11 +12,15 @@ import { AuthService } from '../../services/auth.service';
   styleUrls: ['./post-card.component.css'],
   standalone: true,
 })
-export class PostCardComponent {
+export class PostCardComponent implements OnInit {
   @Input() post: any; // Receives post data dynamically
   @Input() likes: any;
+  trimmedCategories: string[] = [];
 
   constructor(private router: Router, private authService: AuthService) {}
+  ngOnInit(): void {
+    this.categorySplit();
+  }
 
   likePost() {
     if (!this.post || !this.post.id) {
@@ -32,6 +37,17 @@ export class PostCardComponent {
         console.error('Error liking post', error);
       }
     );
+  }
+
+  categorySplit() {
+    const splitCategory = this.post.category.split(',');
+    this.trimmedCategories = splitCategory.map((category: string) =>
+      category.trim()
+    );
+
+    console.log(this.trimmedCategories.length);
+    console.log('Split category:', this.trimmedCategories);
+    return this.trimmedCategories;
   }
 
   viewPost() {

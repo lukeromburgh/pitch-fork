@@ -16,7 +16,14 @@
   <p class="post-content">{{ post.content }}</p>
 
   <!-- Category (if available) -->
-  <p *ngIf="post.category" class="category">{{ post.category }}</p>
+  <div *ngIf="trimmedCategories.length > 0" class="categories">
+    <p
+      *ngFor="let category of trimmedCategories; let i = index"
+      [ngClass]="'category-' + i"
+    >
+      {{ category }}
+    </p>
+  </div>
 
   <!-- Likes -->
   <div class="likes">

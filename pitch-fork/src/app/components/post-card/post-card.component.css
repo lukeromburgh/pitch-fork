@@ -1,7 +1,7 @@
 .post-card {
   background-color: #ffffff;
-  width: 18rem;
-  height: 18rem;
+  width: 20rem;
+  height: 20rem;
   padding: 3rem;
   margin-bottom: 6px;
   border-radius: 8px;
@@ -27,6 +27,21 @@
 h2 {
   font-weight: 500;
   margin-bottom: 2px;
+}
+
+.categories {
+  display: flex;
+  flex-direction: row;
+  gap: 8px;
+  font-size: 0.9rem;
+}
+
+.category-0 {
+  background-color: aqua;
+}
+
+.category-1 {
+  background-color: greenyellow;
 }
 
 .meta {
