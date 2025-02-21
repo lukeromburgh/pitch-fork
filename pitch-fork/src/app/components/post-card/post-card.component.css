@@ -98,6 +98,20 @@ p {
   scale: 103%;
 }
 
+.category-4 {
+  background-color: #f4edd9;
+  padding: 5px 10px;
+  color: #b98621;
+  border: 1px solid #ece8d9;
+  border-radius: 25px;
+  transition-timing-function: ease-in;
+  transition-duration: 0.3s;
+}
+
+.category-4:hover {
+  scale: 103%;
+}
+
 .meta {
   font-size: 0.85rem;
   color: gray;

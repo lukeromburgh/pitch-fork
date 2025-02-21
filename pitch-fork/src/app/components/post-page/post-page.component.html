@@ -25,7 +25,18 @@
     </div>
   </div>
 
-  <ng-template #noPosts>
-    <p>No posts available.</p>
-  </ng-template>
+  <div *ngIf="filteredPosts.length === 0" class="no-posts">
+    <h1>Uh oh!</h1>
+    <p>
+      No posts found with the selected tags. <br />
+      Be the first to create one?
+    </p>
+    <button
+      [routerLink]="'create-post'"
+      class="create-post-button"
+      type="button"
+    >
+      Create post
+    </button>
+  </div>
 </div>

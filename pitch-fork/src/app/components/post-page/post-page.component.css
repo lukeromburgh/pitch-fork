@@ -1,3 +1,9 @@
+:host {
+  font-family: "Inter Tight", -apple-system, BlinkMacSystemFont, "Segoe UI",
+    Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji",
+    "Segoe UI Symbol";
+}
+
 .body {
   background-color: #0d0f1d;
   padding-bottom: 100px;
@@ -75,29 +81,7 @@
   gap: 10px;
 }
 
-.post-card {
-  background-color: #ffffff;
-  max-width: 18rem;
-  height: 12rem;
-  padding: 3rem;
-  margin: 12px 5px;
-  border-radius: 8px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-  cursor: pointer;
-  transition: transform 0.2s ease;
-  border-color: rgb(237, 237, 237);
-  border-width: 1px;
-  border-style: solid;
-  font-family: "Inter Tight", -apple-system, BlinkMacSystemFont, "Segoe UI",
-    Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji",
-    "Segoe UI Symbol";
-}
-
-.post-card:hover {
-  transform: scale(1.02);
-}
-
-button {
+/* button {
   background: #0d0f1d;
   color: white;
   padding: 8px 12px;
@@ -115,4 +99,56 @@ button {
 button:hover {
   background: #242a35;
   scale: 102%;
+} */
+
+.no-posts {
+  align-self: center;
+  justify-self: center;
+  text-align: center;
+  padding: 7rem 4rem;
+  margin: 50px 0px;
+  max-width: 20%;
+  background-color: #0d0f1d;
+  border: 1px solid #3f3f3f;
+  border-radius: 8px;
+  font-size: 1.2rem;
+  color: #ffffff;
+  transition-duration: 0.4s;
+}
+
+.no-posts:hover {
+  scale: 102%;
+  box-shadow: 0 0px 30px rgba(63, 63, 63, 0.189);
+}
+
+.no-posts h1 {
+  font-weight: 500;
+  margin: 0;
+}
+
+.no-posts p {
+  font-weight: 300;
+  color: #c8c8c8;
+}
+
+.create-post-button {
+  background: -webkit-linear-gradient(70deg, #ee0979, #ff5500);
+  color: rgb(255, 255, 255);
+  padding: 12px 26px;
+  border: 0 solid #ff0066;
+  margin-top: 10px;
+  border-radius: 50px;
+
+  font-family: "Inter Tight", -apple-system, BlinkMacSystemFont, "Segoe UI",
+    Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji",
+    "Segoe UI Symbol";
+  font-size: 1.1rem;
+
+  cursor: pointer;
+
+  transition-duration: 0.5s;
+}
+
+.create-post-button:hover {
+  box-shadow: 0 0px 30px rgba(255, 0, 81, 0.585);
 }

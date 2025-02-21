@@ -44,13 +44,22 @@ class Post(db.Model):
     title = db.Column(db.String(100), nullable=False)
     content = db.Column(db.Text, nullable=False)
     date_posted = db.Column(db.DateTime, default=datetime.utcnow)
-    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)  # 🔹 Foreign key
-    category = db.Column(db.String(255), nullable=True)  # 🔹 New column
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)  # Foreign key to user.id
+    username = db.Column(db.String(50), db.ForeignKey('user.username'), nullable=False)  # Foreign key to user.username
+    category = db.Column(db.String(255), nullable=True)  # New column
 
-    user = db.relationship('User', backref=db.backref('posts', lazy=True))  # 🔹 Relationship to User model
+    user = db.relationship('User', backref=db.backref('posts', lazy=True), foreign_keys=[user_id])  # Relationship to User model
 
-    def to_dict(self): return { 'id': self.id, 'title': self.title, 'content': self.content,
-        'date_posted': self.date_posted, 'user_id': self.user_id, 'author': self.user.username, 'category': self.category }
+    def to_dict(self):
+        return {
+            'id': self.id,
+            'title': self.title,
+            'content': self.content,
+            'date_posted': self.date_posted,
+            'user_id': self.user_id,
+            'author': self.user.username,  # Access username from the User model
+            'category': self.category
+        }
 
 class Likes(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False, primary_key=True)
@@ -130,6 +139,7 @@ def get_posts():
 
             'date_posted': post.date_posted,
             'user_id': post.user_id,
+            'username': post.user.username,  # Include author's username
             'likes': like_count  # Include like count in response
         })
 
@@ -145,12 +155,16 @@ def create_post():
 
     print("Received data:", data)
 
+    user = User.query.get(user_id)
+    if not user:
+        return jsonify({'error': 'User not found'}), 404
     tags = data.get('tags', '')
 
     new_post = Post(
         title=data['title'],
         content=data['content'],
         user_id=user_id,  # 🔹 Associate the post with the logged-in user
+        username=user.username,  # 🔹 Associate the post with the logged-in user
         category=tags  # Optional field
     )
 

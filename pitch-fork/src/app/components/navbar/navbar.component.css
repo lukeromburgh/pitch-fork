@@ -31,8 +31,33 @@ a {
     Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji",
     "Segoe UI Symbol";
 }
-a:active {
+a:hover {
   color: #cc3363;
+}
+
+a:current {
+  text-decoration: underline;
+}
+
+.profile-link {
+  font-size: 0.9rem;
+  margin: auto 60px;
+  border: 1px solid #7b4255;
+  background-color: #110e0f;
+  color: #eb4076;
+  font-weight: 500;
+  padding: 10px 24px;
+  border-radius: 50px;
+  transition-duration: 0.2s;
+}
+
+.profile-link:hover {
+  background-color: #e62361;
+  color: #ffffff;
+}
+
+.profile-link:active {
+  background-color: #b0224f;
 }
 
 .right-div-nav {

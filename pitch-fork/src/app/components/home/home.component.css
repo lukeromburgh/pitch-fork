@@ -290,6 +290,12 @@ h1 {
     "Segoe UI Symbol";
 }
 
+.main-landing-hero-text {
+  background: -webkit-linear-gradient(70deg, #ee0979, #ff5500);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
 .serif {
   font-family: "Instrument Serif", serif;
   font-weight: 500;
@@ -388,7 +394,7 @@ main {
   flex-direction: column;
   justify-content: center;
   text-align: center;
-  max-width: 36%;
+  max-width: 40%;
   width: 100%;
   margin-bottom: 3rem;
 }
@@ -404,6 +410,7 @@ main {
 
 .content p {
   margin-top: 1.5rem;
+  min-width: 70%;
 }
 
 .btn-primary {
@@ -483,10 +490,14 @@ main {
     Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji",
     "Segoe UI Symbol";
   font-weight: 400;
-  font-size: 0.6rem;
+  font-size: 0.7rem;
   color: #858585;
 
   margin-top: 8px;
+}
+
+.login-link:hover {
+  color: #d0d4d7;
 }
 
 .post-container {
