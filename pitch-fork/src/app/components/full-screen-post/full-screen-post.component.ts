@@ -113,4 +113,8 @@ export class FullScreenPostComponent implements OnInit {
     }
     this.router.navigate(['/post', this.post.id]);
   }
+
+  closePost() {
+    this.router.navigate(['/posts']);
+  }
 }

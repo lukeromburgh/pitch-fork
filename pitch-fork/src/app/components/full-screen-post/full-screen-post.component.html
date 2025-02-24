@@ -1,6 +1,13 @@
 <div *ngIf="post" class="full-screen-post">
-  <button class="close-button" (click)="closePost()">Close</button>
+  <button class="close-button" (click)="closePost()">Go back</button>
   <h1>{{ post.title }}</h1>
+
+  <div class="meta">
+    <span>By {{ post.username }}</span> <br />
+    <!-- Change this to the username if available -->
+    <span>{{ post.date_posted | date : "mediumDate" }}</span>
+  </div>
+
   <p class="post-content">{{ post.content }}</p>
 
   <!-- Category (if available) -->
@@ -25,15 +32,5 @@
     <div class="particles" *ngIf="showParticles">
       <span class="particle" *ngFor="let particle of particles">❤️</span>
     </div>
-  </div>
-
-  <!-- <div class="likes">
-      <span (click)="likePost()">❤️ {{ post.likes }}</span>
-    </div> -->
-
-  <div class="meta">
-    <span>By {{ post.username }}</span>
-    <!-- Change this to the username if available -->
-    <span>{{ post.date_posted | date : "mediumDate" }}</span>
   </div>
 </div>

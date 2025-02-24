@@ -18,6 +18,10 @@
     </div>
   </div>
 
+  <button routerLink="/create-post" class="tag create-post-constant">
+    Create Post ＋
+  </button>
+
   <!-- 📜 Posts List -->
   <div class="post-list">
     <div *ngFor="let post of filteredPosts">
@@ -41,7 +45,7 @@
         Be the first to create one?
       </p>
       <button
-        [routerLink]="'create-post'"
+        routerLink="/create-post"
         class="create-post-button"
         type="button"
       >

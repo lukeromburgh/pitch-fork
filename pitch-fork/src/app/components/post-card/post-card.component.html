@@ -13,7 +13,14 @@
 
 <div *ngIf="post" class="post-card">
   <h2>{{ post.title }}</h2>
-  <p class="post-content">{{ post.content }}</p>
+
+  <p *ngIf="post.content.length < 100" class="post-content">
+    {{ post.content }}
+  </p>
+
+  <p *ngIf="post.content.length > 110" class="post-content">
+    {{ post.content.substring(0, 110) + "..." }}
+  </p>
 
   <!-- Category (if available) -->
   <!-- Researched ngClass, took category string, converted it 
