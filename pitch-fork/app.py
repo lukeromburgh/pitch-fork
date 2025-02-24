@@ -7,7 +7,8 @@ from datetime import datetime
 import os
 
 app = Flask(__name__)
-CORS(app, origins="http://localhost:4200")
+CORS(app, resources={r"/api/*": {"origins": "http://localhost:4200"}})
+
 
 app.config['JSON_AS_ASCII'] = False
 app.config['JSONIFY_PRETTYPRINT_REGULAR'] = True
@@ -17,6 +18,18 @@ app.config['JSONIFY_PRETTYPRINT_REGULAR'] = True
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///posts.db'  # SQLite for testing
 app.config['JWT_SECRET_KEY'] = 'your_secret_key'  # Change to a secure key
 
+@app.after_request
+def add_cors_headers(response):
+    response.headers['Access-Control-Allow-Origin'] = 'http://localhost:4200'
+    response.headers['Access-Control-Allow-Methods'] = 'GET, POST, DELETE, OPTIONS'
+    response.headers['Access-Control-Allow-Headers'] = 'Authorization, Content-Type'
+    return response
+
+@app.before_request
+def log_request():
+    print("Request Headers:", request.headers)
+
+
 db = SQLAlchemy(app)
 bcrypt = Bcrypt(app)
 jwt = JWTManager(app)
@@ -24,6 +37,7 @@ jwt = JWTManager(app)
 # =================== Models ===================
 class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
+    is_admin = db.Column(db.Boolean, default=False)
     username = db.Column(db.String(50), unique=True, nullable=False)
     email = db.Column(db.String(100), unique=True, nullable=False)
     password_hash = db.Column(db.String(255), nullable=False)
@@ -286,11 +300,89 @@ def like_post(post_id):
     return jsonify({'message': 'Liked', 'likes': Likes.query.filter_by(post_id=post_id).count()}), 201
 
 
-
 @app.route('/api/user/<int:user_id>/posts', methods=['GET'])
 def get_user_posts(user_id):
     posts = Post.query.filter_by(user_id=user_id).all()
     return jsonify([post.to_dict() for post in posts])
+
+
+# 🔹 Admin: Get All Users (Protected Route)
+@app.route('/api/admin/users', methods=['GET', 'OPTIONS'])
+@jwt_required()
+def get_all_users():
+    if request.method == 'OPTIONS':
+        return jsonify({'message': 'CORS preflight success'}), 200
+    user_id = get_jwt_identity()
+    users = User.query.all()
+    return jsonify([{
+        'id': user.id,
+        'username': user.username,
+        'email': user.email,
+        'bio': user.bio,
+        'post_count': len(user.posts)
+    } for user in users]), 200
+
+# 🔹 Admin: Delete User (Protected Route)
+@app.route('/api/admin/users/<int:user_id>', methods=['DELETE'])
+@jwt_required()
+def delete_user(user_id):
+    user_id_from_token = get_jwt_identity()
+    # Optional: Add admin check here
+    user = User.query.get(user_id)
+    if not user:
+        return jsonify({'error': 'User not found'}), 404
+    db.session.delete(user)
+    db.session.commit()
+    return jsonify({'message': 'User deleted successfully'}), 200
+
+# 🔹 Admin: Get All Posts (Protected Route)
+@app.route('/api/admin/posts', methods=['GET'])
+@jwt_required()
+def get_all_posts_admin():
+    user_id = get_jwt_identity()
+    # Optional: Add admin check here
+    posts = Post.query.all()
+    return jsonify([{
+        'id': post.id,
+        'title': post.title,
+        'content': post.content,
+        'username': post.username,
+        'date_posted': post.date_posted.isoformat(),
+        'like_count': Likes.query.filter_by(post_id=post.id).count()
+    } for post in posts]), 200
+
+# 🔹 Admin: Delete Post (Protected Route)
+@app.route('/api/admin/posts/<int:post_id>', methods=['DELETE'])
+@jwt_required()
+def delete_post(post_id):
+    user_id = get_jwt_identity()
+    # Optional: Add admin check here
+    post = Post.query.get(post_id)
+    if not post:
+        return jsonify({'error': 'Post not found'}), 404
+    db.session.delete(post)
+    db.session.commit()
+    return jsonify({'message': 'Post deleted successfully'}), 200
+
+# 🔹 Admin: Get Dashboard Metrics (Protected Route)
+@app.route('/api/admin/metrics', methods=['GET'])
+@jwt_required()
+def get_metrics():
+    user_id = get_jwt_identity()
+    # Optional: Add admin check here
+    total_users = User.query.count()
+    total_posts = Post.query.count()
+    total_likes = Likes.query.count()
+    users_per_day = db.session.query(db.func.date(Post.date_posted), db.func.count(User.id)) \
+        .join(Post, User.id == Post.user_id) \
+        .group_by(db.func.date(Post.date_posted)).all()
+
+    return jsonify({
+        'total_users': total_users,
+        'total_posts': total_posts,
+        'total_likes': total_likes,
+        'users_per_day': [{'date': date, 'count': count} for date, count in users_per_day]
+    }), 200
 
 
 if __name__ == '__main__':

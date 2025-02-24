@@ -1,1 +1,73 @@
-<p>admin-dashboard works!</p>
+<div class="bento-grid">
+  <!-- Metrics -->
+  <div class="bento-item metrics">
+    <h3>Total Users</h3>
+    <p>{{ metrics.total_users }}</p>
+  </div>
+  <div class="bento-item metrics">
+    <h3>Total Posts</h3>
+    <p>{{ metrics.total_posts }}</p>
+  </div>
+  <div class="bento-item metrics">
+    <h3>Total Likes</h3>
+    <p>{{ metrics.total_likes }}</p>
+  </div>
+
+  <!-- Users Table -->
+  <div class="bento-item table-container">
+    <h2>Users</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Username</th>
+          <th>Email</th>
+          <th>Post Count</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let user of users">
+          <td>{{ user.id }}</td>
+          <td>{{ user.username }}</td>
+          <td>{{ user.email }}</td>
+          <td>{{ user.post_count }}</td>
+          <td><button (click)="deleteUser(user.id)">Delete</button></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Posts Table -->
+  <div class="bento-item table-container">
+    <h2>Posts</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Title</th>
+          <th>Author</th>
+          <th>Likes</th>
+          <th>Date</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let post of posts">
+          <td>{{ post.id }}</td>
+          <td>{{ post.title }}</td>
+          <td>{{ post.username }}</td>
+          <td>{{ post.like_count }}</td>
+          <td>{{ post.date_posted | date : "mediumDate" }}</td>
+          <td><button (click)="deletePost(post.id)">Delete</button></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Graph -->
+  <div class="bento-item graph-container">
+    <h2>User Activity</h2>
+    <canvas id="userGraph"></canvas>
+  </div>
+</div>
