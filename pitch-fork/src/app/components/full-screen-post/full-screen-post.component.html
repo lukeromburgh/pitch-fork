@@ -8,7 +8,8 @@
     <span>{{ post.date_posted | date : "mediumDate" }}</span>
   </div>
 
-  <p class="post-content">{{ post.content }}</p>
+  <!-- <p class="post-content">{{ post.content }}</p> -->
+  <div [innerHTML]="post.content" class="post-content"></div>
 
   <!-- Category (if available) -->
   <!-- Researched ngClass, took category string, converted it 

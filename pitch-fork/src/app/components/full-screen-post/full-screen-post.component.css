@@ -36,6 +36,11 @@
   max-width: 900px;
 }
 
+.post-content {
+  text-align: left;
+  max-width: 800px;
+}
+
 .meta {
   margin-bottom: 50px;
 }
