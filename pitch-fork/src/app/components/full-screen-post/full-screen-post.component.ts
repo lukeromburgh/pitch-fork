@@ -42,8 +42,11 @@ export class FullScreenPostComponent implements OnInit {
   ngOnInit(): void {
     this.categorySplit();
 
+    console.log('Post ID:', this.postId);
+    console.log(this.route);
     this.route.paramMap.subscribe((params) => {
       const id = params.get('id');
+      console.log(params);
       if (id) {
         this.postId = +id; // Convert to number
         this.fetchPostData(this.postId);

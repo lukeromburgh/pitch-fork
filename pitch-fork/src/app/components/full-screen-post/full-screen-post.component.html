@@ -1,5 +1,6 @@
-<div *ngIf="post" class="post-full-page">
-  <h2>{{ post.title }}</h2>
+<div *ngIf="post" class="full-screen-post">
+  <button class="close-button" (click)="closePost()">Close</button>
+  <h1>{{ post.title }}</h1>
   <p class="post-content">{{ post.content }}</p>
 
   <!-- Category (if available) -->

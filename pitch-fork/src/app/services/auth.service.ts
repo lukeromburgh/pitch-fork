@@ -47,7 +47,22 @@ export class AuthService {
   }
 
   getPostById(postId: number): Observable<any> {
-    return this.http.get<any>(`${this.baseUrl}/post/${postId}`);
+    console.log('Get post by id: ${postId}');
+    const token = this.getToken();
+    console.log('token: ', token);
+    if (!token) {
+      console.error('No auth token found!');
+    }
+
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${token}`,
+    });
+
+    console.log('Authorization header:', `Bearer ${token}`);
+
+    return this.http.get<any>(`${this.baseUrl}/api/post/${postId}`, {
+      headers,
+    });
   }
 
   getPosts(): Observable<any> {
