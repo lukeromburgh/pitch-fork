@@ -46,6 +46,25 @@ export class AuthService {
     return !!this.getToken();
   }
 
+  getPostById(postId: number): Observable<any> {
+    console.log('Get post by id: ${postId}');
+    const token = this.getToken();
+    console.log('token: ', token);
+    if (!token) {
+      console.error('No auth token found!');
+    }
+
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${token}`,
+    });
+
+    console.log('Authorization header:', `Bearer ${token}`);
+
+    return this.http.get<any>(`${this.baseUrl}/api/post/${postId}`, {
+      headers,
+    });
+  }
+
   getPosts(): Observable<any> {
     console.log('Get posts!!!!');
     const token = this.getToken();

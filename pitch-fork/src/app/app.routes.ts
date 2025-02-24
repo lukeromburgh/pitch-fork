@@ -7,6 +7,7 @@ import { SignUpComponent } from './components/sign-up/sign-up.component';
 import { EditProfileComponent } from './components/edit-profile/edit-profile.component';
 import { ProfileComponent } from './components/profile/profile.component';
 import { AboutComponent } from './components/about/about.component';
+import { FullScreenPostComponent } from './components/full-screen-post/full-screen-post.component';
 
 export const routes: Routes = [
   { path: 'sign-up', component: SignUpComponent },
@@ -19,6 +20,11 @@ export const routes: Routes = [
   },
   { path: 'about', title: 'Pitchfork | About', component: AboutComponent },
   { path: 'posts', title: 'Pitchfork | Posts', component: PostPageComponent },
+  {
+    path: 'post/:id',
+    title: 'Pitchfork | Post',
+    component: FullScreenPostComponent,
+  },
   {
     path: 'create-post',
     title: 'Pitchfork | Create Post',

@@ -73,6 +73,10 @@ form textarea {
   resize: vertical;
 }
 
+.editor textarea {
+  background-color: #080a11;
+}
+
 /* Style the submit button */
 .btn-primary {
   background-color: #e41956;

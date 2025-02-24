@@ -172,6 +172,36 @@ def create_post():
     db.session.commit()
     return jsonify(new_post.to_dict()), 201
 
+# 🔹 Get a Single Post
+@app.route('/api/post/<int:post_id>', methods=['GET'])
+@jwt_required()
+def get_post_by_id(post_id):
+    user_id = get_jwt_identity()  # Get user ID from JWT token
+    post = Post.query.get(post_id)  # Fetch post by ID
+    print(f"Fetching post with ID: {post_id}")  # Debugging: Log post ID
+
+    if not post:
+        print("Post not found")  # Debugging: Log if post is not found
+        return jsonify({'message': 'Post not found'}), 404  # Handle missing post
+
+    like_count = Likes.query.filter_by(post_id=post.id).count()  # Count likes
+
+    post_data = {
+        'id': post.id,
+        'title': post.title,
+        'content': post.content,
+        'category': post.category,
+        'date_posted': post.date_posted,
+        'user_id': post.user_id,
+        'username': post.user.username,  # Include username
+        'likes': like_count,
+    }
+
+    print("Post found:", post_data)  # Debugging: Log post data
+    return jsonify(post_data), 200  # Return post data
+
+
+
 
 @app.route('/api/profile', methods=['GET'])
 @jwt_required()

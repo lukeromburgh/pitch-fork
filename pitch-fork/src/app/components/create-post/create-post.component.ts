@@ -9,11 +9,12 @@ import { PostService } from '../../services/post.service';
 import { CommonModule } from '@angular/common'; // Import CommonModule for ngIf, ngFor, etc.
 import { AuthService } from '../../services/auth.service'; // Import AuthService
 import { Router } from '@angular/router'; // Import Router for navigation
+import { EditorComponent } from '@tinymce/tinymce-angular';
 
 @Component({
   selector: 'app-create-post',
   standalone: true, // Mark the component as standalone
-  imports: [CommonModule, ReactiveFormsModule], // Import ReactiveFormsModule and CommonModule
+  imports: [CommonModule, ReactiveFormsModule, EditorComponent], // Import ReactiveFormsModule and CommonModule
   templateUrl: './create-post.component.html',
   styleUrls: ['./create-post.component.css'],
 })
@@ -67,6 +68,10 @@ export class CreatePostComponent {
   ];
 
   selectedTags: string[] = [];
+
+  init: EditorComponent['init'] = {
+    plugins: 'lists link image table code help wordcount',
+  };
 
   toggleTag(tag: string) {
     const index = this.selectedTags.indexOf(tag);

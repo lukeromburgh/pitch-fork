@@ -10,7 +10,15 @@
 
         <!-- Content Input -->
         <label for="content">Content:</label>
-        <textarea id="content" formControlName="content" required></textarea>
+        <!-- <textarea id="content" formControlName="content" required></textarea> -->
+        <editor
+          class="editor"
+          id="content"
+          formControlName="content"
+          required
+          apiKey="2nk9tjbdpaiqyui9dikd5ry9oesp9dnqmzpcfwb05rs6xbuc"
+          [init]="init"
+        />
 
         <p class="tags-heading">Add relevent tags to your post:</p>
         <div class="tags">
