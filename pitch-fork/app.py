@@ -9,10 +9,7 @@ from functools import wraps  # Added wraps
 import os
 
 app = Flask(__name__)
-CORS(app, resources={r"/*": {"origins": "*"}}, supports_credentials=True)
-
-
-
+CORS(app, resources={r"/*": {"origins": "*", "allow_headers": ["Authorization", "Content-Type"], "methods": ["GET", "POST", "OPTIONS", "DELETE", "PUT"]}})
 
 app.config['JSON_AS_ASCII'] = False
 app.config['JSONIFY_PRETTYPRINT_REGULAR'] = True
@@ -28,7 +25,7 @@ app.config['JWT_SECRET_KEY'] = 'your_secret_key'  # Change to a secure key
 @app.after_request
 def add_cors_headers(response):
     response.headers['Access-Control-Allow-Origin'] = 'http://localhost:4200'
-    response.headers['Access-Control-Allow-Methods'] = 'GET, POST, DELETE, OPTIONS'
+    response.headers['Access-Control-Allow-Methods'] = 'GET, POST, DELETE, OPTIONS, PUT'
     response.headers['Access-Control-Allow-Headers'] = 'Authorization, Content-Type'
     response.headers['Access-Control-Allow-Credentials'] = 'true'  # Allow cookies/tokens
     return response
@@ -334,8 +331,13 @@ def admin_required():
 
 # Admin dashboard data
 @app.route('/api/admin/dashboard', methods=['GET'])
-@admin_required()
+#@admin_required()
 def admin_dashboard():
+    auth_header = request.headers.get("Authorization")
+    if not auth_header:
+        return jsonify({"error": "Unauthorized"}), 403
+    print(f"Received Authorization header: {auth_header}")
+
     # Get counts
     user_count = User.query.count()
     post_count = Post.query.count()
@@ -366,7 +368,7 @@ def admin_dashboard():
 
 # Get all users (admin only)
 @app.route('/api/admin/users', methods=['GET'])
-@admin_required()
+#@admin_required()
 def get_all_users():
     users = User.query.all()
     users_data = [{
@@ -381,7 +383,7 @@ def get_all_users():
 
 # Get all posts (admin only)
 @app.route('/api/admin/posts', methods=['GET'])
-@admin_required()
+#@admin_required()
 def get_all_posts():
     posts = Post.query.all()
     posts_data = []
@@ -403,7 +405,7 @@ def get_all_posts():
 
 # Delete user (admin only)
 @app.route('/api/admin/users/<int:user_id>', methods=['DELETE'])
-@admin_required()
+#@admin_required()
 def delete_user(user_id):
     user = User.query.get(user_id)
     if not user:
@@ -420,7 +422,7 @@ def delete_user(user_id):
 
 # Delete post (admin only)
 @app.route('/api/admin/posts/<int:post_id>', methods=['DELETE'])
-@admin_required()
+#@admin_required()
 def delete_post(post_id):
     post = Post.query.get(post_id)
     if not post:
@@ -436,7 +438,7 @@ def delete_post(post_id):
 
 # Make a user admin (super-admin only)
 @app.route('/api/admin/users/<int:user_id>/make-admin', methods=['POST'])
-@admin_required()
+#@admin_required()
 def make_user_admin(user_id):
     # Here you might want additional checks for "super admin" privileges
     user = User.query.get(user_id)

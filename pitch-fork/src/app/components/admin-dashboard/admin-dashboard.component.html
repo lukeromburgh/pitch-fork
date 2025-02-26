@@ -1,1 +1,133 @@
-<p>admin-dashboard works!</p>
+<div class="admin-dashboard">
+  <h1>Admin Dashboard</h1>
+
+  <!-- Bento Grid Layout -->
+  <div class="bento-grid">
+    <!-- Top Row: Key Metrics -->
+    <div class="bento-item metric-card users-card">
+      <div class="card-content">
+        <h3>Total Users</h3>
+        <div class="metric-value" *ngIf="!loading.dashboard">
+          {{ dashboardData.counts.users }}
+        </div>
+        <div class="skeleton" *ngIf="loading.dashboard"></div>
+        <i class="fa fa-users"></i>
+      </div>
+    </div>
+
+    <div class="bento-item metric-card posts-card">
+      <div class="card-content">
+        <h3>Total Posts</h3>
+        <div class="metric-value" *ngIf="!loading.dashboard">
+          {{ dashboardData.counts.posts }}
+        </div>
+        <div class="skeleton" *ngIf="loading.dashboard"></div>
+        <i class="fa fa-file-text"></i>
+      </div>
+    </div>
+
+    <div class="bento-item metric-card likes-card">
+      <div class="card-content">
+        <h3>Total Likes</h3>
+        <div class="metric-value" *ngIf="!loading.dashboard">
+          {{ dashboardData.counts.likes }}
+        </div>
+        <div class="skeleton" *ngIf="loading.dashboard"></div>
+        <i class="fa fa-heart"></i>
+      </div>
+    </div>
+
+    <!-- Middle Row: Chart -->
+    <div class="bento-item chart-card">
+      <h3>Posts in the Last 30 Days</h3>
+      <div class="chart-container" *ngIf="!loading.dashboard">
+        <canvas id="postsChart"></canvas>
+      </div>
+      <div class="chart-skeleton" *ngIf="loading.dashboard"></div>
+    </div>
+
+    <!-- Users Table -->
+    <div class="bento-item table-card users-table-card">
+      <h3>Manage Users</h3>
+      <div class="table-responsive">
+        <table *ngIf="!loading.users">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Username</th>
+              <th>Email</th>
+              <th>Post Count</th>
+              <th>Admin</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let user of users">
+              <td>{{ user.id }}</td>
+              <td>{{ user.username }}</td>
+              <td>{{ user.email }}</td>
+              <td>{{ user.post_count }}</td>
+              <td>
+                <span
+                  class="badge"
+                  [ngClass]="{ 'admin-badge': user.is_admin }"
+                >
+                  {{ user.is_admin ? "Yes" : "No" }}
+                </span>
+              </td>
+              <td class="actions">
+                <button class="btn btn-danger" (click)="deleteUser(user.id)">
+                  Delete
+                </button>
+                <button
+                  class="btn btn-primary"
+                  *ngIf="!user.is_admin"
+                  (click)="makeAdmin(user.id)"
+                >
+                  Make Admin
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="table-skeleton" *ngIf="loading.users"></div>
+      </div>
+    </div>
+
+    <!-- Posts Table -->
+    <div class="bento-item table-card posts-table-card">
+      <h3>Manage Posts</h3>
+      <div class="table-responsive">
+        <table *ngIf="!loading.posts">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Title</th>
+              <th>Author</th>
+              <th>Category</th>
+              <th>Date</th>
+              <th>Likes</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let post of posts">
+              <td>{{ post.id }}</td>
+              <td class="title-cell" [title]="post.title">{{ post.title }}</td>
+              <td>{{ post.username }}</td>
+              <td>{{ post.category || "Uncategorized" }}</td>
+              <td>{{ post.date_posted | date : "short" }}</td>
+              <td>{{ post.likes }}</td>
+              <td class="actions">
+                <button class="btn btn-danger" (click)="deletePost(post.id)">
+                  Delete
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="table-skeleton" *ngIf="loading.posts"></div>
+      </div>
+    </div>
+  </div>
+</div>
