@@ -3,3 +3,5 @@ body {
   margin: 0;
   padding: 0;
 }
+
+@import "~@fortawesome/fontawesome-free/css/all.min.css";

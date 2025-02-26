@@ -4,15 +4,22 @@ from flask_bcrypt import Bcrypt
 from flask_jwt_extended import JWTManager, create_access_token, jwt_required, get_jwt_identity
 from flask_cors import CORS, cross_origin
 from datetime import datetime
+from datetime import datetime, timedelta  # Added timedelta
+from functools import wraps  # Added wraps
 import os
 
 app = Flask(__name__)
-CORS(app, resources={r"/api/*": {"origins": "http://localhost:4200"}})
+CORS(app, resources={r"/*": {"origins": "*"}}, supports_credentials=True)
+
+
 
 
 app.config['JSON_AS_ASCII'] = False
 app.config['JSONIFY_PRETTYPRINT_REGULAR'] = True
 
+app.config["JWT_TOKEN_LOCATION"] = ["headers"]
+app.config["JWT_HEADER_NAME"] = "Authorization"
+app.config["JWT_HEADER_TYPE"] = "Bearer"
 
 # Database Configuration
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///posts.db'  # SQLite for testing
@@ -23,7 +30,9 @@ def add_cors_headers(response):
     response.headers['Access-Control-Allow-Origin'] = 'http://localhost:4200'
     response.headers['Access-Control-Allow-Methods'] = 'GET, POST, DELETE, OPTIONS'
     response.headers['Access-Control-Allow-Headers'] = 'Authorization, Content-Type'
+    response.headers['Access-Control-Allow-Credentials'] = 'true'  # Allow cookies/tokens
     return response
+
 
 @app.before_request
 def log_request():
@@ -124,7 +133,8 @@ def login():
         user = User.query.filter_by(email=data['email']).first()
 
         if user and user.check_password(data['password']):
-            access_token = create_access_token(identity=str(user.id))
+            access_token = create_access_token(identity=str(user.id), expires_delta=False)
+            #access_token = create_access_token(identity=str(user.id))
             return jsonify({'token': access_token, 'user_id': user.id}), 200
 
         return jsonify({'message': 'Invalid credentials'}), 401
@@ -303,86 +313,140 @@ def like_post(post_id):
 @app.route('/api/user/<int:user_id>/posts', methods=['GET'])
 def get_user_posts(user_id):
     posts = Post.query.filter_by(user_id=user_id).all()
-    return jsonify([post.to_dict() for post in posts])
+    return jsonify([post.to_dict() for post in posts]), 200
 
 
-# 🔹 Admin: Get All Users (Protected Route)
-@app.route('/api/admin/users', methods=['GET', 'OPTIONS'])
-@jwt_required()
+#-------------------------------- Admin endpoints --------------------------------
+# Admin authorization middleware
+def admin_required():
+    def wrapper(fn):
+        @wraps(fn)
+        @jwt_required()
+        def decorator(*args, **kwargs):
+            user_id = get_jwt_identity()
+            user = User.query.get(user_id)
+            
+            if not user or not user.is_admin:
+                return jsonify({"error": "Admin privileges required"}), 403
+            return fn(*args, **kwargs)
+        return decorator
+    return wrapper
+
+# Admin dashboard data
+@app.route('/api/admin/dashboard', methods=['GET'])
+@admin_required()
+def admin_dashboard():
+    # Get counts
+    user_count = User.query.count()
+    post_count = Post.query.count()
+    like_count = Likes.query.count()
+    
+    # Get posts from the last 30 days
+    thirty_days_ago = datetime.utcnow() - timedelta(days=30)
+    recent_posts = Post.query.filter(Post.date_posted >= thirty_days_ago).all()
+    
+    # Group posts by day for the chart
+    posts_by_day = {}
+    for post in recent_posts:
+        day = post.date_posted.strftime("%Y-%m-%d")
+        posts_by_day[day] = posts_by_day.get(day, 0) + 1
+    
+    # Convert to ordered list
+    date_range = [(datetime.utcnow() - timedelta(days=i)).strftime("%Y-%m-%d") for i in range(30, -1, -1)]
+    chart_data = [{"date": date, "count": posts_by_day.get(date, 0)} for date in date_range]
+    
+    return jsonify({
+        "counts": {
+            "users": user_count,
+            "posts": post_count,
+            "likes": like_count
+        },
+        "chart_data": chart_data
+    }), 200
+
+# Get all users (admin only)
+@app.route('/api/admin/users', methods=['GET'])
+@admin_required()
 def get_all_users():
-    if request.method == 'OPTIONS':
-        return jsonify({'message': 'CORS preflight success'}), 200
-    user_id = get_jwt_identity()
     users = User.query.all()
-    return jsonify([{
+    users_data = [{
         'id': user.id,
         'username': user.username,
         'email': user.email,
-        'bio': user.bio,
-        'post_count': len(user.posts)
-    } for user in users]), 200
+        'is_admin': user.is_admin,
+        'post_count': Post.query.filter_by(user_id=user.id).count()
+    } for user in users]
+    
+    return jsonify(users_data), 200
 
-# 🔹 Admin: Delete User (Protected Route)
+# Get all posts (admin only)
+@app.route('/api/admin/posts', methods=['GET'])
+@admin_required()
+def get_all_posts():
+    posts = Post.query.all()
+    posts_data = []
+    
+    for post in posts:
+        like_count = Likes.query.filter_by(post_id=post.id).count()
+        posts_data.append({
+            'id': post.id,
+            'title': post.title,
+            'content': post.content[:100] + '...' if len(post.content) > 100 else post.content,
+            'date_posted': post.date_posted,
+            'user_id': post.user_id,
+            'username': post.username,
+            'category': post.category,
+            'likes': like_count
+        })
+    
+    return jsonify(posts_data), 200
+
+# Delete user (admin only)
 @app.route('/api/admin/users/<int:user_id>', methods=['DELETE'])
-@jwt_required()
+@admin_required()
 def delete_user(user_id):
-    user_id_from_token = get_jwt_identity()
-    # Optional: Add admin check here
     user = User.query.get(user_id)
     if not user:
-        return jsonify({'error': 'User not found'}), 404
+        return jsonify({"error": "User not found"}), 404
+    
+    # Delete all user's posts and likes
+    Post.query.filter_by(user_id=user_id).delete()
+    Likes.query.filter_by(user_id=user_id).delete()
+    
     db.session.delete(user)
     db.session.commit()
-    return jsonify({'message': 'User deleted successfully'}), 200
+    
+    return jsonify({"message": "User and all associated data deleted successfully"}), 200
 
-# 🔹 Admin: Get All Posts (Protected Route)
-@app.route('/api/admin/posts', methods=['GET'])
-@jwt_required()
-def get_all_posts_admin():
-    user_id = get_jwt_identity()
-    # Optional: Add admin check here
-    posts = Post.query.all()
-    return jsonify([{
-        'id': post.id,
-        'title': post.title,
-        'content': post.content,
-        'username': post.username,
-        'date_posted': post.date_posted.isoformat(),
-        'like_count': Likes.query.filter_by(post_id=post.id).count()
-    } for post in posts]), 200
-
-# 🔹 Admin: Delete Post (Protected Route)
+# Delete post (admin only)
 @app.route('/api/admin/posts/<int:post_id>', methods=['DELETE'])
-@jwt_required()
+@admin_required()
 def delete_post(post_id):
-    user_id = get_jwt_identity()
-    # Optional: Add admin check here
     post = Post.query.get(post_id)
     if not post:
-        return jsonify({'error': 'Post not found'}), 404
+        return jsonify({"error": "Post not found"}), 404
+    
+    # Delete all likes associated with this post
+    Likes.query.filter_by(post_id=post_id).delete()
+    
     db.session.delete(post)
     db.session.commit()
-    return jsonify({'message': 'Post deleted successfully'}), 200
+    
+    return jsonify({"message": "Post deleted successfully"}), 200
 
-# 🔹 Admin: Get Dashboard Metrics (Protected Route)
-@app.route('/api/admin/metrics', methods=['GET'])
-@jwt_required()
-def get_metrics():
-    user_id = get_jwt_identity()
-    # Optional: Add admin check here
-    total_users = User.query.count()
-    total_posts = Post.query.count()
-    total_likes = Likes.query.count()
-    users_per_day = db.session.query(db.func.date(Post.date_posted), db.func.count(User.id)) \
-        .join(Post, User.id == Post.user_id) \
-        .group_by(db.func.date(Post.date_posted)).all()
-
-    return jsonify({
-        'total_users': total_users,
-        'total_posts': total_posts,
-        'total_likes': total_likes,
-        'users_per_day': [{'date': date, 'count': count} for date, count in users_per_day]
-    }), 200
+# Make a user admin (super-admin only)
+@app.route('/api/admin/users/<int:user_id>/make-admin', methods=['POST'])
+@admin_required()
+def make_user_admin(user_id):
+    # Here you might want additional checks for "super admin" privileges
+    user = User.query.get(user_id)
+    if not user:
+        return jsonify({"error": "User not found"}), 404
+    
+    user.is_admin = True
+    db.session.commit()
+    
+    return jsonify({"message": "User is now an admin"}), 200
 
 
 if __name__ == '__main__':

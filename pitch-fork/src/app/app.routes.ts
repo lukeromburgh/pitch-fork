@@ -8,10 +8,8 @@ import { EditProfileComponent } from './components/edit-profile/edit-profile.com
 import { ProfileComponent } from './components/profile/profile.component';
 import { AboutComponent } from './components/about/about.component';
 import { FullScreenPostComponent } from './components/full-screen-post/full-screen-post.component';
-import { AdminDashboardComponent } from './components/admin-dashboard/admin-dashboard.component';
 
 export const routes: Routes = [
-  { path: 'admin', component: AdminDashboardComponent },
   { path: 'sign-up', component: SignUpComponent },
   { path: 'login', component: LoginComponent },
   {

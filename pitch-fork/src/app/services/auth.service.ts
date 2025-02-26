@@ -124,4 +124,13 @@ export class AuthService {
       { headers }
     );
   }
+
+  //   adminDashboard(): Observable<any> {
+  //     const token = this.getToken();
+  //     const headers = new HttpHeaders({
+  //       Authorization: `Bearer ${token}`,
+  //     });
+
+  //     return this.http.get('http://');
+  //  }
 }
