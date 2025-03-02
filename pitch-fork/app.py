@@ -1,5 +1,6 @@
 from flask import Flask, request, jsonify
 from flask_sqlalchemy import SQLAlchemy
+from flask import make_response
 from flask_bcrypt import Bcrypt
 from flask_jwt_extended import JWTManager, create_access_token, jwt_required, get_jwt_identity
 from flask_cors import CORS, cross_origin
@@ -7,9 +8,16 @@ from datetime import datetime
 from datetime import datetime, timedelta  # Added timedelta
 from functools import wraps  # Added wraps
 import os
+import logging
+logging.basicConfig(level=logging.DEBUG)
 
 app = Flask(__name__)
-CORS(app, resources={r"/*": {"origins": "*", "allow_headers": ["Authorization", "Content-Type"], "methods": ["GET", "POST", "OPTIONS", "DELETE", "PUT"]}})
+CORS(app, resources={r"/*": {
+    "origins": "*",
+    "methods": ["GET", "POST", "OPTIONS", "DELETE", "PUT"],
+    "allow_headers": ["Authorization", "Content-Type"]
+}})
+print("CORS initialized")  # Confirm this runs
 
 app.config['JSON_AS_ASCII'] = False
 app.config['JSONIFY_PRETTYPRINT_REGULAR'] = True
@@ -22,18 +30,11 @@ app.config["JWT_HEADER_TYPE"] = "Bearer"
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///posts.db'  # SQLite for testing
 app.config['JWT_SECRET_KEY'] = 'your_secret_key'  # Change to a secure key
 
-@app.after_request
-def add_cors_headers(response):
-    response.headers['Access-Control-Allow-Origin'] = 'http://localhost:4200'
-    response.headers['Access-Control-Allow-Methods'] = 'GET, POST, DELETE, OPTIONS, PUT'
-    response.headers['Access-Control-Allow-Headers'] = 'Authorization, Content-Type'
-    response.headers['Access-Control-Allow-Credentials'] = 'true'  # Allow cookies/tokens
-    return response
 
 
 @app.before_request
 def log_request():
-    print("Request Headers:", request.headers)
+    print(f"Request: {request.method} {request.path} Headers: {request.headers}")
 
 
 db = SQLAlchemy(app)
@@ -98,6 +99,9 @@ with app.app_context():
     db.create_all()
 
 # =================== Routes ===================
+@app.route('/test-cors', methods=['GET', 'OPTIONS'])
+def test_cors():
+    return jsonify({"message": "CORS test"}), 200
 
 # 🔹 User Registration
 @app.route('/sign-up', methods=['POST'])
@@ -315,61 +319,80 @@ def get_user_posts(user_id):
 
 #-------------------------------- Admin endpoints --------------------------------
 # Admin authorization middleware
-def admin_required():
-    def wrapper(fn):
-        @wraps(fn)
-        @jwt_required()
-        def decorator(*args, **kwargs):
-            user_id = get_jwt_identity()
-            user = User.query.get(user_id)
+# def admin_required():
+#     def wrapper(fn):
+#         @wraps(fn)
+#         @jwt_required()
+#         def decorator(*args, **kwargs):
+#             user_id = get_jwt_identity()
+#             user = User.query.get(user_id)
             
-            if not user or not user.is_admin:
-                return jsonify({"error": "Admin privileges required"}), 403
-            return fn(*args, **kwargs)
-        return decorator
-    return wrapper
+#             if not user or not user.is_admin:
+#                 return jsonify({"error": "Admin privileges required"}), 403
+#             return fn(*args, **kwargs)
+#         return decorator
+#     return wrapper
 
 # Admin dashboard data
-@app.route('/api/admin/dashboard', methods=['GET'])
-#@admin_required()
+from flask import make_response
+
+@app.route('/api/admin/dashboard', methods=['GET', 'OPTIONS'])
 def admin_dashboard():
-    auth_header = request.headers.get("Authorization")
-    if not auth_header:
-        return jsonify({"error": "Unauthorized"}), 403
-    print(f"Received Authorization header: {auth_header}")
+    # Handle OPTIONS requests separately
+    if request.method == 'OPTIONS':
+        response = make_response()
+        response.headers['Access-Control-Allow-Origin'] = 'http://localhost:4200'
+        response.headers['Access-Control-Allow-Methods'] = 'GET, POST, DELETE, OPTIONS, PUT'
+        response.headers['Access-Control-Allow-Headers'] = 'Authorization, Content-Type'
+        response.headers['Access-Control-Allow-Credentials'] = 'true'
+        return response, 200
 
-    # Get counts
-    user_count = User.query.count()
-    post_count = Post.query.count()
-    like_count = Likes.query.count()
-    
-    # Get posts from the last 30 days
-    thirty_days_ago = datetime.utcnow() - timedelta(days=30)
-    recent_posts = Post.query.filter(Post.date_posted >= thirty_days_ago).all()
-    
-    # Group posts by day for the chart
-    posts_by_day = {}
-    for post in recent_posts:
-        day = post.date_posted.strftime("%Y-%m-%d")
-        posts_by_day[day] = posts_by_day.get(day, 0) + 1
-    
-    # Convert to ordered list
-    date_range = [(datetime.utcnow() - timedelta(days=i)).strftime("%Y-%m-%d") for i in range(30, -1, -1)]
-    chart_data = [{"date": date, "count": posts_by_day.get(date, 0)} for date in date_range]
-    
-    return jsonify({
-        "counts": {
-            "users": user_count,
-            "posts": post_count,
-            "likes": like_count
-        },
-        "chart_data": chart_data
-    }), 200
+    # Now handle the GET request with JWT authentication
+    from flask_jwt_extended import jwt_required, get_jwt_identity
+    # You can either decorate a separate function or manually check:
+    @jwt_required()
+    def protected_dashboard():
+        user_id = get_jwt_identity()
+        user = User.query.get(user_id)
+        if not user or not user.is_admin:
+            return jsonify({'error': 'Unauthorized access'}), 403
 
-# Get all users (admin only)
-@app.route('/api/admin/users', methods=['GET'])
-#@admin_required()
+        # Gather dashboard metrics (or whatever logic you have)
+        user_count = User.query.count()
+        post_count = Post.query.count()
+        like_count = Likes.query.count()
+
+        thirty_days_ago = datetime.utcnow() - timedelta(days=30)
+        recent_posts = Post.query.filter(Post.date_posted >= thirty_days_ago).all()
+        posts_by_day = {}
+        for post in recent_posts:
+            day = post.date_posted.strftime("%Y-%m-%d")
+            posts_by_day[day] = posts_by_day.get(day, 0) + 1
+        date_range = [(datetime.utcnow() - timedelta(days=i)).strftime("%Y-%m-%d") for i in range(30, -1, -1)]
+        chart_data = [{"date": date, "count": posts_by_day.get(date, 0)} for date in date_range]
+
+        return jsonify({
+            "counts": {
+                "users": user_count,
+                "posts": post_count,
+                "likes": like_count
+            },
+            "chart_data": chart_data
+        }), 200
+
+    return protected_dashboard()
+
+@app.route('/api/admin/users', methods=['GET', 'OPTIONS'])
 def get_all_users():
+    if request.method == 'OPTIONS':
+        response = make_response()
+        response.headers['Access-Control-Allow-Origin'] = 'http://localhost:4200'
+        response.headers['Access-Control-Allow-Methods'] = 'GET, POST, DELETE, OPTIONS, PUT'
+        response.headers['Access-Control-Allow-Headers'] = 'Authorization, Content-Type'
+        response.headers['Access-Control-Allow-Credentials'] = 'true'
+        return response, 200
+
+    # Existing logic for GET:
     users = User.query.all()
     users_data = [{
         'id': user.id,
