@@ -405,7 +405,7 @@ def get_all_users():
     return jsonify(users_data), 200
 
 # Get all posts (admin only)
-@app.route('/api/admin/posts', methods=['GET'])
+@app.route('/api/admin/posts', methods=['GET', 'OPTIONS'])
 #@admin_required()
 def get_all_posts():
     posts = Post.query.all()
@@ -427,7 +427,7 @@ def get_all_posts():
     return jsonify(posts_data), 200
 
 # Delete user (admin only)
-@app.route('/api/admin/users/<int:user_id>', methods=['DELETE'])
+@app.route('/api/admin/users/<int:user_id>', methods=['DELETE', 'OPTIONS'])
 #@admin_required()
 def delete_user(user_id):
     user = User.query.get(user_id)
@@ -444,7 +444,7 @@ def delete_user(user_id):
     return jsonify({"message": "User and all associated data deleted successfully"}), 200
 
 # Delete post (admin only)
-@app.route('/api/admin/posts/<int:post_id>', methods=['DELETE'])
+@app.route('/api/admin/posts/<int:post_id>', methods=['DELETE', 'OPTIONS'])
 #@admin_required()
 def delete_post(post_id):
     post = Post.query.get(post_id)
@@ -460,7 +460,7 @@ def delete_post(post_id):
     return jsonify({"message": "Post deleted successfully"}), 200
 
 # Make a user admin (super-admin only)
-@app.route('/api/admin/users/<int:user_id>/make-admin', methods=['POST'])
+@app.route('/api/admin/users/<int:user_id>/make-admin', methods=['POST', 'OPTIONS'])
 #@admin_required()
 def make_user_admin(user_id):
     # Here you might want additional checks for "super admin" privileges
@@ -475,4 +475,4 @@ def make_user_admin(user_id):
 
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(debug=True, port=5001)
