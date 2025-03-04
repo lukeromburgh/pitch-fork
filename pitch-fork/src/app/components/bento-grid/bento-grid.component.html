@@ -2,7 +2,7 @@
   <div
     *ngFor="let card of cards"
     class="bento-card"
-    [ngClass]="{ wide: card.wide }"
+    [ngClass]="{ wide: card.wide, tall: card.tall }"
   >
     <div class="card-header">
       <div class="icon-wrapper">
@@ -14,7 +14,7 @@
 
     <!-- Terminal Code -->
     <div *ngIf="card.content === 'terminal'" class="terminal">
-      <div class="terminal-header">github/workflows/dev.yml</div>
+      <div class="terminal-header">pitchfork/post/comments</div>
       <div class="terminal-content">
         <div *ngFor="let line of card.terminalCode" class="terminal-line">
           <span class="line-number">{{ line.lineNumber }}</span>
@@ -66,7 +66,7 @@
         </div>
       </div>
 
-      <button class="merge-button">Merge pull request</button>
+      <button routerLink="/posts" class="merge-button">See for yourself</button>
     </div>
 
     <!-- Security Items -->

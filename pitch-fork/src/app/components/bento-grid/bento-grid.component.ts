@@ -12,67 +12,78 @@ export class BentoGridComponent {
   // Data for the bento grid cards
   cards = [
     {
-      title: 'Actions',
-      description: 'Set up CI/CD and script your entire workflow.',
+      title: 'Get Feedback',
+      description:
+        'Post your big ideas and receive feedback from a growing community.',
       icon: 'box',
       content: 'terminal',
       terminalCode: [
-        { lineNumber: 1, content: 'on:' },
-        { lineNumber: 2, content: '  push:', indentation: 1 },
-        { lineNumber: 3, content: '    branches:', indentation: 2 },
-        { lineNumber: 4, content: '      - master', indentation: 3 },
+        { lineNumber: 1, content: `I'd love to invest!` },
+        {
+          lineNumber: 2,
+          content: '  Me too!!! Any idea when we can?',
+          indentation: 1,
+        },
+        { lineNumber: 3, content: '    This will be big', indentation: 2 },
+        {
+          lineNumber: 4,
+          content: '      - load more comments',
+          indentation: 3,
+        },
       ],
     },
     {
-      title: 'Packages',
-      description: 'Publish and consume packages. And containers, too.',
+      title: 'Find Partners',
+      description:
+        'Good ideas bring great people together, you could find your co-founder lurking in your comments.',
       icon: 'package',
       content: 'terminal-prompt',
-      prompt: '~/my_project npm install',
+      prompt: '~/Add luke_dwsn to your team? (y/N) ',
     },
     {
-      title: 'Code Review',
-      description: 'Testing built into every pull request.',
+      title: 'Pre-build Validation',
+      description: 'Testing and market fit are what we do best.',
       icon: 'code',
       content: 'checks',
       checks: [
         {
           status: 'success',
-          message: 'All checks have passed',
+          message: 'Validate your concept before launching',
           detail: '4 successful checks',
           approvals: 2,
         },
         {
           status: 'success',
-          message: 'All checks have passed',
-          detail: '26 successful checks',
+          message: 'Engage with fellow entrepreneurs and innovators',
+          detail: '26 comments',
           items: [
             {
               icon: 'terminal-square',
               color: '#f2a10c',
-              label: 'Build',
-              detail: 'Successful in 2m',
+              label: 'Queries',
+              detail: '2 Queries',
             },
             {
               icon: 'clock',
               color: '#f2a10c',
-              label: 'Test',
-              detail: 'Successful in 5m',
+              label: 'Likes in last hour',
+              detail: '100+',
             },
             {
               icon: 'code',
               color: '#f2a10c',
-              label: 'Code scanning / CodeQL',
-              detail: 'Successful in 3m',
+              label: 'Collaboration requests',
+              detail: '4',
             },
           ],
         },
         {
           status: 'success',
-          message: 'This branch has no conflicts with the base branch',
-          detail: 'Merging can be performed automatically.',
+          message: 'Discover trending startup ideas',
+          detail: 'Get ahead of the curve, and then stay there',
         },
       ],
+      tall: true,
     },
     {
       title: 'Advanced Security',

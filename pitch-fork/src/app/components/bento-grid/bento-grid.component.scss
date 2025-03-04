@@ -50,6 +50,11 @@ $security-panel: #25282c;
       grid-column: span 2;
     }
   }
+  &.tall {
+    @media (min-height: 768px) {
+      grid-row: span 2;
+    }
+  }
 }
 
 // Animations
@@ -80,6 +85,7 @@ $security-panel: #25282c;
   height: 2rem;
   border-radius: 50%;
   background-color: rgba(0, 0, 0, 0.3);
+  color: #898989;
 }
 
 .card-title {
@@ -143,6 +149,10 @@ $security-panel: #25282c;
 .cursor {
   animation: blink 1s infinite;
   margin-left: 0.25rem;
+}
+
+span {
+  color: #ffffff;
 }
 
 @keyframes blink {
@@ -244,7 +254,7 @@ $security-panel: #25282c;
 .merge-button {
   margin-top: 1rem;
   background-color: $primary-green;
-  color: #ffffff;
+  color: #000000;
   border: none;
   border-radius: 6px;
   padding: 0.5rem 1rem;
