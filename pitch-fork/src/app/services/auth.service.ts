@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root',
@@ -9,16 +10,17 @@ import { tap } from 'rxjs/operators';
 export class AuthService {
   private tokenKey = 'token';
   private authStatus = new BehaviorSubject<boolean>(false);
-  private baseUrl = 'http://127.0.0.1:5000';
+  private apiUrl = `${environment.apiUrl}`; // Using the environment variable
+  private baseUrl = 'http://127.0.0.1:5001';
   constructor(private http: HttpClient) {}
 
   signup(userData: any) {
-    return this.http.post('http://127.0.0.1:5000/sign-up', userData);
+    return this.http.post(`${this.baseUrl}/sign-up`, userData);
   }
 
   login(credentials: any) {
     return this.http
-      .post<{ token: string }>('http://127.0.0.1:5000/login', credentials)
+      .post<{ token: string }>(`${this.baseUrl}/login`, credentials)
       .pipe(
         tap((response) => {
           if (response.token) {
@@ -60,7 +62,7 @@ export class AuthService {
 
     console.log('Authorization header:', `Bearer ${token}`);
 
-    return this.http.get<any>(`${this.baseUrl}/api/post/${postId}`, {
+    return this.http.get<any>(`${this.apiUrl}/post/${postId}`, {
       headers,
     });
   }
@@ -78,7 +80,7 @@ export class AuthService {
     });
 
     console.log('Authorization header:', `Bearer ${token}`);
-    return this.http.get('http://127.0.0.1:5000/api/posts', { headers });
+    return this.http.get(`${this.apiUrl}/posts`, { headers });
   }
 
   getProfile(): Observable<any> {
@@ -86,7 +88,7 @@ export class AuthService {
     const headers = new HttpHeaders({
       Authorization: `Bearer ${token}`,
     });
-    return this.http.get(`${this.baseUrl}/api/profile`, { headers });
+    return this.http.get(`${this.apiUrl}/profile`, { headers });
   }
 
   updateProfile(profileData: any): Observable<any> {
@@ -107,7 +109,7 @@ export class AuthService {
       }
     });
 
-    return this.http.put(`${this.baseUrl}/api/profile`, formData, {
+    return this.http.put(`${this.apiUrl}/profile`, formData, {
       headers,
     });
   }
@@ -118,11 +120,7 @@ export class AuthService {
       Authorization: `Bearer ${token}`,
     });
 
-    return this.http.post(
-      `http://127.0.0.1:5000/api/like/${postId}`,
-      {},
-      { headers }
-    );
+    return this.http.post(`${this.apiUrl}/like/${postId}`, {}, { headers });
   }
 
   //   adminDashboard(): Observable<any> {

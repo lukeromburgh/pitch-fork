@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root', // ✅ This makes the service globally available
 })
 export class PostService {
-  private apiUrl = 'http://127.0.0.1:5000/api/posts';
+  private apiUrl = 'http://127.0.0.1:5001/api/posts';
 
   constructor(private http: HttpClient) {}
 

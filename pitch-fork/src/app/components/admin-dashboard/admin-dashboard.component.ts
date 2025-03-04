@@ -6,6 +6,7 @@ import { Chart, registerables } from 'chart.js';
 Chart.register(...registerables);
 
 @Component({
+  standalone: true,
   imports: [CommonModule],
   selector: 'app-admin-dashboard',
   templateUrl: './admin-dashboard.component.html',
@@ -133,7 +134,16 @@ export class AdminDashboardComponent implements OnInit {
     }
 
     const ctx = document.getElementById('postsChart') as HTMLCanvasElement;
+    console.error('Canvas element not found');
     if (!ctx) return;
+
+    if (
+      !this.dashboardData.chart_data ||
+      this.dashboardData.chart_data.length === 0
+    ) {
+      console.error('No chart data available');
+      return;
+    }
 
     const dates = this.dashboardData.chart_data.map((item: any) => item.date);
     const counts = this.dashboardData.chart_data.map((item: any) => item.count);
