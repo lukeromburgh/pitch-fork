@@ -21,8 +21,8 @@
 } */
 
 .footer {
-  background: -webkit-linear-gradient(70deg, #ee0979, #ff5500);
-  color: #000000;
+  background-color: #242a35;
+  color: #ffffff;
   padding: 20px 0;
   text-align: left;
   font-size: 0.9rem;
@@ -62,7 +62,7 @@
 }
 
 .footer-section a {
-  color: #000000;
+  color: #f0f0f0;
   text-decoration: none;
   cursor: pointer;
 }
