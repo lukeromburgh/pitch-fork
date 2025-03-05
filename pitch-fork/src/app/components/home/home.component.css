@@ -77,16 +77,16 @@ main {
   padding: 1rem;
   box-sizing: inherit;
   position: relative;
-  padding: 180px 180px 80px 180px;
+  padding: 180px 180px 40px 180px;
 }
 
 .content {
-  padding-top: 8rem;
+  padding-top: 2%;
   display: flex;
   flex-direction: column;
   justify-content: center;
   text-align: center;
-  max-width: 32%;
+  max-width: 50%;
   margin-bottom: 3rem;
 }
 
@@ -112,13 +112,12 @@ h1 {
   display: flex;
   flex-direction: row;
   align-items: center;
-  justify-content: center;
-  margin-bottom: 50px;
+  min-width: 100%;
+  justify-content: space-between;
 }
 
 .hero-2-text {
   text-align: right;
-  margin-left: 80px;
   z-index: 5;
 }
 
@@ -131,11 +130,10 @@ h1 {
 }
 
 .explanation-card {
-  background-color: #0d0f1d;
-  width: 30%;
+  background-color: #1e2022;
   height: fit-content;
   padding: 4rem;
-  border-radius: 8px;
+  border-radius: 12px;
   box-shadow: 0 2px 8px rgba(247, 247, 247, 0.05);
   cursor: crosshair;
   transition: transform 0.2s ease;
@@ -297,7 +295,7 @@ main p {
   height: 300px;
   padding: 3rem;
   margin-bottom: 6px;
-  border-radius: 8px;
+  border-radius: 12px;
   box-shadow: 0 2px 12px rgba(0, 0, 0, 0.05);
   cursor: pointer;
   transition: transform 0.2s ease-out;
@@ -361,15 +359,18 @@ main p {
 }
 
 .banner {
+  align-self: center;
+  justify-self: center;
   display: flex;
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  max-width: 100%;
-  background-color: #1b2028;
+  width: 1200px;
+  background-color: #1e2022;
+  border: 1px solid #2d2d2d;
+  border-radius: 12px;
   /* background: -webkit-linear-gradient(70deg, #ee0979, #ff5500); */
-  padding: 50px 200px;
-  margin-bottom: 60px;
+  padding: 3rem 0;
 }
 
 .banner h3 {
@@ -438,6 +439,15 @@ main p {
   margin-bottom: 3rem;
 }
 
+.flex-container {
+  width: 1200px;
+  padding: 0rem;
+  align-self: center;
+  justify-self: center;
+  align-items: center;
+  justify-items: center;
+}
+
 /* ------------------------------ ABOUT SECTION ------------------------------- */
 
 .about-section {
@@ -449,23 +459,18 @@ main p {
 .image-section {
   display: flex;
   flex-direction: row;
-  max-width: 80%;
-  justify-content: center;
+  min-width: 100%;
+  justify-content: space-between;
+  gap: 4rem;
   align-items: center;
-  margin: 0px 350px;
-  padding-bottom: 50px;
-}
-
-.image-supporting-text {
-  max-width: 32rem;
-  margin-right: 10rem;
+  padding: 1rem 0;
 }
 
 .image-card {
   position: relative;
-  background-color: #0d0f1d;
-  border: 1px solid #494949;
-  border-radius: 8px;
+  background-color: #1e2022;
+  border: 1px solid #3d3d3d;
+  border-radius: 12px;
   padding: 2rem;
 }
 
@@ -473,7 +478,26 @@ main p {
   margin-bottom: 20px;
 }
 
-@media screen and (max-width: 1100px) {
+@media screen and (max-width: 1452px) {
+  .content {
+    min-width: 90%;
+  }
+
+  main {
+    padding: 80px 80px 20px 80px;
+  }
+
+  .image-section {
+    flex-direction: column-reverse;
+    padding-top: 4rem;
+    align-items: center;
+  }
+
+  .image-supporting-text {
+    margin: 4rem 0 0 0;
+    text-align: center;
+  }
+
   .banner {
     flex-direction: column;
     align-items: center;
@@ -528,5 +552,18 @@ main p {
   .content {
     flex-direction: column;
     width: max-content;
+  }
+
+  h1 {
+    font-size: 2rem;
+  }
+
+  p {
+    font-size: 1rem;
+  }
+
+  main p {
+    font-size: 1rem;
+    max-width: 100%;
   }
 }
