@@ -212,6 +212,8 @@ def create_post():
 
     new_post = Post(
         title=data['title'],
+        subtitle=data.get('subtitle', ''),
+        link=data.get('link', ''),
         content=data['content'],
         user_id=user_id,  # 🔹 Associate the post with the logged-in user
         username=user.username,  # 🔹 Associate the post with the logged-in user
@@ -239,6 +241,8 @@ def get_post_by_id(post_id):
     post_data = {
         'id': post.id,
         'title': post.title,
+        'subtitle': post.subtitle,
+        'link': post.link,
         'content': post.content,
         'category': post.category,
         'date_posted': post.date_posted,
