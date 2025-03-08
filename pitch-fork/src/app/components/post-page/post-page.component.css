@@ -61,7 +61,7 @@
 
   cursor: pointer;
 
-  transition-duration: 0.3s;
+  transition-duration: 0.4s;
 }
 
 .tag:hover {
@@ -69,7 +69,9 @@
 }
 
 .tag.active {
-  background-color: #e41956;
+  background-color: #23272e;
+  border-color: #8a8a8a;
+  box-shadow: 0 0px 8px rgba(142, 142, 142, 0.376);
 }
 
 .post-list {

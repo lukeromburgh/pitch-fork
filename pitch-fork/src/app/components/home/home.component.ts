@@ -5,6 +5,7 @@ import { PostCardComponent } from '../post-card/post-card.component';
 import { PostService } from '../../services/post.service';
 import { CommonModule } from '@angular/common';
 import { AuthService } from '../../services/auth.service';
+import { BentoGridComponent } from '../bento-grid/bento-grid.component';
 
 @Component({
   selector: 'app-home',
@@ -14,6 +15,7 @@ import { AuthService } from '../../services/auth.service';
     PostCardComponent,
     HttpClientModule,
     CommonModule,
+    BentoGridComponent,
   ],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css',

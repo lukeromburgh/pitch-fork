@@ -1,0 +1,113 @@
+<div class="bento-grid">
+  <div
+    *ngFor="let card of cards"
+    class="bento-card"
+    [ngClass]="{ wide: card.wide, tall: card.tall }"
+  >
+    <div class="card-header">
+      <div class="icon-wrapper">
+        <i class="icon {{ card.icon }}"></i>
+      </div>
+    </div>
+    <h3 class="card-title">{{ card.title }}</h3>
+    <p class="card-description">{{ card.description }}</p>
+
+    <!-- Terminal Code -->
+    <div *ngIf="card.content === 'terminal'" class="terminal">
+      <div class="terminal-header">pitchfork/post/comments</div>
+      <div class="terminal-content">
+        <div *ngFor="let line of card.terminalCode" class="terminal-line">
+          <span class="line-number">{{ line.lineNumber }}</span>
+          <span
+            class="line-content"
+            [ngStyle]="{ 'padding-left': (line.indentation || 0) * 12 + 'px' }"
+            >{{ line.content }}</span
+          >
+        </div>
+      </div>
+    </div>
+
+    <!-- Terminal Prompt -->
+    <div *ngIf="card.content === 'terminal-prompt'" class="terminal">
+      <div class="terminal-content">
+        <div class="terminal-line">
+          <span class="prompt">~</span>
+          <span class="npm-command">{{ card.prompt }}</span>
+          <span class="cursor">█</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Code Review Checks -->
+    <div *ngIf="card.content === 'checks'" class="checks-container">
+      <div *ngFor="let check of card.checks" class="check-item">
+        <div class="check-header">
+          <div class="check-icon success">
+            <i class="icon check-circle"></i>
+          </div>
+          <div class="check-info">
+            <p class="check-message">{{ check.message }}</p>
+            <p class="check-detail">{{ check.detail }}</p>
+          </div>
+        </div>
+
+        <div *ngIf="check.approvals" class="check-approvals">
+          → {{ check.approvals }} approvals
+        </div>
+
+        <div *ngIf="check.items" class="check-items">
+          <div *ngFor="let item of check.items" class="check-subitem">
+            <div class="subitem-icon" [ngStyle]="{ color: item.color }">
+              <i class="icon {{ item.icon }}"></i>
+            </div>
+            <span class="subitem-label">{{ item.label }}</span>
+            <span class="subitem-detail">· {{ item.detail }}</span>
+          </div>
+        </div>
+      </div>
+
+      <button routerLink="/posts" class="merge-button">See for yourself</button>
+    </div>
+
+    <!-- Security Items -->
+    <div *ngIf="card.content === 'security'" class="security-container">
+      <div
+        *ngFor="let item of card.securityItems"
+        class="security-item"
+        [ngClass]="item.type"
+      >
+        <!-- Code Security Item -->
+        <div *ngIf="item.type === 'code'" class="security-code">
+          <div class="security-code-header">
+            <span>{{ item.label }}</span>
+            <span>·</span>
+            <span>{{ item.detail }}</span>
+          </div>
+          <div class="code-block">
+            <div *ngFor="let line of item.code" class="code-line">
+              <span class="line-number">{{ line.lineNumber }}</span>
+              <span class="line-prefix">{{ line.prefix }}</span>
+              <span class="line-content">{{ line.content }}</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Alert Security Item -->
+        <div *ngIf="item.type === 'alert'" class="security-alert">
+          <div class="alert-header">
+            <i class="icon {{ item.icon }}"></i>
+            <span class="alert-title">{{ item.title }}</span>
+          </div>
+          <p class="alert-message">{{ item.message }}</p>
+        </div>
+
+        <!-- Simple Security Item -->
+        <div *ngIf="item.type === 'simple'" class="security-simple">
+          <span>{{ item.label }}</span>
+          <span>·</span>
+          <span>{{ item.detail }}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

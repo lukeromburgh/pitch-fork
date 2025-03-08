@@ -8,38 +8,13 @@
     />
   </head>
   <main class="main">
-    <div class="particle-container">
-      <div class="particle"></div>
-      <div class="particle"></div>
-      <div class="particle"></div>
-      <div class="particle"></div>
-      <div class="particle"></div>
-      <div class="particle"></div>
-      <div class="particle"></div>
-      <div class="particle"></div>
-      <div class="particle"></div>
-      <div class="particle"></div>
-      <div class="particle"></div>
-      <div class="particle"></div>
-      <div class="particle"></div>
-      <div class="particle"></div>
-      <div class="particle"></div>
-      <div class="particle"></div>
-      <div class="particle"></div>
-      <div class="particle"></div>
-      <div class="particle"></div>
-      <div class="particle"></div>
-      <div class="particle"></div>
-      <div class="particle"></div>
-      <div class="particle"></div>
-      <div class="particle"></div>
-      <div class="particle"></div>
-    </div>
-    <div class="content">
+    <div class="content fade">
       <h1>
-        <span class="main-landing-hero-text">Unlock Your Full Potential.</span>
+        Unlock Your Full Potential.
         <br />
-        Join the #1 Community for Developers & Founders.
+        Join the #1 Community for
+        <br />Entrepreneurs, Developers <br />
+        & Founders.
       </h1>
       <p>
         Gain invaluable insight and guidance from expereienced founders and
@@ -70,7 +45,7 @@
     <button class="btn-tertiary" routerLink="posts">View all posts</button>
   </div>
 
-  <div class="post-wrapper">
+  <div class="post-wrapper slide-in-blurred-left-normal">
     <div class="post-container">
       <div class="post-card" *ngFor="let post of posts">
         <div class="user">
@@ -118,43 +93,47 @@
     </div>
   </div>
 
-  <div class="hero-2">
-    <div class="explanation-card">
-      <h3><span class="emoji">🎯</span> Share Your Startup Idea</h3>
-      <p>Write a short pitch—what’s the problem you’re solving?</p>
+  <app-bento-grid></app-bento-grid>
 
-      <h3><span class="emoji">💡</span> Get Community Feedback</h3>
-      <p>
-        Entrepreneurs, investors, and builders will comment, vote, and share
-        insights.
-      </p>
+  <div class="flex-container">
+    <div class="hero-2">
+      <div class="explanation-card">
+        <h3><span class="emoji">🎯</span> Share Your Startup Idea</h3>
+        <p>Write a short pitch—what’s the problem you’re solving?</p>
 
-      <h3><span class="emoji">💎</span> Improve & Iterate</h3>
-      <p>Refine your idea based on feedback before taking the next step.</p>
+        <h3><span class="emoji">💡</span> Get Community Feedback</h3>
+        <p>
+          Entrepreneurs, investors, and builders will comment, vote, and share
+          insights.
+        </p>
+
+        <h3><span class="emoji">💎</span> Improve & Iterate</h3>
+        <p>Refine your idea based on feedback before taking the next step.</p>
+      </div>
+      <div>
+        <h1 class="hero-2-text">
+          <span class="hero-2-span-text">Got an idea?</span><br />
+          <span class="hero-2-span-text">Post it.</span><br />
+          <span class="hero-2-span-text">Get feedback.</span><br />
+          <span class="hero-2-span-text">Iterate.</span>
+        </h1>
+      </div>
     </div>
-    <div>
-      <h1 class="hero-2-text">
-        <span class="hero-2-span-text">Got an idea?</span><br />
-        <span class="hero-2-span-text">Post it.</span><br />
-        <span class="hero-2-span-text">Get feedback.</span><br />
-        <span class="hero-2-span-text">Iterate.</span>
-      </h1>
-    </div>
+
+    <section class="image-section">
+      <div class="image-supporting-text">
+        <h2 class="image-heading light-text">Collaborate. Create. Conquer.</h2>
+        <p class="light-text">
+          You’re driven. You’re passionate. You’re ready to make your mark. But
+          achieving your goals doesn’t have to be a solo mission. Get the
+          support, insights, and motivation you need from a community of
+          like-minded builders. It’s time to get things done—together.
+        </p>
+      </div>
+
+      <div class="image-card">
+        <img width="420px" src="collaboration.png" />
+      </div>
+    </section>
   </div>
-
-  <section class="image-section">
-    <div class="image-supporting-text">
-      <h2 class="image-heading light-text">Collaborate. Create. Conquer.</h2>
-      <p class="light-text">
-        You’re driven. You’re passionate. You’re ready to make your mark. But
-        achieving your goals doesn’t have to be a solo mission. Get the support,
-        insights, and motivation you need from a community of like-minded
-        builders. It’s time to get things done—together.
-      </p>
-    </div>
-
-    <div class="image-card">
-      <img width="550px" src="collaboration.png" />
-    </div>
-  </section>
 </html>
