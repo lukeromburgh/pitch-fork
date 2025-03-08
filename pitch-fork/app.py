@@ -62,7 +62,9 @@ class User(db.Model):
 
 class Post(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    title = db.Column(db.String(100), nullable=False)
+    title = db.Column(db.String(50), nullable=False)
+    subtitle = db.Column(db.String(100), nullable=False)
+    link = db.Column(db.String(100), nullable=True)
     content = db.Column(db.Text, nullable=False)
     date_posted = db.Column(db.DateTime, default=datetime.utcnow)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)  # Foreign key to user.id
@@ -75,6 +77,8 @@ class Post(db.Model):
         return {
             'id': self.id,
             'title': self.title,
+            'subtitle': self.subtitle,
+            'link': self.link,
             'content': self.content,
             'date_posted': self.date_posted,
             'user_id': self.user_id,
@@ -93,6 +97,27 @@ class Likes(db.Model):
 
     def to_dict(self): return { 'user_id': self.user_id, 'post_id': self.post_id, 'isActive': self.isActive, 'lastUpdated': self.lastUpdated }
 
+
+class Comment(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    content = db.Column(db.Text, nullable=False)
+    date_posted = db.Column(db.DateTime, default=datetime.utcnow)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    post_id = db.Column(db.Integer, db.ForeignKey('post.id'), nullable=False)
+
+    # Fix: Specify the foreign key column explicitly
+    user = db.relationship('User', backref='comments', foreign_keys=[user_id])  
+    post = db.relationship('Post', backref='comments')
+
+    def to_dict(self):
+        return {
+            'id': self.id,
+            'content': self.content,
+            'date_posted': self.date_posted,
+            'user_id': self.user_id,
+            'username': self.user.username,
+            'post_id': self.post_id
+        }
 
 # Create tables if they don't exist
 with app.app_context():
