@@ -3,6 +3,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { AuthService } from '../../services/auth.service';
+import { PostService } from '../../services/post.service';
 
 @Component({
   selector: 'app-full-screen-post',
@@ -23,7 +24,8 @@ export class FullScreenPostComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private authService: AuthService
+    private authService: AuthService,
+    private postService: PostService
   ) {}
 
   handleLike() {
@@ -86,6 +88,26 @@ export class FullScreenPostComponent implements OnInit {
       (error) => {
         console.error('Error liking post', error);
         this.isLiked = false; // ✅ Reset UI state if error occurs
+      }
+    );
+  }
+
+  addComment(): void {
+    if (!this.post || !this.post.id) {
+      console.error('Post data is missing or undefined');
+      return;
+    }
+
+    const token = this.authService.getToken();
+
+    this.postService.createComment(this.post.id, token!).subscribe(
+      (response) => {
+        if (response.comments !== undefined) {
+          this.post.comments = response.comments; // ✅ Update comments count
+        }
+      },
+      (error) => {
+        console.error('Error adding comment', error);
       }
     );
   }

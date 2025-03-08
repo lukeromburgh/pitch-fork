@@ -110,7 +110,7 @@
 // Chart card (second row)
 .chart-card {
   grid-column: span 3;
-  height: 350px;
+  height: fit-content;
 
   @media (max-width: 992px) {
     grid-column: span 2;

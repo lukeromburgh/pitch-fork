@@ -255,6 +255,25 @@ def get_post_by_id(post_id):
     return jsonify(post_data), 200  # Return post data
 
 
+@app.route('/api/comment', methods=['POST'])
+@jwt_required()
+def create_comment():
+    user_id = get_jwt_identity()
+    data = request.json
+
+    user = User.query.get(user_id)
+    if not user:
+        return jsonify({'error': 'User not found'}), 404
+
+    new_comment = Comment(
+        content=data['content'],
+        user_id=user_id,
+        post_id=data['post_id']
+    )
+
+    db.session.add(new_comment)
+    db.session.commit()
+    return jsonify(new_comment.to_dict()), 201
 
 
 @app.route('/api/profile', methods=['GET'])
