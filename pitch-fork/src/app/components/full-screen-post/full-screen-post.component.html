@@ -39,15 +39,19 @@
 
   <div class="comments">
     <h2>Comments</h2>
-    <div *ngFor="let comment of post.comments" class="comment">
+    <div *ngFor="let comment of post?.comments" class="comment">
       <div class="comment-header">
-        <span>{{ comment.username }}</span>
-        <span>{{ comment.date_posted | date : "medium" }}</span>
+        <span>{{ comment?.username }}</span>
+        <span>{{ comment?.date_posted | date : "medium" : "" }}</span>
       </div>
-      <p>{{ comment.content }}</p>
+      <p>{{ comment?.content }}</p>
     </div>
     <div class="comment-form">
-      <textarea placeholder="Write a comment..."></textarea>
+      <textarea
+        [(ngModel)]="newCommentText"
+        placeholder="Write a comment..."
+        aria-label="Write a comment"
+      ></textarea>
       <button (click)="addComment()">Post</button>
     </div>
   </div>

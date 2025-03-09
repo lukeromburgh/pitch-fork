@@ -276,6 +276,17 @@ def create_comment():
     return jsonify(new_comment.to_dict()), 201
 
 
+@app.route('/api/comment', methods=['GET'])
+@jwt_required()
+def get_comments():
+    # Expect a query parameter ?post_id=123
+    post_id = request.args.get('post_id', type=int)
+    if post_id is None:
+        return jsonify({'error': 'Missing post_id parameter'}), 400
+    
+    comments = Comment.query.filter_by(post_id=post_id).all()
+    return jsonify([comment.to_dict() for comment in comments]), 200
+
 @app.route('/api/profile', methods=['GET'])
 @jwt_required()
 def get_profile():

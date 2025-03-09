@@ -4,11 +4,12 @@ import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { AuthService } from '../../services/auth.service';
 import { PostService } from '../../services/post.service';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-full-screen-post',
   standalone: true,
-  imports: [CommonModule, HttpClientModule],
+  imports: [CommonModule, HttpClientModule, FormsModule],
   templateUrl: './full-screen-post.component.html',
   styleUrl: './full-screen-post.component.css',
 })
@@ -20,6 +21,8 @@ export class FullScreenPostComponent implements OnInit {
   isLiked = false;
   showParticles = false;
   particles = Array(8);
+  newCommentText: string = '';
+  comments: any[] = [];
 
   constructor(
     private route: ActivatedRoute,
@@ -42,6 +45,7 @@ export class FullScreenPostComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    const token = this.authService.getToken();
     this.categorySplit();
 
     console.log('Post ID:', this.postId);
@@ -52,6 +56,15 @@ export class FullScreenPostComponent implements OnInit {
       if (id) {
         this.postId = +id; // Convert to number
         this.fetchPostData(this.postId);
+
+        this.postService.getCommentsByPostId(this.postId!, token!).subscribe({
+          next: (data) => {
+            this.comments = data;
+          },
+          error: (error) => {
+            console.error('Error fetching comments', error);
+          },
+        });
       }
     });
   }
@@ -65,7 +78,7 @@ export class FullScreenPostComponent implements OnInit {
     this.authService.getPostById(id).subscribe(
       (response) => {
         console.log('Post fetched successfully:', response);
-        this.post = response;
+        this.post = { ...response, comments: response.comments || [] }; // ✅ Ensure comments is an array
       },
       (error) => {
         console.error('Error fetching post:', error);
@@ -92,19 +105,26 @@ export class FullScreenPostComponent implements OnInit {
     );
   }
 
-  addComment(): void {
+  addComment(event: Event): void {
     if (!this.post || !this.post.id) {
       console.error('Post data is missing or undefined');
       return;
     }
 
     const token = this.authService.getToken();
+    const commentData = {
+      post_id: this.post.id,
+      content: this.newCommentText,
+    };
 
-    this.postService.createComment(this.post.id, token!).subscribe(
+    this.postService.createComment(commentData, token!).subscribe(
       (response) => {
         if (response.comments !== undefined) {
-          this.post.comments = response.comments; // ✅ Update comments count
+          this.post.comments = response.comments; // Update comments in UI, if provided by the API
         }
+        console.log('Comment added successfully!', response);
+        // Clear the input after successful comment
+        this.newCommentText = '';
       },
       (error) => {
         console.error('Error adding comment', error);
