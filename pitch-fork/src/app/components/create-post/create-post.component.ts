@@ -10,6 +10,8 @@ import { CommonModule } from '@angular/common'; // Import CommonModule for ngIf,
 import { AuthService } from '../../services/auth.service'; // Import AuthService
 import { Router } from '@angular/router'; // Import Router for navigation
 import { EditorComponent } from '@tinymce/tinymce-angular';
+import { link } from 'fs';
+import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar'; // Import MatSnackBar and MatSnackBarModule
 
 @Component({
   selector: 'app-create-post',
@@ -25,10 +27,19 @@ export class CreatePostComponent {
     private fb: FormBuilder,
     private postService: PostService,
     private authService: AuthService, // Inject AuthService to check authentication
-    private router: Router // Inject Router to redirect if not authenticated
+    private router: Router, // Inject Router to redirect if not authenticated
+    private snackBar: MatSnackBar // Inject MatSnackBar for displaying tooltips
   ) {
     this.postForm = this.fb.group({
       title: ['', [Validators.required, Validators.minLength(3)]],
+      subtitle: [
+        'This is the short description of your project that users will see first',
+        [Validators.required, Validators.maxLength(80)],
+      ],
+      link: [
+        'this is a link to your github repo or live site',
+        [Validators.required, Validators.minLength(5)],
+      ],
       content: ['', [Validators.required, Validators.minLength(5)]],
       tags: this.selectedTags.join(','),
     });
@@ -108,6 +119,12 @@ export class CreatePostComponent {
       this.postService.createPost(newPost, token).subscribe(
         (response) => {
           console.log('Post created successfully!', response);
+          this.snackBar.open('Post created successfully!', 'Close', {
+            duration: 3000, // Display the tooltip for 3 seconds
+          });
+          setTimeout(() => {
+            this.router.navigate(['/posts']); // Redirect to /posts after 3 seconds
+          }, 3000);
         },
         (error) => {
           console.error('Error creating post:', error);

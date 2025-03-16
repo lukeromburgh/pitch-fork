@@ -3,11 +3,14 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { AuthService } from '../../services/auth.service';
+import { PostService } from '../../services/post.service';
+import { FormsModule } from '@angular/forms';
+import { CommentsComponent } from '../comments/comments.component';
 
 @Component({
   selector: 'app-full-screen-post',
   standalone: true,
-  imports: [CommonModule, HttpClientModule],
+  imports: [CommonModule, HttpClientModule, FormsModule, CommentsComponent],
   templateUrl: './full-screen-post.component.html',
   styleUrl: './full-screen-post.component.css',
 })
@@ -19,11 +22,14 @@ export class FullScreenPostComponent implements OnInit {
   isLiked = false;
   showParticles = false;
   particles = Array(8);
+  newCommentText: string = '';
+  comments: any[] = [];
 
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private authService: AuthService
+    private authService: AuthService,
+    private postService: PostService
   ) {}
 
   handleLike() {
@@ -40,15 +46,16 @@ export class FullScreenPostComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    const token = this.authService.getToken();
     this.categorySplit();
 
-    console.log('Post ID:', this.postId);
-    console.log(this.route);
     this.route.paramMap.subscribe((params) => {
       const id = params.get('id');
-      console.log(params);
       if (id) {
         this.postId = +id; // Convert to number
+        console.log('Post ID:', this.postId); // Log here instead of before
+
+        // Fetch post data
         this.fetchPostData(this.postId);
       }
     });
@@ -63,7 +70,7 @@ export class FullScreenPostComponent implements OnInit {
     this.authService.getPostById(id).subscribe(
       (response) => {
         console.log('Post fetched successfully:', response);
-        this.post = response;
+        this.post = { ...response, comments: response.comments || [] }; // ✅ Ensure comments is an array
       },
       (error) => {
         console.error('Error fetching post:', error);
@@ -77,7 +84,7 @@ export class FullScreenPostComponent implements OnInit {
       return;
     }
 
-    this.authService.likePost(this.post.id).subscribe(
+    this.authService.likePost(this.post.id!).subscribe(
       (response) => {
         if (response.likes !== undefined) {
           this.post.likes = response.likes; // ✅ Update likes count

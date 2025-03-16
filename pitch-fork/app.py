@@ -212,6 +212,8 @@ def create_post():
 
     new_post = Post(
         title=data['title'],
+        subtitle=data.get('subtitle', ''),
+        link=data.get('link', ''),
         content=data['content'],
         user_id=user_id,  # 🔹 Associate the post with the logged-in user
         username=user.username,  # 🔹 Associate the post with the logged-in user
@@ -239,6 +241,8 @@ def get_post_by_id(post_id):
     post_data = {
         'id': post.id,
         'title': post.title,
+        'subtitle': post.subtitle,
+        'link': post.link,
         'content': post.content,
         'category': post.category,
         'date_posted': post.date_posted,
@@ -251,7 +255,52 @@ def get_post_by_id(post_id):
     return jsonify(post_data), 200  # Return post data
 
 
+@app.route('/api/comment', methods=['POST'])
+@jwt_required()
+def create_comment():
+    user_id = get_jwt_identity()
+    data = request.json
 
+    user = User.query.get(user_id)
+    if not user:
+        return jsonify({'error': 'User not found'}), 404
+
+    new_comment = Comment(
+        content=data['content'],
+        user_id=user_id,
+        post_id=data['post_id']
+    )
+
+    db.session.add(new_comment)
+    db.session.commit()
+    return jsonify(new_comment.to_dict()), 201
+
+
+@app.route('/api/comment', methods=['GET'])
+@jwt_required()
+def get_comments():
+    # Expect a query parameter ?post_id=123
+    post_id = request.args.get('post_id', type=int)
+    if post_id is None:
+        return jsonify({'error': 'Missing post_id parameter'}), 400
+    
+    comments = Comment.query.filter_by(post_id=post_id).all()
+    return jsonify([comment.to_dict() for comment in comments]), 200
+
+
+
+    # =================== File Uploads & Profile updates ===================
+    # ===========================================================================================================================
+
+UPLOAD_FOLDER = 'uploads'
+app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+os.makedirs(os.path.join(UPLOAD_FOLDER, 'profile_pics'), exist_ok=True)
+os.makedirs(os.path.join(UPLOAD_FOLDER, 'banners'), exist_ok=True)
+
+ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg'}
+
+def allowed_file(filename):
+    return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
 @app.route('/api/profile', methods=['GET'])
 @jwt_required()
@@ -273,45 +322,38 @@ def get_profile():
 def update_profile():
     user_id = get_jwt_identity()
     user = User.query.get(user_id)
-    
     if not user:
         return jsonify({'error': 'User not found'}), 404
 
-    # Get form data (if sending files)
     data = request.form
 
-    # Update bio
     if 'bio' in data:
         user.bio = data['bio']
 
-    # Update password if provided
     if 'old_password' in data and 'new_password' in data:
-        if not check_password_hash(user.password, data['old_password']):
+        if not user.check_password(data['old_password']):
             return jsonify({'error': 'Incorrect old password'}), 400
-        user.password = generate_password_hash(data['new_password'])
+        user.set_password(data['new_password'])
 
-    # Handle profile picture upload
     if 'profile_picture' in request.files:
         profile_picture = request.files['profile_picture']
-        if profile_picture.filename != '':
-            profile_path = f"uploads/profile_pics/{user_id}.png"  # Customize storage path
+        if profile_picture and allowed_file(profile_picture.filename):
+            filename = (f"{user_id}_profile.png")
+            profile_path = os.path.join(app.config['UPLOAD_FOLDER'], 'profile_pics', filename)
             profile_picture.save(profile_path)
-            user.profile_picture = profile_path  # Save path in DB
+            user.profile_picture = f"/{profile_path}"
 
-    # Handle banner type and color
-    if 'banner_type' in data and data['banner_type'] == 'color':
-        user.banner_type = 'color'
-        user.banner_color = data.get('banner_color', '#2C3539')
-    else:
-        user.banner_type = 'image'
-
-    # Handle banner upload
-    if 'banner' in request.files:
-        banner = request.files['banner']
-        if banner.filename != '':
-            banner_path = f"uploads/banners/{user_id}.jpg"
-            banner.save(banner_path)
-            user.banner = banner_path
+    if 'banner_type' in data:
+        user.banner_type = data['banner_type']
+        if data['banner_type'] == 'color':
+            user.banner_color = data.get('banner_color', '#2C3539')
+        elif 'banner' in request.files:
+            banner = request.files['banner']
+            if banner and allowed_file(banner.filename):
+                filename = (f"{user_id}_banner.jpg")
+                banner_path = os.path.join(app.config['UPLOAD_FOLDER'], 'banners', filename)
+                banner.save(banner_path)
+                user.banner = f"/{banner_path}"
 
     db.session.commit()
     return jsonify({'message': 'Profile updated successfully'}), 200
