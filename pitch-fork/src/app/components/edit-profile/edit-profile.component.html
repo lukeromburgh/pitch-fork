@@ -1,14 +1,24 @@
 <div class="profile-container">
   <form [formGroup]="profileForm" (ngSubmit)="onSubmit()">
+    <!-- Error Message Display -->
+    <div *ngIf="errorMessage" class="error-message">{{ errorMessage }}</div>
+
+    <!-- Banner Section -->
     <div class="banner-section">
       <div
         class="banner-container"
-        [style.background-color]="selectedColor || '#2C3539'"
+        [style.background-color]="
+          profileForm.get('bannerType')?.value === 'color'
+            ? selectedColor
+            : 'transparent'
+        "
       >
         <img
-          *ngIf="bannerPreview"
+          *ngIf="
+            bannerPreview && profileForm.get('bannerType')?.value === 'image'
+          "
           [src]="bannerPreview"
-          alt="Banner"
+          alt="Banner Preview"
           class="banner-image"
         />
         <div class="banner-controls">
@@ -42,7 +52,7 @@
               <input
                 type="file"
                 id="bannerImage"
-                (change)="onBannerFileChange($event)"
+                (change)="onFileSelected($event, 'banner')"
                 accept="image/*"
                 class="hidden"
               />
@@ -58,17 +68,19 @@
               formControlName="bannerColor"
               (input)="onColorChange($event)"
               class="color-input"
+              [value]="selectedColor"
             />
           </div>
         </div>
       </div>
     </div>
 
+    <!-- Profile Picture Section -->
     <div class="profile-header">
       <div class="profile-picture-section">
         <div class="profile-picture-container">
           <img
-            [src]="profilePicturePreview || 'default-avatar.png'"
+            [src]="profilePicturePreview || 'assets/default-avatar.png'"
             alt="Profile Picture"
             class="profile-picture"
           />
@@ -78,7 +90,7 @@
               <input
                 type="file"
                 id="profilePicture"
-                (change)="onFileChange($event)"
+                (change)="onFileSelected($event, 'profilePicture')"
                 accept="image/*"
                 class="hidden"
               />
@@ -88,6 +100,7 @@
       </div>
     </div>
 
+    <!-- Form Content -->
     <div class="form-content">
       <div class="form-group">
         <label for="username">Username</label>
@@ -119,13 +132,25 @@
           class="form-textarea"
           rows="4"
           placeholder="Tell us about yourself..."
+          maxlength="200"
         ></textarea>
         <div
-          *ngIf="profileForm.get('bio')?.errors?.['maxlength']"
+          *ngIf="profileForm.get('bio')?.touched && profileForm.get('bio')?.errors?.['maxlength']"
           class="error-message"
         >
           Bio must be less than 200 characters
         </div>
+      </div>
+
+      <div class="form-group">
+        <label for="oldPassword">Current Password</label>
+        <input
+          type="password"
+          id="oldPassword"
+          formControlName="oldPassword"
+          class="form-input"
+          placeholder="Required if changing password"
+        />
       </div>
 
       <div class="form-group">
@@ -138,7 +163,7 @@
           placeholder="Leave blank to keep current password"
         />
         <div
-          *ngIf="profileForm.get('password')?.errors?.['minlength']"
+          *ngIf="profileForm.get('password')?.touched && profileForm.get('password')?.errors?.['minlength']"
           class="error-message"
         >
           Password must be at least 6 characters

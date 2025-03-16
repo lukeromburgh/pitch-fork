@@ -6,8 +6,9 @@ import {
   Validators,
   ReactiveFormsModule,
 } from '@angular/forms';
-import { AuthService } from '../../services/auth.service';
+import { ProfileService } from '../../services/profile.service';
 import { Router, RouterLink } from '@angular/router';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   standalone: true,
@@ -23,117 +24,135 @@ export class EditProfileComponent implements OnInit {
   profilePicturePreview: string | ArrayBuffer | null = null;
   bannerPreview: string | ArrayBuffer | null = null;
   selectedColor: string = '#2C3539';
+  errorMessage: string | null = null; // For UI feedback
 
   constructor(
     private fb: FormBuilder,
-    private authService: AuthService,
-    private router: Router
+    private profileService: ProfileService,
+    private router: Router,
+    private http: HttpClient // Optional, can remove if only using ProfileService
   ) {}
 
   ngOnInit(): void {
-    // Initialize the form with user profile data
     this.profileForm = this.fb.group({
-      username: [{ value: '', disabled: true }], // Disabled fields
+      username: [{ value: '', disabled: true }],
       email: [{ value: '', disabled: true }],
       bio: ['', [Validators.maxLength(200)]],
+      oldPassword: [''],
       password: ['', [Validators.minLength(6)]],
-      bannerType: ['image'], // Add this
+      bannerType: ['image', Validators.required],
       bannerColor: ['#2C3539'],
     });
 
-    // Fetch the user's existing profile data
-    this.authService.getProfile().subscribe(
-      (data) => {
+    this.profileService.getProfile().subscribe({
+      next: (data) => {
         this.profileForm.patchValue({
           username: data.username,
           email: data.email,
-          bio: data.bio,
-          bannerType: data.bannerType || 'image',
-          bannerColor: data.bannerColor || '#2C3539',
+          bio: data.bio || '',
+          bannerType: data.banner_type || 'image',
+          bannerColor: data.banner_color || '#2C3539',
         });
-        this.selectedColor = data.bannerColor || '#2C3539';
-        this.bannerPreview = data.bannerUrl || null;
+        this.selectedColor = data.banner_color || '#2C3539';
+        this.profilePicturePreview = data.profile_picture || null;
+        this.bannerPreview = data.banner || null;
       },
-      (error) => {
-        console.error('Error fetching profile data', error);
+      error: (error) => {
+        console.error('Error fetching profile data:', error);
+        this.errorMessage = 'Failed to load profile data';
+      },
+    });
+  }
+
+  onFileSelected(event: Event, type: 'profilePicture' | 'banner'): void {
+    const input = event.target as HTMLInputElement;
+    if (input.files && input.files[0]) {
+      const file = input.files[0];
+      if (type === 'profilePicture') {
+        this.profilePictureFile = file;
+        this.previewFile(file, 'profilePicture');
+      } else {
+        this.bannerFile = file;
+        this.previewFile(file, 'banner');
       }
-    );
+    }
   }
 
-  onFileChange(event: any): void {
-    const file = event.target.files[0];
-    if (file) {
-      this.profilePictureFile = file;
-      const reader = new FileReader();
-      reader.onload = () => {
+  previewFile(file: File, type: 'profilePicture' | 'banner'): void {
+    const reader = new FileReader();
+    reader.onload = () => {
+      if (type === 'profilePicture') {
         this.profilePicturePreview = reader.result;
-      };
-      reader.readAsDataURL(file);
-    }
-  }
-
-  onBannerFileChange(event: any): void {
-    const file = event.target.files[0];
-    if (file) {
-      this.bannerFile = file;
-      const reader = new FileReader();
-      reader.onload = () => {
+      } else {
         this.bannerPreview = reader.result;
-      };
-      reader.readAsDataURL(file);
-    }
+      }
+    };
+    reader.readAsDataURL(file);
   }
 
   onColorChange(event: any): void {
     this.selectedColor = event.target.value;
+    this.profileForm.patchValue({ bannerColor: this.selectedColor });
   }
 
   onSubmit(): void {
     if (this.profileForm.valid) {
+      this.errorMessage = null; // Reset error message
       const formData = new FormData();
+      formData.append('bio', this.profileForm.get('bio')?.value || '');
 
-      // Add text fields
-      if (this.profileForm.get('bio')?.value) {
-        formData.append('bio', this.profileForm.get('bio')?.value);
+      const oldPassword = this.profileForm.get('oldPassword')?.value;
+      const newPassword = this.profileForm.get('password')?.value;
+      if (newPassword && oldPassword) {
+        formData.append('old_password', oldPassword);
+        formData.append('new_password', newPassword);
+      } else if (newPassword && !oldPassword) {
+        this.errorMessage =
+          'Old password is required when setting a new password';
+        return;
       }
 
-      if (this.profileForm.get('password')?.value) {
-        formData.append(
-          'new_password',
-          this.profileForm.get('password')?.value
-        );
-      }
+      const bannerType = this.profileForm.get('bannerType')?.value;
+      formData.append('banner_type', bannerType);
 
-      // Add banner type and color if using solid color
-      if (this.profileForm.get('bannerType')?.value === 'color') {
-        formData.append('banner_type', 'color');
+      if (bannerType === 'color') {
         formData.append(
           'banner_color',
-          this.profileForm.get('bannerColor')?.value
+          this.profileForm.get('bannerColor')?.value || '#2C3539'
         );
       }
 
-      // Add files if they exist
       if (this.profilePictureFile) {
-        formData.append('profile_picture', this.profilePictureFile);
+        formData.append(
+          'profile_picture',
+          this.profilePictureFile,
+          this.profilePictureFile.name
+        );
       }
 
-      if (
-        this.bannerFile &&
-        this.profileForm.get('bannerType')?.value === 'image'
-      ) {
-        formData.append('banner', this.bannerFile);
+      if (bannerType === 'image' && this.bannerFile) {
+        formData.append('banner', this.bannerFile, this.bannerFile.name);
       }
 
-      this.authService.updateProfile(formData).subscribe(
-        (response) => {
-          console.log('Profile updated successfully', response);
+      this.profileService.updateProfile(formData).subscribe({
+        next: (response) => {
+          console.log('Profile updated successfully:', response);
           this.router.navigate(['/profile']);
         },
-        (error) => {
-          console.error('Error updating profile', error);
-        }
-      );
+        error: (error) => {
+          console.error('Error updating profile:', error);
+          if (error.status === 400) {
+            this.errorMessage =
+              error.error.error || 'Bad request. Check your input.';
+          } else if (error.status === 401) {
+            this.errorMessage = 'Unauthorized. Please log in again.';
+          } else if (error.status === 404) {
+            this.errorMessage = 'User not found.';
+          } else {
+            this.errorMessage = 'An unexpected error occurred.';
+          }
+        },
+      });
     }
   }
 }
