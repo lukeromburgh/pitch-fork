@@ -11,26 +11,6 @@ export class PostService {
 
   constructor(private http: HttpClient) {}
 
-  createComment(comment: any, token: string): Observable<any> {
-    const headers = new HttpHeaders({
-      Authorization: `Bearer ${token}`, // Send the token in the header
-    });
-
-    return this.http.post(`${this.apiUrl}/comment`, comment, { headers });
-  }
-
-  getCommentsByPostId(postId: number, token: string): Observable<any[]> {
-    const headers = new HttpHeaders({
-      'Content-Type': 'application/json',
-      Authorization: `Bearer ${token}`,
-    });
-
-    // Adjust the endpoint if your backend uses a different path.
-    return this.http.get<any[]>(`${this.apiUrl}/comment?post_id=${postId}`, {
-      headers,
-    });
-  }
-
   createPost(post: any, token: string): Observable<any> {
     const headers = new HttpHeaders({
       Authorization: `Bearer ${token}`, // Send the token in the header

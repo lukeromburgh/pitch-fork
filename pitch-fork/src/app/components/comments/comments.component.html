@@ -1,0 +1,62 @@
+<!-- comments.component.html -->
+<div class="comments-container">
+  <h3 class="comments-title">Comments</h3>
+
+  <!-- Comment form -->
+  <div class="comment-form-container">
+    <form [formGroup]="commentForm" (ngSubmit)="submitComment()">
+      <div class="form-group">
+        <textarea
+          formControlName="content"
+          class="comment-textarea"
+          placeholder="Write a comment..."
+          rows="3"
+        ></textarea>
+
+        <div
+          *ngIf="
+            commentForm.get('content')?.invalid &&
+            commentForm.get('content')?.touched
+          "
+          class="error-message"
+        >
+          <span *ngIf="commentForm.get('content')?.errors?.['required']"
+            >Comment cannot be empty</span
+          >
+          <span *ngIf="commentForm.get('content')?.errors?.['minlength']"
+            >Comment must be at least 3 characters</span
+          >
+        </div>
+      </div>
+
+      <button
+        type="submit"
+        class="submit-button"
+        [disabled]="commentForm.invalid || isSubmitting"
+      >
+        {{ isSubmitting ? "Posting..." : "Post Comment" }}
+      </button>
+    </form>
+
+    <div *ngIf="errorMessage" class="error-message">
+      {{ errorMessage }}
+    </div>
+  </div>
+
+  <!-- Comments list -->
+  <div class="comments-list">
+    <div *ngIf="comments.length === 0" class="no-comments">
+      No comments yet. Be the first to comment!
+    </div>
+
+    <div *ngFor="let comment of comments" class="comment-item">
+      <div class="comment-header">
+        <div class="comment-author">{{ comment.username }}</div>
+        <div class="comment-date">
+          {{ comment.date_posted | date : "medium" }}
+        </div>
+      </div>
+      <div class="comment-content">{{ comment.content }}</div>
+    </div>
+  </div>
+</div>
