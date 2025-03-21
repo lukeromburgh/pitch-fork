@@ -29,6 +29,7 @@ export class ProfileService {
   updateProfile(data: FormData): Observable<any> {
     const token = this.authService.getToken();
     if (!token) {
+      console.error('No token available');
       return throwError(() => new Error('No token available'));
     }
     const headers = new HttpHeaders({ Authorization: `Bearer ${token}` });

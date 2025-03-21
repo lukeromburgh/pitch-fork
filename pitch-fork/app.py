@@ -307,13 +307,22 @@ def allowed_file(filename):
 def get_profile():
     # get the current user's id from the token (assuming identity is the user ID)
     user_id = get_jwt_identity()
+    print(f"Fetching profile for user_id from JWT: {user_id}")
+
     user = User.query.get(user_id)
     if not user:
+        print("User not found!")
         return jsonify({'error': 'User not found'}), 404
     return jsonify({
         'id': user.id,
         'username': user.username,
         'email': user.email,
+        'bio': user.bio or '',
+        'profile_picture': user.profile_picture or '',
+        'banner': user.banner or '',
+        'banner_type': user.banner_type or '',
+        'banner_color': user.banner_color or '#2C3539',
+
         # add any additional fields you'd like to expose
     }), 200
 

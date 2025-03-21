@@ -11,7 +11,9 @@
       <img [src]="'avatar-5.png'" alt="Profile Picture" class="profile-image" />
     </div>
     <div class="profile-info">
-      <h1 class="username">{{ userProfile?.username }}</h1>
+      <h1 *ngIf="userProfile?.username" class="username">
+        {{ userProfile?.username }}
+      </h1>
       <p class="bio">
         {{
           userProfile?.bio ||
