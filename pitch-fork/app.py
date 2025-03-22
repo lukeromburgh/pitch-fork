@@ -1,4 +1,5 @@
 from flask import Flask, request, jsonify
+from flask import send_from_directory
 from flask_sqlalchemy import SQLAlchemy
 from flask import make_response
 from flask_bcrypt import Bcrypt
@@ -127,6 +128,10 @@ with app.app_context():
 @app.route('/test-cors', methods=['GET', 'OPTIONS'])
 def test_cors():
     return jsonify({"message": "CORS test"}), 200
+
+@app.route('/uploads/<path:filename>')
+def serve_uploaded_file(filename):
+    return send_from_directory('public/uploads', filename)
 
 # 🔹 User Registration
 @app.route('/sign-up', methods=['POST'])
@@ -292,7 +297,7 @@ def get_comments():
     # =================== File Uploads & Profile updates ===================
     # ===========================================================================================================================
 
-UPLOAD_FOLDER = 'uploads'
+UPLOAD_FOLDER = 'public/uploads'
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 os.makedirs(os.path.join(UPLOAD_FOLDER, 'profile_pics'), exist_ok=True)
 os.makedirs(os.path.join(UPLOAD_FOLDER, 'banners'), exist_ok=True)
@@ -350,7 +355,7 @@ def update_profile():
             filename = (f"{user_id}_profile.png")
             profile_path = os.path.join(app.config['UPLOAD_FOLDER'], 'profile_pics', filename)
             profile_picture.save(profile_path)
-            user.profile_picture = f"/{profile_path}"
+            user.profile_picture = f"{profile_path}"
 
     if 'banner_type' in data:
         user.banner_type = data['banner_type']
@@ -362,7 +367,7 @@ def update_profile():
                 filename = (f"{user_id}_banner.jpg")
                 banner_path = os.path.join(app.config['UPLOAD_FOLDER'], 'banners', filename)
                 banner.save(banner_path)
-                user.banner = f"/{banner_path}"
+                user.banner = f"{banner_path}"
 
     db.session.commit()
     return jsonify({'message': 'Profile updated successfully'}), 200

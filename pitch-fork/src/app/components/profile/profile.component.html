@@ -8,7 +8,11 @@
       />
     </div>
     <div class="profile-image-container">
-      <img [src]="'avatar-5.png'" alt="Profile Picture" class="profile-image" />
+      <img
+        [src]="userProfile?.profile_picture || 'default-avatar.png'"
+        alt="Profile Picture"
+        class="profile-image"
+      />
     </div>
     <div class="profile-info">
       <h1 *ngIf="userProfile?.username" class="username">
