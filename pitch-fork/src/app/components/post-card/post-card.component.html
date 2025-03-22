@@ -55,8 +55,15 @@
   </div> -->
 
   <div class="meta">
-    <span>By {{ post.username }}</span>
-    <!-- Change this to the username if available -->
+    <span (mouseover)="showHoverCard = true" (mouseout)="showHoverCard = false"
+      >By {{ post.username }}</span
+    >
+    <!-- Hover card -->
+    <app-profile-hover-card
+      *ngIf="showHoverCard"
+      [userId]="userId"
+      class="hover-card"
+    ></app-profile-hover-card>
     <span>{{ post.date_posted | date : "mediumDate" }}</span>
   </div>
   <button class="read-more" (click)="viewPost()">Read More</button>

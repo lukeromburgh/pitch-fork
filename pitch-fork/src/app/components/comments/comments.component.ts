@@ -10,6 +10,7 @@ import {
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from '../../../environments/environment';
+import { ProfileHoverCardComponent } from '../profile-hover-card/profile-hover-card.component';
 
 interface Comment {
   id: number;
@@ -23,12 +24,19 @@ interface Comment {
 @Component({
   selector: 'app-comments',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, DatePipe],
+  imports: [
+    CommonModule,
+    ReactiveFormsModule,
+    DatePipe,
+    ProfileHoverCardComponent,
+  ],
   templateUrl: './comments.component.html',
   styleUrls: ['./comments.component.scss'],
 })
 export class CommentsComponent implements OnInit {
   @Input() postId!: number;
+  @Input() userId!: number;
+  showHoverCard = false;
 
   comments: Comment[] = [];
   commentForm: FormGroup;

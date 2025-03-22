@@ -1,0 +1,56 @@
+.hover-card {
+  position: absolute;
+  width: 300px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  background-color: #1e2529; /* Dark background like in the screenshot */
+  color: white;
+  z-index: 1000;
+  overflow: hidden;
+}
+
+.banner {
+  height: 100px;
+  background-size: cover;
+  background-position: center;
+  position: relative;
+}
+
+.profile-picture {
+  position: absolute;
+  bottom: -30px;
+  left: 10px;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  border: 3px solid #1e2529; /* Match the background color */
+}
+
+.content {
+  padding: 40px 10px 10px 10px;
+}
+
+h3 {
+  margin: 0;
+  font-size: 18px;
+}
+
+p {
+  margin: 5px 0;
+  font-size: 14px;
+  color: #b0b0b0;
+}
+
+button {
+  background-color: transparent;
+  border: 1px solid #b0b0b0;
+  color: white;
+  padding: 5px 10px;
+  border-radius: 20px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #b0b0b0;
+  color: #1e2529;
+}
