@@ -177,6 +177,7 @@ def login():
 def get_posts():
     user_id = get_jwt_identity()  # This gets the user info from the token
     print(f"Received user_id from JWT: {user_id}")  # Log the user_id to see if it's correctly decoded
+    print("Fetching all posts")  # Debugging: Log when fetching all posts
     all_posts = Post.query.all()
     
     posts_with_likes = []
