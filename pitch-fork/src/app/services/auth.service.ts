@@ -11,7 +11,7 @@ export class AuthService {
   private tokenKey = 'token';
   private authStatus = new BehaviorSubject<boolean>(false);
   private apiUrl = `${environment.apiUrl}`; // Using the environment variable
-  private baseUrl = 'http://127.0.0.1:5001';
+  private baseUrl = 'http://127.0.0.1:5005';
   constructor(private http: HttpClient) {}
 
   signup(userData: any) {

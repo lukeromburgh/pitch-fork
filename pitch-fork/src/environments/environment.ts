@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  apiUrl: 'http://localhost:5001/api', // Base URL for your Flask API in development
+  apiUrl: 'http://localhost:5005/api', // Base URL for your Flask API in development
 };
 
 /*
