@@ -2,17 +2,19 @@
   <div class="profile-container">
     <div class="banner-container">
       <img
-        [src]="userProfile?.banner || 'default-banner.png'"
+        [src]="profile?.banner"
+        *ngIf="profile?.banner"
         alt="User Banner"
         class="banner-image"
       />
     </div>
     <div class="profile-image-container">
       <img
-        [src]="userProfile?.profile_picture || 'default-avatar.png'"
+        [src]="profile?.profile_picture"
         alt="Profile Picture"
-        class="profile-image"
+        *ngIf="profile?.profile_picture"
       />
+      alt="Profile Picture" class="profile-image" />
     </div>
     <div class="profile-info">
       <h1 *ngIf="userProfile?.username" class="username">
