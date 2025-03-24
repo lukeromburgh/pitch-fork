@@ -57,12 +57,16 @@ export class PostPageComponent implements OnInit {
 
     this.authService.getPosts().subscribe(
       (data) => {
-        console.log('Posts received:', data); // Debugging: See the fetched posts
+        console.log('✅ Posts received:', data); // 🔥 Debugging log
         this.posts = data;
-        this.filteredPosts = [...this.posts];
+        this.filteredPosts = [...this.posts]; // Copy to filteredPosts
+
+        if (this.filteredPosts.length === 0) {
+          console.warn('⚠️ No posts available after fetching from API!');
+        }
       },
       (error) => {
-        console.error('Error fetching posts:', error);
+        console.error('❌ Error fetching posts:', error);
         this.notSignedIn = true;
       }
     );

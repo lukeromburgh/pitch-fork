@@ -17,16 +17,9 @@ export class ProfileService {
     if (!token) {
       return throwError(() => new Error('No token available'));
     }
+    const baseUrl = 'http://localhost:5001';
     const headers = new HttpHeaders({ Authorization: `Bearer ${token}` });
-    const baseUrl = 'http://localhost:5000'; // Adjust to your Flask server URL
     return this.http.get(`${this.apiUrl}/profile`, { headers }).pipe(
-      map((profile: any) => {
-        profile.profile_picture = profile.profile_picture
-          ? `${baseUrl}${profile.profile_picture}`
-          : '';
-        profile.banner = profile.banner ? `${baseUrl}${profile.banner}` : '';
-        return profile;
-      }),
       catchError((error) => {
         console.error('Get profile error:', error);
         return throwError(() => error);
