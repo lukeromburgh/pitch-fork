@@ -3,11 +3,12 @@ import { OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
+import { ProfileHoverCardComponent } from '../profile-hover-card/profile-hover-card.component';
 import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-post-card',
-  imports: [CommonModule, HttpClientModule],
+  imports: [CommonModule, HttpClientModule, ProfileHoverCardComponent],
   templateUrl: './post-card.component.html',
   styleUrls: ['./post-card.component.css'],
   standalone: true,
@@ -15,6 +16,8 @@ import { AuthService } from '../../services/auth.service';
 export class PostCardComponent implements OnInit {
   @Input() post: any; // Receives post data dynamically
   @Input() likes: any;
+  @Input() userId!: number; // The ID of the user who created the post
+  showHoverCard = false;
   trimmedCategories: string[] = [];
   isLiked = false;
   showParticles = false;

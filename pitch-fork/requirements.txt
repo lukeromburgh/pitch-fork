@@ -1,0 +1,9 @@
+beautifulsoup4==4.11.1
+distlib==0.3.9
+filelock==3.17.0
+Pillow==9.4.0
+platformdirs==4.3.6
+soupsieve==2.3.2.post1
+tk==0.1.0
+virtualenv==20.29.1
+flask==2.1.1

@@ -1,0 +1,24 @@
+<div class="hover-card" *ngIf="profile$ | async as profile">
+  <!-- Banner -->
+  <div
+    class="banner"
+    [style.background]="
+      profile.banner_type === 'color'
+        ? profile.banner_color
+        : 'url(' + profile.banner + ')'
+    "
+  >
+    <!-- Profile Picture -->
+    <img
+      class="profile-picture"
+      [src]="profile.profile_picture"
+      alt="Profile Picture"
+    />
+  </div>
+  <!-- Content -->
+  <div class="content">
+    <h3>{{ profile.username }}</h3>
+    <p>{{ profile.bio || "No bio available" }}</p>
+    <button>View Profile</button>
+  </div>
+</div>

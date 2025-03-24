@@ -13,6 +13,7 @@ body {
 }
 
 .profile-container {
+  min-width: 50vw;
   max-width: 800px;
   min-height: 50vh;
   margin: 0 auto;

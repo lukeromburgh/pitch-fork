@@ -1,4 +1,5 @@
 from flask import Flask, request, jsonify
+from flask import send_from_directory
 from flask_sqlalchemy import SQLAlchemy
 from flask import make_response
 from flask_bcrypt import Bcrypt
@@ -292,7 +293,7 @@ def get_comments():
     # =================== File Uploads & Profile updates ===================
     # ===========================================================================================================================
 
-UPLOAD_FOLDER = 'uploads'
+UPLOAD_FOLDER = os.path.join(os.getcwd(), 'public', 'uploads')
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 os.makedirs(os.path.join(UPLOAD_FOLDER, 'profile_pics'), exist_ok=True)
 os.makedirs(os.path.join(UPLOAD_FOLDER, 'banners'), exist_ok=True)
@@ -307,13 +308,22 @@ def allowed_file(filename):
 def get_profile():
     # get the current user's id from the token (assuming identity is the user ID)
     user_id = get_jwt_identity()
+    print(f"Fetching profile for user_id from JWT: {user_id}")
+
     user = User.query.get(user_id)
     if not user:
+        print("User not found!")
         return jsonify({'error': 'User not found'}), 404
     return jsonify({
         'id': user.id,
         'username': user.username,
         'email': user.email,
+        'bio': user.bio or '',
+        'profile_picture': user.profile_picture or '',
+        'banner': user.banner or '',
+        'banner_type': user.banner_type or '',
+        'banner_color': user.banner_color or '#2C3539',
+
         # add any additional fields you'd like to expose
     }), 200
 
@@ -327,36 +337,72 @@ def update_profile():
 
     data = request.form
 
+    # Update bio
     if 'bio' in data:
         user.bio = data['bio']
 
+    # Update password
     if 'old_password' in data and 'new_password' in data:
         if not user.check_password(data['old_password']):
             return jsonify({'error': 'Incorrect old password'}), 400
         user.set_password(data['new_password'])
 
+    # Handle profile picture upload
     if 'profile_picture' in request.files:
         profile_picture = request.files['profile_picture']
         if profile_picture and allowed_file(profile_picture.filename):
-            filename = (f"{user_id}_profile.png")
+            # Preserve the original file extension
+            ext = profile_picture.filename.rsplit('.', 1)[1].lower()
+            filename = f"{user_id}_profile.{ext}"
             profile_path = os.path.join(app.config['UPLOAD_FOLDER'], 'profile_pics', filename)
             profile_picture.save(profile_path)
-            user.profile_picture = f"/{profile_path}"
+            # Store a relative URL, not an absolute path
+            user.profile_picture = f"/uploads/profile_pics/{filename}"
 
+    # Handle banner type and upload
     if 'banner_type' in data:
         user.banner_type = data['banner_type']
         if data['banner_type'] == 'color':
             user.banner_color = data.get('banner_color', '#2C3539')
+            user.banner = None  # Clear banner if switching to color
         elif 'banner' in request.files:
             banner = request.files['banner']
             if banner and allowed_file(banner.filename):
-                filename = (f"{user_id}_banner.jpg")
+                # Preserve the original file extension
+                ext = banner.filename.rsplit('.', 1)[1].lower()
+                filename = f"{user_id}_banner.{ext}"
                 banner_path = os.path.join(app.config['UPLOAD_FOLDER'], 'banners', filename)
                 banner.save(banner_path)
-                user.banner = f"/{banner_path}"
+                # Store a relative URL, not an absolute path
+                user.banner = f"/uploads/banners/{filename}"
 
     db.session.commit()
     return jsonify({'message': 'Profile updated successfully'}), 200
+
+# Static file serving route (add this if not already present)
+@app.route('/uploads/<path:filename>')
+def serve_uploaded_file(filename):
+    return send_from_directory(app.config['UPLOAD_FOLDER'], filename)
+
+@app.route('/api/profile/<int:user_id>', methods=['GET'])
+@jwt_required()
+def get_profile_by_id(user_id):
+    # Optionally, you can check if the requesting user has permission to view this profile
+    current_user_id = get_jwt_identity()
+    user = User.query.get(user_id)
+    if not user:
+        return jsonify({'error': 'User not found'}), 404
+
+    return jsonify({
+        'id': user.id,
+        'username': user.username,
+        'email': user.email,
+        'bio': user.bio or '',
+        'profile_picture': user.profile_picture or '',
+        'banner': user.banner or '',
+        'banner_type': user.banner_type or '',
+        'banner_color': user.banner_color or '#2C3539',
+    }), 200
 
 
 @app.route('/api/like/<int:post_id>', methods=['POST'])

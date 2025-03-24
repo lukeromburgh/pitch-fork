@@ -51,7 +51,18 @@
 
     <div *ngFor="let comment of comments" class="comment-item">
       <div class="comment-header">
-        <div class="comment-author">{{ comment.username }}</div>
+        <div
+          (mouseover)="showHoverCard = true"
+          (mouseout)="showHoverCard = false"
+          class="comment-author"
+        >
+          {{ comment.username }}
+        </div>
+        <app-profile-hover-card
+          *ngIf="showHoverCard"
+          [userId]="userId"
+          class="hover-card"
+        ></app-profile-hover-card>
         <div class="comment-date">
           {{ comment.date_posted | date : "medium" }}
         </div>

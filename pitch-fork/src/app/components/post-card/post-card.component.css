@@ -251,3 +251,21 @@ It felt too daunting to try and code it from scratch haha
 .read-more:hover {
   background-color: #dddddd;
 }
+
+/* Hover card css */
+
+.profile-pic-container {
+  position: relative;
+  display: inline-block;
+}
+
+img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+}
+
+.hover-card {
+  top: 50px; /* Adjust based on your layout */
+  left: 0;
+}
