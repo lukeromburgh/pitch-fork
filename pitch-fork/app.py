@@ -28,7 +28,8 @@ app.config["JWT_HEADER_NAME"] = "Authorization"
 app.config["JWT_HEADER_TYPE"] = "Bearer"
 
 # Database Configuration
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///posts.db'  # SQLite for testing
+# app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///posts.db'  # SQLite for testing
+app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://posts_nurn_user:MFN5C5wM9iEM6bSUhkT3hMckOyhnhv38@dpg-cvhcs0dds78s73e43t2g-a/posts_nurn'  # PSQL for live
 app.config['JWT_SECRET_KEY'] = 'your_secret_key'  # Change to a secure key
 
 
