@@ -1,13 +1,14 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { environment } from '../../environments/environment.prod';
 
 @Injectable({
   providedIn: 'root', // ✅ This makes the service globally available
 })
 export class PostService {
-  private apiUrl = 'http://127.0.0.1:5005/api';
-  private postUrl = 'http://127.0.0.1:5005/api/posts';
+  private apiUrl = environment.apiUrl;
+  private postUrl = `${environment.apiUrl}/posts`;
 
   constructor(private http: HttpClient) {}
 

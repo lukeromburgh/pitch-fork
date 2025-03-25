@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
-import { environment } from '../../environments/environment';
+import { environment } from '../../environments/environment.prod';
 
 @Injectable({
   providedIn: 'root',
@@ -11,7 +11,7 @@ export class AuthService {
   private tokenKey = 'token';
   private authStatus = new BehaviorSubject<boolean>(false);
   private apiUrl = `${environment.apiUrl}`; // Using the environment variable
-  private baseUrl = 'http://127.0.0.1:5005';
+  private baseUrl = environment.baseUrl;
   constructor(private http: HttpClient) {}
 
   signup(userData: any) {

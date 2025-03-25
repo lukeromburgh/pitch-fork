@@ -3,12 +3,13 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { AuthService } from './auth.service';
+import { environment } from '../../environments/environment.prod';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ProfileService {
-  private apiUrl = 'http://localhost:5005/api'; // Adjust based on your backend
+  private apiUrl = environment.apiUrl; // Adjust based on your backend
 
   constructor(private http: HttpClient, private authService: AuthService) {}
 
@@ -17,7 +18,7 @@ export class ProfileService {
     if (!token) {
       return throwError(() => new Error('No token available'));
     }
-    const baseUrl = 'http://localhost:5005';
+    const baseUrl = environment.baseUrl;
     const headers = new HttpHeaders({ Authorization: `Bearer ${token}` });
     return this.http.get(`${this.apiUrl}/profile`, { headers }).pipe(
       catchError((error) => {
@@ -49,7 +50,7 @@ export class ProfileService {
       return throwError(() => new Error('No token available'));
     }
     const headers = new HttpHeaders({ Authorization: `Bearer ${token}` });
-    const baseUrl = 'http://localhost:5005'; // Adjust to your Flask server URL
+    const baseUrl = environment.baseUrl; // Adjust to your Flask server URL
     return this.http.get(`${this.apiUrl}/profile/${userId}`, { headers }).pipe(
       map((profile: any) => {
         profile.profile_picture = profile.profile_picture
