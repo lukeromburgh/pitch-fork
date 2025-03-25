@@ -1,9 +1,11 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { ProfileService } from '../../services/profile.service'; // Adjust path as needed
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-profile-hover-card',
+  imports: [CommonModule],
   templateUrl: './profile-hover-card.component.html',
   styleUrls: ['./profile-hover-card.component.css'],
   standalone: true,

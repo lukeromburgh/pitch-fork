@@ -1,7 +1,6 @@
 import { Component, HostListener } from '@angular/core';
-import { Router, RouterOutlet, RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
-import { PostCardComponent } from '../post-card/post-card.component';
 import { PostService } from '../../services/post.service';
 import { CommonModule } from '@angular/common';
 import { AuthService } from '../../services/auth.service';
@@ -9,14 +8,7 @@ import { BentoGridComponent } from '../bento-grid/bento-grid.component';
 
 @Component({
   selector: 'app-home',
-  imports: [
-    RouterOutlet,
-    RouterLink,
-    PostCardComponent,
-    HttpClientModule,
-    CommonModule,
-    BentoGridComponent,
-  ],
+  imports: [RouterLink, HttpClientModule, CommonModule, BentoGridComponent],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css',
   standalone: true,

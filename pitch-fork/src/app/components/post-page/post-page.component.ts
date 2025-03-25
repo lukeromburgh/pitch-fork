@@ -2,12 +2,12 @@ import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AuthService } from '../../services/auth.service';
 import { PostCardComponent } from '../post-card/post-card.component';
-import { RouterLink, Router, RouterLinkActive } from '@angular/router';
+import { RouterLink, Router } from '@angular/router';
 
 @Component({
   selector: 'app-post-page',
   standalone: true,
-  imports: [CommonModule, PostCardComponent, RouterLink, RouterLinkActive],
+  imports: [CommonModule, PostCardComponent, RouterLink],
   templateUrl: './post-page.component.html',
   styleUrls: ['./post-page.component.css'],
 })

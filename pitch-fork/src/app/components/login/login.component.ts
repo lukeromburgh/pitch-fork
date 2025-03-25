@@ -5,20 +5,14 @@ import {
   FormGroup,
   Validators,
 } from '@angular/forms';
-import { Router, RouterOutlet, RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 import { HttpClientModule } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-login',
-  imports: [
-    HttpClientModule,
-    ReactiveFormsModule,
-    CommonModule,
-    RouterOutlet,
-    RouterLink,
-  ],
+  imports: [HttpClientModule, ReactiveFormsModule, CommonModule, RouterLink],
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css'],
   standalone: true,
