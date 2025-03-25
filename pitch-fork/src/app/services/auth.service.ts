@@ -1,5 +1,6 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Inject, PLATFORM_ID } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { isPlatformBrowser } from '@angular/common';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { environment } from '../../environments/environment.prod';
@@ -12,7 +13,10 @@ export class AuthService {
   private authStatus = new BehaviorSubject<boolean>(false);
   private apiUrl = `${environment.apiUrl}`; // Using the environment variable
   private baseUrl = environment.baseUrl;
-  constructor(private http: HttpClient) {}
+  constructor(
+    private http: HttpClient,
+    @Inject(PLATFORM_ID) private platformId: Object
+  ) {}
 
   signup(userData: any) {
     return this.http.post(`${this.baseUrl}/sign-up`, userData);
@@ -37,11 +41,15 @@ export class AuthService {
   }
 
   getToken() {
-    return localStorage.getItem(this.tokenKey);
+    if (isPlatformBrowser(this.platformId)) {
+      return localStorage.getItem(this.tokenKey);
+    }
   }
 
   getUserId() {
-    return localStorage.getItem('user_id');
+    if (isPlatformBrowser(this.platformId)) {
+      return localStorage.getItem('user_id');
+    }
   }
 
   isAuthenticated() {
