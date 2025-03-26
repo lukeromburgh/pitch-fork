@@ -269,3 +269,13 @@ img {
   top: 50px; /* Adjust based on your layout */
   left: 0;
 }
+
+@media screen and (max-width: 600px) {
+  .post-card {
+    justify-self: center;
+    width: 75vw;
+    height: auto;
+    padding: 2rem;
+    margin-bottom: 1rem;
+  }
+}

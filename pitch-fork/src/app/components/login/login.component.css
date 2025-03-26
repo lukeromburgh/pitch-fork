@@ -149,8 +149,9 @@ h1 {
 }
 
 @media screen and (max-width: 650px) {
-  .signup-container {
-    padding: 20px;
+  .login-container {
+    width: 70vw;
+    padding: 2rem 2.5rem;
   }
 
   .signup-form {

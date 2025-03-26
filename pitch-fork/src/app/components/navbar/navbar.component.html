@@ -1,18 +1,34 @@
 <div class="navbar">
   <div class="left-div-nav">
-    <p onclick="Home()" class="logo">🪬 PitchFork</p>
+    <p (click)="Home()" class="logo">
+      🪬 <span *ngIf="!logoOnly()" class="logo-text">PitchFork</span>
+    </p>
   </div>
-  <div class="right-div-nav">
+  <div class="right-div-nav" [class.active]="menuOpen">
     <a
       routerLink="/"
       routerLinkActive="active"
       [routerLinkActiveOptions]="{ exact: true }"
+      (click)="toggleMenu()"
       >Home</a
     >
-    <a routerLink="/posts" routerLinkActive="active">Posts</a>
-    <a routerLink="/about" routerLinkActive="active">About</a>
-    <a routerLink="/profile" routerLinkActive="active" class="profile-link"
+    <a routerLink="/posts" routerLinkActive="active" (click)="toggleMenu()"
+      >Posts</a
+    >
+    <a routerLink="/about" routerLinkActive="active" (click)="toggleMenu()"
+      >About</a
+    >
+    <a
+      routerLink="/profile"
+      routerLinkActive="active"
+      class="profile-link"
+      (click)="toggleMenu()"
       >Profile</a
     >
   </div>
+  <button class="hamburger" (click)="toggleMenu()">
+    <span class="bar"></span>
+    <span class="bar"></span>
+    <span class="bar"></span>
+  </button>
 </div>

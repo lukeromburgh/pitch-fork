@@ -1,28 +1,43 @@
 .navbar {
   display: flex;
   justify-content: space-between;
+  align-items: center;
   background-color: black;
-  min-width: 100%;
-  padding: 0;
+  width: 100%;
+  padding: 10px 0;
   margin: 0;
   position: relative;
   z-index: 10;
 }
 
+.left-div-nav {
+  display: flex;
+  align-items: center;
+}
+
 .logo {
   font-weight: bold;
   font-size: 1.5rem;
-  color: rgb(255, 255, 255);
+  color: white;
   margin-left: 2rem;
+  cursor: pointer;
   font-family: "Inter Tight", -apple-system, BlinkMacSystemFont, "Segoe UI",
     Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji",
     "Segoe UI Symbol";
 }
 
+.logo-text {
+  margin-left: 0.5rem;
+}
+
+.right-div-nav {
+  display: flex;
+  align-items: center;
+}
+
 a {
   pointer-events: auto;
-  margin: auto;
-  margin-left: 50px;
+  margin: 0 25px;
   text-decoration: none;
   color: white;
   font-weight: 300;
@@ -31,62 +46,103 @@ a {
     Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji",
     "Segoe UI Symbol";
 }
+
 a:hover {
   color: #cc3363;
 }
 
-a:current {
+a.active {
   text-decoration: underline;
 }
 
 .profile-link {
   font-size: 0.9rem;
-  margin: auto 60px;
+  margin: 0 2rem;
   border: 1px solid #7b4255;
   background-color: #110e0f;
   color: #eb4076;
   font-weight: 500;
-  padding: 10px 24px;
+  padding: 8px 20px;
   border-radius: 50px;
-  transition-duration: 0.2s;
+  transition: all 0.2s ease;
 }
 
 .profile-link:hover {
   background-color: #e62361;
-  color: #ffffff;
+  color: white;
 }
 
 .profile-link:active {
   background-color: #b0224f;
 }
 
-.right-div-nav {
-  display: flex;
-}
-
-.spacer {
-  flex: 1;
-}
-
-.btn-nav {
-  background-color: #cc3363;
-  color: azure;
-  padding: 10px 30px;
-  margin: 10px;
-  margin-left: 80px;
-  border: 0 solid #cc3363;
-  border-radius: 8px;
-
-  font-family: "Inter Tight", -apple-system, BlinkMacSystemFont, "Segoe UI",
-    Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji",
-    "Segoe UI Symbol";
-  font-weight: 400;
-  font-size: 0.9rem;
-
+.hamburger {
+  display: none;
+  flex-direction: column;
   cursor: pointer;
-  transition-duration: 0.2s;
+  background: none;
+  border: none;
+  padding: 10px;
+  margin-right: 1rem;
+}
 
-  &:hover {
-    background-color: #d94473;
+.bar {
+  width: 25px;
+  height: 3px;
+  background-color: white;
+  margin: 2px 0;
+  transition: all 0.3s ease;
+}
+
+/* Mobile Styles */
+@media (max-width: 768px) {
+  .hamburger {
+    display: flex;
   }
+
+  .right-div-nav {
+    display: none; /* Hidden by default on mobile */
+    flex-direction: column;
+    position: absolute;
+    top: 60px;
+    right: 0;
+    background-color: black;
+    width: 100%;
+    padding: 1rem 0;
+    text-align: center;
+  }
+
+  .right-div-nav.active {
+    display: flex; /* Show when toggled */
+  }
+
+  a {
+    margin: 10px 0;
+  }
+
+  .profile-link {
+    margin: 10px auto;
+    width: fit-content;
+  }
+
+  .navbar {
+    padding: 5px 0;
+  }
+
+  .logo {
+    margin-left: 1rem;
+  }
+}
+
+/* Optional: Hamburger animation */
+.hamburger.active .bar:nth-child(1) {
+  transform: translateY(7px) rotate(45deg);
+}
+
+.hamburger.active .bar:nth-child(2) {
+  opacity: 0;
+}
+
+.hamburger.active .bar:nth-child(3) {
+  transform: translateY(-7px) rotate(-45deg);
 }

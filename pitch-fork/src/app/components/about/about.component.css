@@ -122,3 +122,26 @@ h3 {
   scale: 102%;
   box-shadow: 0 0px 20px rgba(71, 71, 71, 0.57);
 }
+
+@media screen and (max-width: 600px) {
+  .content-wrapper {
+    padding: 2rem 0;
+  }
+
+  .content-centre {
+    max-width: 80%;
+  }
+
+  .content-left {
+    max-width: 80%;
+  }
+
+  .image-card {
+    max-width: 80%;
+  }
+
+  .image-card img {
+    width: 100%;
+    height: auto;
+  }
+}

@@ -194,3 +194,82 @@ button:hover {
 .create-post-button:hover {
   box-shadow: 0 0px 30px rgba(255, 0, 81, 0.585);
 }
+
+@media screen and (max-width: 600px) {
+  .container {
+    padding: 100px 20px;
+  }
+
+  .tags {
+    margin-bottom: 0px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 4px;
+  }
+
+  .tag {
+    background-color: #0d0f1d;
+    color: #ffffff;
+    padding: 8px 16px;
+    margin: 0px;
+    border-style: solid;
+    border-width: 1px;
+    border-color: #3f3f3f;
+    border-radius: 25px;
+
+    font-family: "Inter Tight", -apple-system, BlinkMacSystemFont, "Segoe UI",
+      Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji",
+      "Segoe UI Emoji", "Segoe UI Symbol";
+    font-weight: 500;
+    font-size: 0.9rem;
+
+    cursor: pointer;
+
+    transition-duration: 0.4s;
+  }
+
+  .tag:hover {
+    background-color: #242a35;
+  }
+
+  .tag.active {
+    background-color: #23272e;
+    border-color: #8a8a8a;
+    box-shadow: 0 0px 8px rgba(142, 142, 142, 0.376);
+  }
+
+  .post-list {
+    align-items: center;
+    justify-content: center;
+    justify-self: center;
+    align-content: center;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    max-width: 80vw;
+  }
+
+  .create-post-constant {
+    text-align: center;
+    justify-self: center;
+    position: fixed;
+    bottom: 20px;
+    right: 45%;
+    left: 45%;
+    z-index: 100;
+    width: fit-content;
+    box-shadow: 0 0px 30px rgba(26, 26, 26, 0.521);
+  }
+
+  .not-signed-in {
+    align-self: center;
+    justify-self: center;
+    text-align: center;
+    padding: 6rem 4rem;
+    margin: 50px 0px;
+    max-width: 20%;
+    background-color: #0d0f1d;
+    border: 1px solid #3f3f3f;
+  }
+}

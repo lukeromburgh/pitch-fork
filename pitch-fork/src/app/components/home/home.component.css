@@ -63,6 +63,7 @@
 
 html {
   background-color: #0d0f1d;
+  overflow-x: hidden;
 }
 
 main {
@@ -270,7 +271,7 @@ main p {
     "Segoe UI Symbol";
   font-weight: 400;
   font-size: 0.7rem;
-  color: #858585;
+  color: #b7b7b7;
 
   margin-top: 8px;
 }
@@ -494,8 +495,9 @@ main p {
   }
 
   .image-supporting-text {
-    margin: 4rem 0 0 0;
+    margin: 1rem 0 2rem 0;
     text-align: center;
+    max-width: 40vw;
   }
 
   .banner {
@@ -549,6 +551,20 @@ main p {
 }
 
 @media screen and (max-width: 650px) {
+  main {
+    width: 90vw;
+    padding: 1rem;
+    justify-self: center;
+  }
+
+  .post-wrapper::before {
+    opacity: 0;
+  }
+
+  .post-wrapper::after {
+    opacity: 0;
+  }
+
   .content {
     flex-direction: column;
     width: max-content;
@@ -565,5 +581,28 @@ main p {
   main p {
     font-size: 1rem;
     max-width: 100%;
+  }
+
+  .banner {
+    max-width: 78vw;
+    padding: 2rem;
+  }
+
+  .explanation-card {
+    max-width: 78vw;
+    padding: 2rem;
+  }
+
+  .image-card {
+    max-width: 78vw;
+    padding: 2rem;
+  }
+
+  .image-card img {
+    max-width: 100%;
+  }
+
+  .image-supporting-text {
+    max-width: 80vw;
   }
 }
