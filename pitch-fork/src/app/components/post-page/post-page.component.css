@@ -272,4 +272,11 @@ button:hover {
     background-color: #0d0f1d;
     border: 1px solid #3f3f3f;
   }
+
+  @media screen and (max-width: 600px) {
+    .search-bar {
+      max-width: 80%;
+      justify-self: center;
+    }
+  }
 }
