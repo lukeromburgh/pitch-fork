@@ -8,6 +8,7 @@
 .admin-dashboard {
   padding: 20px 20rem;
   min-height: 70vh;
+  max-width: 80%;
 
   h1 {
     margin-bottom: 24px;
@@ -255,5 +256,24 @@
   }
   100% {
     background-position: -200% 0;
+  }
+}
+
+@media (max-width: 768px) {
+  .admin-dashboard {
+    justify-self: center;
+    max-width: 90%;
+    padding: 1rem;
+    align-items: center;
+  }
+
+  .bento-grid {
+    max-width: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .chart-card {
+    height: fit-content / 2;
   }
 }
