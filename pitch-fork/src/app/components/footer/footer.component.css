@@ -57,7 +57,7 @@
   margin: 10px 50px;
 }
 
-.footer-section h3 {
+.footer-section h4 {
   display: inline-block;
   padding-bottom: 5px;
   margin-bottom: 10px;
@@ -74,11 +74,12 @@
 
 .footer-section a {
   color: #f0f0f0;
-  text-decoration: none;
+  text-decoration: underline;
   cursor: pointer;
 }
 
 .footer-section a:hover {
+  color: rgb(243, 59, 111);
   text-decoration: underline;
 }
 
