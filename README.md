@@ -113,7 +113,7 @@
   </li>
   <li><a href="#deployment">Deployment</a>
     <ul>
-      <li><a href="#deployment-to-heroku">Deployment to Heroku</a></li>
+      <li><a href="#deployment-to-render">Deployment to Render</a></li>
       <li><a href="#steps-for-local-deployment">Steps for Local Deployment</a></li>
       <li><a href="#forking-the-repository">Forking the Repository</a></li>
     </ul>
@@ -132,95 +132,97 @@
 
 <h2 id="target-audience">Target Audience</h2>
 <h3 id="1-startup-founders">1. Startup Founders</h3>
-<p>Pitchfork is designed for entrepreneurs who want to share, validate, and refine their startup ideas with a community of like-minded individuals.</p>
+<p>Pitchfork targets startup founders of all kinds—tech entrepreneurs, solo creators, and beyond—who want to build in public and seek early market feedback or collaborators for their ideas.</p>
 
 <h3 id="2-developers-and-innovators">2. Developers and Innovators</h3>
-<p>Developers seeking feedback on projects or looking to collaborate on innovative ideas will find Pitchfork a valuable platform for discussion and growth.</p>
+<p>This includes software developers, hardware innovators, and other creators looking to share projects, gain pre-development insights, and connect with potential collaborators in a startup-focused community.</p>
 
 ---
 
 <h2 id="challenges-solved-by-pitchfork">Challenges Solved by Pitchfork</h2>
 <h3 id="for-startup-founders">For Startup Founders</h3>
 <ul>
-  <li>Difficulty in getting quick, actionable feedback on early-stage ideas.</li>
-  <li>Lack of a focused community for idea validation compared to broader platforms like Reddit.</li>
+  <li>Struggling to validate ideas pre-development with actionable market feedback.</li>
+  <li>Finding collaborators to turn concepts into reality.</li>
 </ul>
 
 <h3 id="for-developers-and-innovators">For Developers and Innovators</h3>
 <ul>
-  <li>Limited spaces to discuss technical ideas with a startup-minded audience.</li>
-  <li>Need for a platform that bridges ideation and implementation feedback.</li>
+  <li>Lack of platforms combining startup context with technical feedback.</li>
+  <li>Difficulty connecting with founders for collaboration opportunities.</li>
 </ul>
 
 <h3 id="how-pitchfork-addresses-these-challenges">How Pitchfork Addresses These Challenges</h3>
 <ul>
-  <li>Provides a dedicated space for posting ideas and receiving crowdsourced feedback.</li>
-  <li>Encourages structured discussions tailored to startup and tech domains.</li>
+  <li>Offers a simple posting process with comments and upvotes for market validation.</li>
+  <li>Encourages collaboration through user profiles and plans for future direct messaging.</li>
 </ul>
 
 ---
 
 <h2 id="goals-and-features">Goals and Features</h2>
 <h3 id="1-idea-posting-and-validation">1. Idea Posting and Validation</h3>
-<p>Users can create posts to share ideas, which others can view and comment on.</p>
+<p>Users post ideas using a simple form with a title, subtitle, rich text editor for details, and a large collection of tags for categorization. An upvote system gauges community interest.</p>
 
 <h3 id="2-discussion-and-commenting">2. Discussion and Commenting</h3>
-<p>A nested commenting system allows for detailed discussions on each idea.</p>
+<p>A threaded commenting system enables detailed discussions, with admin roles allowing post and user deletion for moderation.</p>
 
 <h3 id="3-user-profiles">3. User Profiles</h3>
-<p>Basic profiles enable users to establish credibility and track their contributions.</p>
+<p>Profiles feature custom profile pictures, banners, and bios, with plans to add post history and analytics (e.g., comment count, total likes received).</p>
 
 <h3 id="4-future-goals-voting-system--analytics">4. Future Goals: Voting System & Analytics</h3>
-<p>Plans to add upvoting/downvoting and user analytics for idea popularity and engagement.</p>
+<p>The upvote system is live, with future enhancements including detailed user analytics and direct messaging for collaboration.</p>
 
 ---
 
 <h2 id="technology-stack">Technology Stack</h2>
 <h3 id="1-frontend-technologies">1. Frontend Technologies</h3>
 <ul>
-  <li><strong>HTML</strong>: Structure of the web app.</li>
-  <li><strong>Custom CSS</strong>: Styling with a responsive layout (optional use of Bootstrap/Materialize).</li>
-  <li><strong>JavaScript</strong>: Dynamic interactivity.</li>
+  <li><strong>HTML</strong>: Core structure of the web app.</li>
+  <li><strong>Custom CSS/SCSS</strong>: Fully custom styling with SCSS for modularity and responsiveness.</li>
+  <li><strong>Angular</strong>: Framework for dynamic frontend interactivity and data binding.</li>
 </ul>
 
 <h3 id="2-backend-technologies">2. Backend Technologies</h3>
 <ul>
-  <li><strong>Python + Flask</strong>: Server-side logic and routing.</li>
+  <li><strong>Python + Flask</strong>: Handles routing and server-side logic.</li>
+  <li><strong>Flask-SQLAlchemy</strong>: ORM for database interactions.</li>
 </ul>
 
 <h3 id="3-database">3. Database</h3>
 <ul>
-  <li><strong>[PostgreSQL OR MongoDB]</strong>: Relational or non-relational database for storing users, posts, and comments.</li>
+  <li><strong>SQLite</strong>: Used initially for testing and development.</li>
+  <li><strong>PostgreSQL</strong>: Live relational database for storing users, posts, and comments, chosen for its robustness and scalability.</li>
 </ul>
 
 <h3 id="4-deployment">4. Deployment</h3>
 <ul>
-  <li><strong>Heroku</strong>: Hosting the live application.</li>
+  <li><strong>Render.com</strong>: Free hosting platform for deploying the live application.</li>
 </ul>
 
 ---
 
 <h2 id="api-usage">API Usage</h2>
 <h3 id="1-current-external-apis">1. Current External APIs</h3>
-<p>[Placeholder for any APIs you used, e.g., authentication or external services.]</p>
+<p>JWT (JSON Web Tokens) integrated manually for user authentication. All other API calls are custom-built for Pitchfork’s functionality.</p>
 
 <h3 id="2-future-api-integration">2. Future API Integration</h3>
-<p>[Placeholder for planned integrations, e.g., analytics APIs or social media sharing.]</p>
+<p>Potential integration of messaging APIs (e.g., Twilio) or analytics tools (e.g., Google Analytics) to enhance collaboration and insights.</p>
 
 ---
 
 <h2 id="challenges-and-solutions">Challenges and Solutions</h2>
 <h3 id="1-development-challenges">1. Development Challenges</h3>
-<p>[Placeholder for specific coding issues you faced.]</p>
+<p>Frontend-database integration and HTTP calls with complex data (e.g., profile edits) were difficult, requiring careful Angular-Flask synchronization.</p>
 
 <h3 id="2-database-design">2. Database Design</h3>
-<p>[Placeholder for challenges in structuring your database.]</p>
+<p>Structured with tables for users, posts, comments, and tags. Transitioning from SQLite to PostgreSQL required schema adjustments for production readiness.</p>
 
 <h3 id="3-user-experience">3. User Experience</h3>
-<p>[Placeholder for UX-related challenges.]</p>
+<p>Ensuring smooth profile editing and responsive design across devices posed challenges, resolved with Angular’s two-way data binding and SCSS media queries.</p>
 
 <h3 id="4-future-improvements">4. Future Improvements</h3>
-<p>[Placeholder for planned enhancements.]</p>
+<p>Adding direct messaging would enhance collaboration, requiring a real-time communication system (e.g., WebSockets).</p>
 
 ---
 
@@ -350,8 +352,8 @@
 ---
 
 <h2 id="deployment">Deployment</h2>
-<h3 id="deployment-to-heroku">Deployment to Heroku</h3>
-<p>[Placeholder for Heroku deployment steps.]</p>
+<h3 id="deployment-to-render">Deployment to Render</h3>
+<p>Pitchfork is deployed on Render.com, a free hosting platform, with PostgreSQL configured for production use.</p>
 
 <h3 id="steps-for-local-deployment">Steps for Local Deployment</h3>
 <p>[Placeholder for local setup instructions.]</p>
