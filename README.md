@@ -52,7 +52,6 @@
       <li><a href="#color-scheme">Color Scheme</a></li>
       <li><a href="#typography">Typography</a></li>
       <li><a href="#favicon">Favicon</a></li>
-      <li><a href="#error-404-page">Error 404 Page</a></li>
       <li><a href="#accessibility-features">Accessibility Features</a></li>
     </ul>
   </li>
@@ -91,8 +90,6 @@
       <li><a href="#navigation-bar">Navigation Bar</a></li>
       <li><a href="#footer">Footer</a></li>
       <li><a href="#homepage">Homepage</a></li>
-      <li><a href="#how-to-use">How to Use</a></li>
-      <li><a href="#404-page">404 Page</a></li>
     </ul>
   </li>
   <li><a href="#structure">Structure</a>
@@ -380,12 +377,6 @@
 
 <h3 id="homepage">Homepage</h3>
 <p>[Placeholder for homepage description.]</p>
-
-<h3 id="how-to-use">How to Use</h3>
-<p>[Placeholder for usage instructions.]</p>
-
-<h3 id="404-page">404 Page</h3>
-<p>[Placeholder for 404 page content.]</p>
 
 ---
 
