@@ -182,7 +182,7 @@
 
 <h3 id="2-backend-technologies">2. Backend Technologies</h3>
 <ul>
-  <li><strong>Python + Flask</strong>: Handles routing and server-side logic.</li>
+  <li><strong>Python + Flask</strong>: Handles server-side logic and API calls.</li>
   <li><strong>Flask-SQLAlchemy</strong>: ORM for database interactions.</li>
 </ul>
 
@@ -223,18 +223,6 @@
 
 ---
 
-<h2 id="introduction">Introduction</h2>
-<p>Pitchfork is a community-driven platform designed to help startup founders and developers validate their ideas through crowdsourced feedback. Users can sign up, create profiles, customize them, post ideas, interact with others, and build a network of like-minded innovators.</p>
-
-<h2 id="key-features">Key Features</h2>
-<ul>
-  <li><strong>User Profiles:</strong> Customizable profiles with images, bios, and banners.</li>
-  <li><strong>Idea Posting:</strong> Users can submit ideas with detailed descriptions and categories.</li>
-  <li><strong>Community Interaction:</strong> Upvoting, commenting, and discussions to engage with ideas.</li>
-  <li><strong>Moderation:</strong> Admin tools for managing content and users.</li>
-  <li><strong>Future Enhancements:</strong> Planned features include premium analytics, direct messaging, and collaboration tools.</li>
-</ul>
-
 <h2 id="monetization">Monetization Strategy</h2>
 <ul>
   <li><strong>Advertisements:</strong> Potential integration of ads for revenue generation.</li>
@@ -250,30 +238,6 @@
   <li>Exploring cloud-based solutions for high availability.</li>
 </ul>
 
-<h2 id="technology-stack">Technology Stack</h2>
-<h3 id="frontend">Frontend</h3>
-<ul>
-  <li>HTML, CSS (SCSS for modular styling)</li>
-  <li>Angular for dynamic UI</li>
-</ul>
-
-<h3 id="backend">Backend</h3>
-<ul>
-  <li>Python (Flask) for API and server logic</li>
-  <li>Flask-SQLAlchemy for database interactions</li>
-</ul>
-
-<h3 id="database">Database</h3>
-<ul>
-  <li>SQLite for development</li>
-  <li>PostgreSQL for production</li>
-</ul>
-
-<h3 id="deployment">Deployment</h3>
-<ul>
-  <li>Hosted on Render.com (Free-tier limitations)</li>
-</ul>
-
 <h2 id="testing">Testing</h2>
 <ul>
   <li><strong>Automated Testing:</strong> Karma and Jasmine for Angular testing.</li>
@@ -282,143 +246,6 @@
 
 <h2 id="user-feedback">User Feedback</h2>
 <p>Currently awaiting feedback from initial testers to refine user experience and address potential pain points.</p>
-
-<h2 id="future-plans">Future Plans</h2>
-<ul>
-  <li>Introducing direct messaging for networking.</li>
-  <li>Enhancing analytics for user engagement tracking.</li>
-  <li>Developing a subscription-based model for premium features.</li>
-</ul>
-
-<h2 id="conclusion">Conclusion</h2>
-<p>Pitchfork aims to be the go-to platform for early-stage idea validation, fostering a collaborative environment where innovators can refine and develop their projects with real-time community feedback.</p>
-
-<h2 id="design-decisions">Design Decisions</h2>
-<h3 id="sitemap-and-wireframes">Sitemap and Wireframes</h3>
-<p>[Placeholder for your sitemap or wireframe description.]</p>
-<body>
-
-<h2 id="target-audience">Target Audience</h2>
-<h3 id="startup-founders">Startup Founders</h3>
-<p>Pitchfork targets startup founders of all kinds—tech entrepreneurs, solo creators, and beyond—who want to build in public and seek early market feedback or collaborators for their ideas.</p>
-
-<h3 id="developers-and-innovators">Developers and Innovators</h3>
-<p>This includes software developers, hardware innovators, and other creators looking to share projects, gain pre-development insights, and connect with potential collaborators in a startup-focused community.</p>
-
-<h2 id="challenges-and-solutions">Challenges and Solutions</h2>
-<h3 id="for-startup-founders">For Startup Founders</h3>
-<ul>
-  <li>Struggling to validate ideas pre-development with actionable market feedback.</li>
-  <li>Finding collaborators to turn concepts into reality.</li>
-</ul>
-
-<h3 id="for-developers-and-innovators">For Developers and Innovators</h3>
-<ul>
-  <li>Lack of platforms combining startup context with technical feedback.</li>
-  <li>Difficulty connecting with founders for collaboration opportunities.</li>
-</ul>
-
-<h3 id="how-pitchfork-addresses-these">How Pitchfork Addresses These</h3>
-<ul>
-  <li>Offers a simple posting process with comments and upvotes for market validation.</li>
-  <li>Encourages collaboration through user profiles and plans for future direct messaging.</li>
-</ul>
-
-<h2 id="key-features">Key Features</h2>
-<h3 id="idea-posting-and-validation">Idea Posting and Validation</h3>
-<p>Users post ideas using a simple form with a title, subtitle, rich text editor for details, and a large collection of tags for categorization. An upvote system gauges community interest.</p>
-
-<h3 id="discussion-and-commenting">Discussion and Commenting</h3>
-<p>A threaded commenting system enables detailed discussions, fostering engagement and feedback.</p>
-
-<h3 id="user-profiles">User Profiles</h3>
-<p>Profiles feature custom profile pictures, banners, and bios, with plans to add post history and analytics (e.g., comment count, total likes received).</p>
-
-<h3 id="moderation">Moderation</h3>
-<p>Admin roles allow post and user deletion for effective content management.</p>
-
-<h2 id="design-and-ux">Design and User Experience</h2>
-<h3 id="five-planes-of-ux">Five Planes of UX</h3>
-<ul>
-  <li><strong>Strategy</strong>: [Placeholder for strategic planning.]</li>
-  <li><strong>Scope</strong>: [Placeholder for project scope.]</li>
-  <li><strong>Structure</strong>: [Placeholder for structural design.]</li>
-  <li><strong>Skeleton</strong>: [Placeholder for wireframe-level design.]</li>
-  <li><strong>Surface</strong>: [Placeholder for visual design.]</li>
-</ul>
-
-<h3 id="design-decisions">Design Decisions</h3>
-<ul>
-  <li><strong>Sitemap and Wireframes</strong>: [Placeholder for your sitemap or wireframe description.]</li>
-  <li><strong>Color Scheme</strong>: [Placeholder for your color choices.]</li>
-  <li><strong>Typography</strong>: [Placeholder for font choices.]</li>
-  <li><strong>Favicon</strong>: [Placeholder for favicon description.]</li>
-  <li><strong>Error 404 Page</strong>: [Placeholder for your 404 page design.]</li>
-  <li><strong>Accessibility Features</strong>: [Placeholder for accessibility considerations.]</li>
-</ul>
-
-<h3 id="content-requirements">Content Requirements</h3>
-<ul>
-  <li><strong>Navigation Bar</strong>: [Placeholder for nav bar description.]</li>
-  <li><strong>Footer</strong>: [Placeholder for footer description.]</li>
-  <li><strong>Homepage</strong>: [Placeholder for homepage description.]</li>
-  <li><strong>How to Use</strong>: [Placeholder for usage instructions.]</li>
-  <li><strong>404 Page</strong>: [Placeholder for 404 page content.]</li>
-</ul>
-
-<h3 id="structure">Structure</h3>
-<ul>
-  <li><strong>Overall Structure</strong>: [Placeholder for app structure.]</li>
-  <li><strong>Information Architecture</strong>: [Placeholder for IA description.]</li>
-  <li><strong>Interactive Experience</strong>: [Placeholder for interactivity details.]</li>
-</ul>
-
-<h2 id="technology-stack">Technology Stack</h2>
-<h3 id="frontend">Frontend</h3>
-<ul>
-  <li><strong>HTML</strong>: Core structure of the web app.</li>
-  <li><strong>Custom CSS/SCSS</strong>: Fully custom styling with SCSS for modularity and responsiveness.</li>
-  <li><strong>Angular</strong>: Framework for dynamic frontend interactivity and data binding.</li>
-</ul>
-
-<h3 id="backend">Backend</h3>
-<ul>
-  <li><strong>Python + Flask</strong>: Handles routing and server-side logic.</li>
-  <li><strong>Flask-SQLAlchemy</strong>: ORM for database interactions.</li>
-</ul>
-
-<h3 id="database">Database</h3>
-<ul>
-  <li><strong>SQLite</strong>: Used initially for testing and development.</li>
-  <li><strong>PostgreSQL</strong>: Live relational database for storing users, posts, and comments, chosen for robustness and scalability.</li>
-</ul>
-
-<h3 id="deployment">Deployment</h3>
-<ul>
-  <li><strong>Render.com</strong>: Free hosting platform for deploying the live application.</li>
-</ul>
-
-<h3 id="api-usage">API Usage</h3>
-<ul>
-  <li><strong>Current External APIs</strong>: JWT (JSON Web Tokens) integrated manually for user authentication. All other API calls are custom-built for Pitchfork’s functionality.</li>
-  <li><strong>Future API Integration</strong>: Potential integration of messaging APIs (e.g., Twilio) or analytics tools (e.g., Google Analytics) to enhance collaboration and insights.</li>
-</ul>
-
-<h2 id="development-process">Development Process</h2>
-<h3 id="goals-in-development">Goals in Development</h3>
-<ul>
-  <li><strong>Project Goals</strong>: [Placeholder for overall project objectives.]</li>
-  <li><strong>User Goals</strong>: [Placeholder for what users aim to achieve.]</li>
-  <li><strong>Site Owner Goals</strong>: [Placeholder for your goals as the site owner.]</li>
-  <li><strong>Developer Goals</strong>: [Placeholder for your personal learning goals.]</li>
-</ul>
-
-<h3 id="user-stories">User Stories</h3>
-<ul>
-  <li><strong>First-Time Visitor Goals</strong>: [Placeholder for first-time user objectives.]</li>
-  <li><strong>Returning Visitor Goals</strong>: [Placeholder for returning user objectives.]</li>
-  <li><strong>Frequent Visitor Goals</strong>: [Placeholder for frequent user objectives.]</li>
-</ul>
 
 <h3 id="challenges-during-development">Challenges During Development</h3>
 <ul>
@@ -441,11 +268,6 @@
 </ul>
 
 <h2 id="viability-and-future-plans">Viability and Future Plans</h2>
-<h3 id="technical-and-business-feasibility">Technical and Business Feasibility</h3>
-<ul>
-  <li><strong>Technical Feasibility</strong>: [Placeholder for technical viability.]</li>
-  <li><strong>Business Feasibility</strong>: [Placeholder for business potential.]</li>
-</ul>
 
 <h3 id="monetization-strategy">Monetization Strategy</h3>
 <ul>
@@ -484,7 +306,43 @@
 <p>[Placeholder for documentation sources.]</p>
 
 <h3 id="media">Media</h3>
-<p>[Placeholder for media credits.]</p>
+<p>Screenshots from various stages of development:</p>
+<p>This was the first screenshot I took of my app, I think at this stage I started developing with React and later started over with Angular on this repo.</p>
+
+![Vite _ React _ TS](https://github.com/user-attachments/assets/13bc8247-ecb2-4b3b-8b2b-c5edc88b7145)
+
+![Screenshot 2025-02-05 at 12 58 19](https://github.com/user-attachments/assets/5bb9764b-78c4-42a6-9e51-50bed80608e6)
+![Visual Selection from Napkin AI](https://github.com/user-attachments/assets/bef29697-54eb-4e19-9ca3-a6816de192c6)
+![Visual Selection from Napkin AI (1)](https://github.com/user-attachments/assets/cdeffa46-6fa1-43de-836a-20ff74ee5d79)
+![Visual Selection from Napkin AI (2)](https://github.com/user-attachments/assets/5a32f627-a269-4ef6-b829-741263bb699b)
+https://github.com/user-attachments/assets/eccd8b75-e880-49ee-a994-99fa6b042633
+
+![Posts](htt![Posts · 4 30pm · 02-18](https://github.com/user-attachments/assets/5673fb51-20ba-4112-8ef7-a626487481cc)
+ps://github.com/user-attachments/assets/b60e08d8-541f-421a-b751-aeefe026aae3)
+![Posts · 4 30pm · 02-18 (1)](https://github.com/user-attachments/assets/686dc7fc-866a-4db8-bf1a-008b25727522)
+
+![Posts · 4 31pm · 02-18](https://github.com/user-attachments/assets/60edc87c-d672-4ba1-970d-d1d2e0337da0)
+
+![Posts · 4 32pm · 02-18](https://github.com/user-attachments/assets/c8b3600c-4f44-47b9-b6dc-0a88ed448664)
+
+![Posts · 5 13pm · 02-20](https://github.com/user-attachments/assets/1068ec64-30ef-4341-abd0-1508a49993bf)
+
+![Posts · 5 14pm · 02-20](https://github.com/user-attachments/assets/1e1b4e83-7a8f-48a1-9c89-d4a87b3c264b)
+
+![Home](https://github.com/user-attachments/assets/de966f6b-3919-4843-a4e0-2d0d0e5f2a04)
+
+![Pitchfork _ Your Profile](https://github.com/user-attachments/assets/abf9a233-33b7-4870-befd-673b00c6b5d0)
+![Screenshot 2025-02-21 at 11 35 34](https://github.com/user-attachments/assets/5b79c2d2-8f0d-4829-b99f-4dcd936984c2)
+
+![Screenshot 2025-02-20 at 10 54 27](https://github.com/user-attachments/assets/ccc4a419-c0f0-42aa-bd71-a77ce4664fa9)
+
+<img width="496" alt="Screenshot 2025-02-19 at 09 12 08" src="https://github.com/user-attachments/assets/b7a2c9f7-d43c-4667-b154-024dbb84f18c" />
+
+<img width="1433" alt="Screenshot 2025-03-26 at 12 16 59" src="https://github.com/user-attachments/assets/74ff30d3-bb5b-4df6-ad1e-19c92b41f459" />
+
+![Uploading Screenshot 2025-03-22 at 07.44.11.png…]()
+
+
 
 <h3 id="code">Code</h3>
 <p>[Placeholder for code attributions.]</p>
