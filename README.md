@@ -230,14 +230,6 @@
   <li><strong>Sponsorships:</strong> Partnering with relevant startups and investors.</li>
 </ul>
 
-<h2 id="scalability">Scalability Challenges</h2>
-<p>The platform is currently hosted on a free-tier service, limiting database, CPU, and RAM usage. Future scalability plans include:</p>
-<ul>
-  <li>Upgrading hosting services for better performance.</li>
-  <li>Implementing database optimizations for efficient data management.</li>
-  <li>Exploring cloud-based solutions for high availability.</li>
-</ul>
-
 <h2 id="testing">Testing</h2>
 <ul>
   <li><strong>Automated Testing:</strong> Karma and Jasmine for Angular testing.</li>
@@ -296,14 +288,68 @@
 <p>Pitchfork is deployed on Render.com, a free hosting platform, with PostgreSQL configured for production use.</p>
 
 <h3 id="steps-for-local-deployment">Steps for Local Deployment</h3>
-<p>[Placeholder for local setup instructions.]</p>
+# PitchFork
 
-<h3 id="forking-the-repository">Forking the Repository</h3>
-<p>[Placeholder for forking instructions.]</p>
+This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.1.5.
+
+## Development server
+
+To start a local development server, run:
+
+```bash
+ng serve
+```
+
+Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+
+## Code scaffolding
+
+Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+
+```bash
+ng generate component component-name
+```
+
+For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+
+```bash
+ng generate --help
+```
+
+## Building
+
+To build the project run:
+
+```bash
+ng build
+```
+
+This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+
+## Running unit tests
+
+To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
+
+```bash
+ng test
+```
+
+## Running end-to-end tests
+
+For end-to-end (e2e) testing, run:
+
+```bash
+ng e2e
+```
+
+Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
+
+## Additional Resources
+
+For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+
 
 <h2 id="credits">Credits</h2>
-<h3 id="documentation">Documentation</h3>
-<p>[Placeholder for documentation sources.]</p>
 
 <h3 id="media">Media</h3>
 <p>Screenshots from various stages of development:</p>
@@ -345,7 +391,7 @@ ps://github.com/user-attachments/assets/b60e08d8-541f-421a-b751-aeefe026aae3)
 
 
 <h3 id="code">Code</h3>
-<p>[Placeholder for code attributions.]</p>
+<p></p>
 
 <h2 id="acknowledgements">Acknowledgements</h2>
-<p>[Placeholder for thanks and acknowledgments.]</p>
+<p>Many thanks to Tech with Tim and Programming with Mosh for their extensive youtube series covering Angular, Flask and python.</p>
