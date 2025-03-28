@@ -29,12 +29,7 @@ app.config["JWT_HEADER_TYPE"] = "Bearer"
 
 # Database Configuration
 # app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///posts.db'  # SQLite for testing
-if os.getenv('DATABASE_URL'):
-    app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('DATABASE_URL').replace("postgres://", "postgresql://", 1)
-else:
-    app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///posts.db'
-app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-
+app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://posts_nurn_user:MFN5C5wM9iEM6bSUhkT3hMckOyhnhv38@dpg-cvhcs0dds78s73e43t2g-a/posts_nurn'  # PSQL for live
 app.config['JWT_SECRET_KEY'] = 'your_secret_key'  # Change to a secure key
 
 
@@ -300,12 +295,12 @@ def get_comments():
     # =================== File Uploads & Profile updates ===================
     # ===========================================================================================================================
 
-UPLOAD_FOLDER = os.path.join(os.getcwd(), 'dist', 'pitch-fork', 'browser', 'uploads')
+UPLOAD_FOLDER = os.path.join(os.getcwd(), 'public', 'uploads')
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 os.makedirs(os.path.join(UPLOAD_FOLDER, 'profile_pics'), exist_ok=True)
 os.makedirs(os.path.join(UPLOAD_FOLDER, 'banners'), exist_ok=True)
 
-ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'webp'}
+ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg'}
 
 def allowed_file(filename):
     return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
