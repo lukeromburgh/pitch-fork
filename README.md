@@ -1,5 +1,7 @@
 # Pitchfork: A Crowdsourced Validation Platform for Startup Founders and Developers
 
+Link to live site: https://pitch-fork-1.onrender.com/
+
 ## Table of Contents
 
 <ul>
@@ -247,16 +249,16 @@
 </ul>
 
 <h3 id="changes-during-development">Changes During Development</h3>
-<p>[Placeholder for changes made during the process.]</p>
+<p>Most changes were purely cosmetic, eg. changing fonts or colour scheme. This could've been made easier had I used a global set of variables with scss. I will try to implement this into my next project</p>
 
 <h3 id="testing">Testing</h3>
 <ul>
   <li><strong>Automated Testing</strong>: Karma and Jasmine for Angular testing.</li>
   <li><strong>Manual Testing</strong>: HTML validation with W3C and linting tools.</li>
-  <li><strong>Responsiveness</strong>: [Placeholder for responsiveness testing.]</li>
+  <li><strong>Responsiveness</strong>: Tested on dev tools throughout development to ensure the site was responsive on both mobile and desktop. Once live I was able to test the site on my own phone.</li>
   <li><strong>Lighthouse Testing</strong>: [Placeholder for Lighthouse results.]</li>
-  <li><strong>Bugs</strong>: [Placeholder for bugs encountered.]</li>
-  <li><strong>Mistakes</strong>: [Placeholder for lessons learned.]</li>
+  <li><strong>Bugs</strong>: Major bug found in week 4-5 of development that set me back about a week. CORS errors started affecting all of my API calls that had previously been working. It turned out to be a Mac-specific issue that was solved by hosting the Python app on a different port. This issue arose a few times during development after the initial time. I will potentially write a blog post about the issue and its solution, as I couldn't find any documentation on it.</li>
+  <li><strong>Mistakes</strong>: Better project structure goes a long way for keeping things organised.</li>
 </ul>
 
 <h2 id="viability-and-future-plans">Viability and Future Plans</h2>
