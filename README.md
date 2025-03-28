@@ -391,7 +391,7 @@ ps://github.com/user-attachments/assets/b60e08d8-541f-421a-b751-aeefe026aae3)
 
 
 <h3 id="code">Code</h3>
-<p></p>
+<p>https://wweb.dev/resources/animated-css-background-generator</p>
 
 <h2 id="acknowledgements">Acknowledgements</h2>
 <p>Many thanks to Tech with Tim and Programming with Mosh for their extensive youtube series covering Angular, Flask and python.</p>
