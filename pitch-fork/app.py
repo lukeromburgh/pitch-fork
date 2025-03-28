@@ -300,12 +300,12 @@ def get_comments():
     # =================== File Uploads & Profile updates ===================
     # ===========================================================================================================================
 
-UPLOAD_FOLDER = os.path.join(os.getcwd(), 'public', 'uploads')
+UPLOAD_FOLDER = os.path.join(os.getcwd(), 'dist', 'pitch-fork', 'browser', 'uploads')
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 os.makedirs(os.path.join(UPLOAD_FOLDER, 'profile_pics'), exist_ok=True)
 os.makedirs(os.path.join(UPLOAD_FOLDER, 'banners'), exist_ok=True)
 
-ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg'}
+ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'webp'}
 
 def allowed_file(filename):
     return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
