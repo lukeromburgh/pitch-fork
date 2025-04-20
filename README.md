@@ -381,6 +381,18 @@ A Like is given by a User to a Post</li>
 <h3 id="steps-for-local-deployment">Steps for Local Deployment</h3>
 # PitchFork
 
+<h4>Useful tips for user</h4>
+<ul>
+  <li>The repo name is pitch-fork</li>
+  <li>To activate  the virtual env: While in root directory 
+    ```bash
+        source env/bin/activate
+    ```
+  </li>
+  <li>then ```cd pitch-fork```</li>
+  <li>there is a requirements.txt file with all necessary packages to run on local, install with ```pip install requirements.txt```</li>
+</ul>
+
 This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.1.5.
 
 ## Development server
