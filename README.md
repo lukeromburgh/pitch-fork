@@ -36,6 +36,8 @@
       <li><a href="#2-backend-technologies">2. Backend Technologies</a></li>
       <li><a href="#3-database">3. Database</a></li>
       <li><a href="#4-deployment">4. Deployment</a></li>
+      <li><a href="#5-code-standard">5. Code Standard</a></li>
+      <li><a href="6-templates">6. Templates</a></li>
     </ul>
   </li>
   <li><a href="#api-usage">API Usage</a>
@@ -103,6 +105,7 @@
       <li><a href="#overall-structure">Overall Structure</a></li>
       <li><a href="#information-architecture">Information Architecture</a></li>
       <li><a href="#interactive-experience">Interactive Experience</a></li>
+      <li><a href="#database-schema">Database Schema</a></li>
     </ul>
   </li>
   <li><a href="#changes-during-development">Changes During Development</a></li>
@@ -203,11 +206,22 @@
   <li><strong>Render.com</strong>: Free hosting platform for deploying the live application.</li>
 </ul>
 
+<h3 id="5-code-standard">5. Code Standard</h3>
+<ul>
+  <li><strong>Python</strong>: I used a Python linter called Black (https://pypi.org/project/black/), which I installed with pip and ran in the terminal window to ensure that my Python files followed PEP8 standard.</li>
+  <li><strong>TypeScript, HTML, and CSS</strong>: Popular code formatter extension Prettier was used for TypeScript and HTML, as well as CSS</li>
+</ul>
+
+<h3 id="6-Templates">6. Templates</h3>
+<ul>
+  <li>Thanks to using Angular, and its clever component-centered design system, I was able to create reusable functions with Angular services such as the getToken() function, which accesses the JWT Token from the browser local storage. I was also able to create reusable UI components, such as the tags used on the posts, and the post cards themselves, which are used across multiple pages. I also used Image Cards on the home page and about page.</li>
+</ul>
+
 ---
 
 <h2 id="api-usage">API Usage</h2>
 <h3 id="1-current-external-apis">1. Current External APIs</h3>
-<p>JWT (JSON Web Tokens) integrated manually for user authentication. All other API calls are custom-built for Pitchfork’s functionality.</p>
+<p>JWT (JSON Web Tokens) is integrated manually for user authentication. All other API calls are custom-built for Pitchfork’s functionality.</p>
 
 <h3 id="2-future-api-integration">2. Future API Integration</h3>
 <p>Potential integration of messaging APIs (e.g., Twilio) or analytics tools (e.g., Google Analytics) to enhance collaboration and insights.</p>
@@ -228,6 +242,77 @@
 <p>Adding direct messaging would enhance collaboration, requiring a real-time communication system (e.g., WebSockets).</p>
 
 ---
+
+<h2 id="database-schema">Database Schema</h2>
+<ul>
+  <img width="866" alt="Screenshot 2025-04-20 at 10 14 44" src="https://github.com/user-attachments/assets/90710870-c713-4369-b89b-0aabdc347cfb" />
+  <li>SQL Table Definitions: 
+    <pre>
+-- USERS TABLE
+CREATE TABLE Users (
+    user_id SERIAL PRIMARY KEY,
+    username VARCHAR(50) UNIQUE NOT NULL,
+    email VARCHAR(100) UNIQUE NOT NULL,
+    password TEXT NOT NULL,
+    bio TEXT,
+    banner TEXT,  -- could be URL or base64
+    profile_picture TEXT, -- could be URL or base64
+    account_created TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- POSTS TABLE
+CREATE TABLE Posts (
+    post_id SERIAL PRIMARY KEY,
+    user_id INT REFERENCES Users(user_id) ON DELETE CASCADE,
+    title VARCHAR(255) NOT NULL,
+    body TEXT NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- COMMENTS TABLE
+CREATE TABLE Comments (
+    comment_id SERIAL PRIMARY KEY,
+    post_id INT REFERENCES Posts(post_id) ON DELETE CASCADE,
+    user_id INT REFERENCES Users(user_id) ON DELETE CASCADE,
+    body TEXT NOT NULL,
+    comment_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- LIKES TABLE
+CREATE TABLE Likes (
+    like_id SERIAL PRIMARY KEY,
+    post_id INT REFERENCES Posts(post_id) ON DELETE CASCADE,
+    user_id INT REFERENCES Users(user_id) ON DELETE CASCADE,
+    is_like BOOLEAN NOT NULL -- true = like, false = dislike
+);
+</pre>
+</li>
+<li><pre>
+  +--------+      1         ∞     +--------+
+| Users  |--------------------->| Posts  |
++--------+                      +--------+
+    |                                  |
+    |                                  |     ∞
+    |                                  |-------------------+
+    |                                  |                   |
+    ↓                                  ↓                   ↓
++--------+      ∞         ∞     +--------+          +----------+
+| Likes  |<-------------------->| Comments |<--------| Posts    |
++--------+                      +----------+         +----------+
+    ↑                                  ↑
+    |                                  |
+    +----------------------------------+
+            ∞                  ∞
+
+</pre></li>
+<li><strong>Key Relationships:</strong> A User can have many Posts, Comments, and Likes
+
+A Post is authored by a User, and has many Comments and Likes
+
+A Comment is made by a User and belongs to one Post
+
+A Like is given by a User to a Post</li>
+</ul>
 
 <h2 id="monetization">Monetization Strategy</h2>
 <ul>
