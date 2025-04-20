@@ -143,6 +143,43 @@
 <h3 id="2-developers-and-innovators">2. Developers and Innovators</h3>
 <p>This includes software developers, hardware innovators, and other creators looking to share projects, gain pre-development insights, and connect with potential collaborators in a startup-focused community.</p>
 
+## User Stories
+
+### 🏠 Home Page
+- As a **visitor**, I want to see a welcome message or feed preview, so that I understand what the platform offers at a glance.
+- As a **logged-in user**, I want to see a personalized feed or recent posts, so that I can quickly engage with content.
+
+### 🔐 Sign Up / Login
+- As a **new user**, I want to sign up with a username, email, and password, so I can create an account and start posting.
+- As a **returning user**, I want to log in securely using my credentials, so I can access my account and interact with the platform.
+
+### 👤 Profile
+- As a **user**, I want to view and edit my profile (bio, profile picture, banner), so I can personalize my presence on the platform.
+- As a **user**, I want to see my account creation date and basic info, so I can review my own profile details.
+
+### 📃 Your Posts
+- As a **user**, I want to view a list of all the posts I’ve created, so I can manage or update my content.
+- As a **user**, I want to delete or edit my own posts, so I can control my published content.
+
+### ℹ️ About
+- As a **visitor**, I want to learn what this platform is about, so I can decide whether I want to participate.
+- As a **user**, I want to understand the rules or mission of the platform, so I know how to behave responsibly.
+
+### 📝 Posts
+- As a **user**, I want to view a list of all posts, so I can browse content created by others.
+- As a **user**, I want to see previews including title, user, date, and likes/dislikes, so I can quickly choose what to read.
+- As a **user**, I want to create a new post with a title and body, so I can share my thoughts or questions.
+
+### 📄 Post Detail `[id]`
+- As a **user**, I want to view a full post with its content, likes, and comments, so I can engage with it more deeply.
+- As a **user**, I want to like or dislike a post, so I can express my opinion.
+- As a **user**, I want to comment on a post, so I can participate in discussion.
+
+### 💬 Comments
+- As a **user**, I want to view all comments on a post, so I can follow the conversation.
+- As a **user**, I want to add or delete my own comment, so I can manage my contributions.
+
+
 ---
 
 <h2 id="challenges-solved-by-pitchfork">Challenges Solved by Pitchfork</h2>
