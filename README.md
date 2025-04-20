@@ -382,7 +382,11 @@ A Like is given by a User to a Post</li>
   <li><strong>Automated Testing</strong>: Karma and Jasmine for Angular testing.</li>
   <li><strong>Manual Testing</strong>: HTML validation with W3C and linting tools.</li>
   <li><strong>Responsiveness</strong>: Tested on dev tools throughout development to ensure the site was responsive on both mobile and desktop. Once live I was able to test the site on my own phone.</li>
-  <li><strong>Lighthouse Testing</strong>: [Placeholder for Lighthouse results.]</li>
+  <li><strong>Lighthouse Testing</strong>: ![Screenshot 2025-04-20 at 10 55 53](https://github.com/user-attachments/assets/005d5971-e9ea-466c-8d45-bfe90f2ad39b)
+    ![Screenshot 2025-04-20 at 10 56 19](https://github.com/user-attachments/assets/1951a75b-f7f5-4b90-b92e-72fda35eb0c1)
+![Screenshot 2025-04-20 at 10 56 59](https://github.com/user-attachments/assets/5ea48ee9-31a5-44e2-8fbf-e1163ea92f28)
+
+</li>
   <li><strong>Bugs</strong>: Major bug found in week 4-5 of development that set me back about a week. CORS errors started affecting all of my API calls that had previously been working. It turned out to be a Mac-specific issue that was solved by hosting the Python app on a different port. This issue arose a few times during development after the initial time. I will potentially write a blog post about the issue and its solution, as I couldn't find any documentation on it.</li>
   <li><strong>Mistakes</strong>: Better project structure goes a long way for keeping things organised.</li>
 </ul>
