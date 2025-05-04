@@ -182,6 +182,29 @@
 
 ---
 
+<h2>User story testing</h2>
+| ✅ | Feature Area       | Test Case Description |
+|----|--------------------|------------------------|
+| ☑️ | 🏠 Home Page         | Visitor sees a welcome message or feed preview on the home page. |
+| ☑️ | 🏠 Home Page         | Logged-in user sees a personalized feed or recent posts. |
+| ☑️ | 🔐 Sign Up / Login   | New user can sign up with username, email, and password. |
+| ☑️ | 🔐 Sign Up / Login   | Returning user can log in securely with credentials. |
+| ☑️ | 👤 Profile           | User can view and edit bio, profile picture, and banner. |
+| ☑️ | 👤 Profile           | User sees account creation date and basic info. |
+| ☑️ | 📃 Your Posts        | User can view a list of all their own posts. |
+| ☑️ | 📃 Your Posts        | User can delete or edit their own posts. |
+| ☑️ | ℹ️ About             | Visitor can learn what the platform is about. |
+| ☑️ | ℹ️ About             | User can read the platform rules or mission statement. |
+| ☑️ | 📝 Posts             | User can view a list of all posts by others. |
+| ☑️ | 📝 Posts             | User sees previews with title, author, date, and likes/dislikes. |
+| ☑️ | 📝 Posts             | User can create a new post with a title and body. |
+| ☑️ | 📄 Post Detail [id]  | User can view full post content, likes, and comments. |
+| ☑️ | 📄 Post Detail [id]  | User can like or dislike a post. |
+| ☑️ | 📄 Post Detail [id]  | User can comment on a post. |
+| ☑️ | 💬 Comments          | User can view all comments on a post. |
+| ☑️ | 💬 Comments          | User can add or delete their own comment. |
+
+
 <h2 id="challenges-solved-by-pitchfork">Challenges Solved by Pitchfork</h2>
 <h3 id="for-startup-founders">For Startup Founders</h3>
 <ul>
