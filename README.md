@@ -199,7 +199,7 @@
     <tr><td>☑️</td><td>👤 Profile</td><td>User can view and edit bio, profile picture, and banner.</td></tr>
     <tr><td>☑️</td><td>👤 Profile</td><td>User sees account creation date and basic info.</td></tr>
     <tr><td>☑️</td><td>📃 Your Posts</td><td>User can view a list of all their own posts.</td></tr>
-    <tr><td>☑️</td><td>📃 Your Posts</td><td>User can delete or edit their own posts.</td></tr>
+    <tr><td>🔄 In progress</td><td>📃 Your Posts</td><td>User can delete or edit their own posts.</td></tr>
     <tr><td>☑️</td><td>ℹ️ About</td><td>Visitor can learn what the platform is about.</td></tr>
     <tr><td>☑️</td><td>ℹ️ About</td><td>User can read the platform rules or mission statement.</td></tr>
     <tr><td>☑️</td><td>📝 Posts</td><td>User can view a list of all posts by others.</td></tr>
