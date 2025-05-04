@@ -183,26 +183,36 @@
 ---
 
 <h2>User story testing</h2>
-| ✅ | Feature Area       | Test Case Description |
-|----|--------------------|------------------------|
-| ☑️ | 🏠 Home Page         | Visitor sees a welcome message or feed preview on the home page. |
-| ☑️ | 🏠 Home Page         | Logged-in user sees a personalized feed or recent posts. |
-| ☑️ | 🔐 Sign Up / Login   | New user can sign up with username, email, and password. |
-| ☑️ | 🔐 Sign Up / Login   | Returning user can log in securely with credentials. |
-| ☑️ | 👤 Profile           | User can view and edit bio, profile picture, and banner. |
-| ☑️ | 👤 Profile           | User sees account creation date and basic info. |
-| ☑️ | 📃 Your Posts        | User can view a list of all their own posts. |
-| ☑️ | 📃 Your Posts        | User can delete or edit their own posts. |
-| ☑️ | ℹ️ About             | Visitor can learn what the platform is about. |
-| ☑️ | ℹ️ About             | User can read the platform rules or mission statement. |
-| ☑️ | 📝 Posts             | User can view a list of all posts by others. |
-| ☑️ | 📝 Posts             | User sees previews with title, author, date, and likes/dislikes. |
-| ☑️ | 📝 Posts             | User can create a new post with a title and body. |
-| ☑️ | 📄 Post Detail [id]  | User can view full post content, likes, and comments. |
-| ☑️ | 📄 Post Detail [id]  | User can like or dislike a post. |
-| ☑️ | 📄 Post Detail [id]  | User can comment on a post. |
-| ☑️ | 💬 Comments          | User can view all comments on a post. |
-| ☑️ | 💬 Comments          | User can add or delete their own comment. |
+<table>
+  <thead>
+    <tr>
+      <th>✅</th>
+      <th>Feature Area</th>
+      <th>Test Case Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td>☑️</td><td>🏠 Home Page</td><td>Visitor sees a welcome message or feed preview on the home page.</td></tr>
+    <tr><td>☑️</td><td>🏠 Home Page</td><td>Logged-in user sees a personalized feed or recent posts.</td></tr>
+    <tr><td>☑️</td><td>🔐 Sign Up / Login</td><td>New user can sign up with username, email, and password.</td></tr>
+    <tr><td>☑️</td><td>🔐 Sign Up / Login</td><td>Returning user can log in securely with credentials.</td></tr>
+    <tr><td>☑️</td><td>👤 Profile</td><td>User can view and edit bio, profile picture, and banner.</td></tr>
+    <tr><td>☑️</td><td>👤 Profile</td><td>User sees account creation date and basic info.</td></tr>
+    <tr><td>☑️</td><td>📃 Your Posts</td><td>User can view a list of all their own posts.</td></tr>
+    <tr><td>☑️</td><td>📃 Your Posts</td><td>User can delete or edit their own posts.</td></tr>
+    <tr><td>☑️</td><td>ℹ️ About</td><td>Visitor can learn what the platform is about.</td></tr>
+    <tr><td>☑️</td><td>ℹ️ About</td><td>User can read the platform rules or mission statement.</td></tr>
+    <tr><td>☑️</td><td>📝 Posts</td><td>User can view a list of all posts by others.</td></tr>
+    <tr><td>☑️</td><td>📝 Posts</td><td>User sees previews with title, author, date, and likes/dislikes.</td></tr>
+    <tr><td>☑️</td><td>📝 Posts</td><td>User can create a new post with a title and body.</td></tr>
+    <tr><td>☑️</td><td>📄 Post Detail [id]</td><td>User can view full post content, likes, and comments.</td></tr>
+    <tr><td>☑️</td><td>📄 Post Detail [id]</td><td>User can like or dislike a post.</td></tr>
+    <tr><td>☑️</td><td>📄 Post Detail [id]</td><td>User can comment on a post.</td></tr>
+    <tr><td>☑️</td><td>💬 Comments</td><td>User can view all comments on a post.</td></tr>
+    <tr><td>☑️</td><td>💬 Comments</td><td>User can add or delete their own comment.</td></tr>
+  </tbody>
+</table>
+
 
 
 <h2 id="challenges-solved-by-pitchfork">Challenges Solved by Pitchfork</h2>
